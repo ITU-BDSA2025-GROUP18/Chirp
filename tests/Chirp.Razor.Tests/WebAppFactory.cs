@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Chirp.Razor; // for ChirpDBContext
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
@@ -9,4 +13,5 @@ public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
         // more config follows
     }
 }
+
 
