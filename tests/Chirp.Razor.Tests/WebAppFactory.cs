@@ -11,9 +11,19 @@ public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Test");
+        // remove app registrations for ChirpDBContext to override in tests
+        builder.ConfigureServices(services =>
+        {
+            var toRemove = services
+                .Where(d => d.ServiceType == typeof(DbContextOptions<ChirpDBContext>) ||
+                            d.ServiceType == typeof(ChirpDBContext))
+                .ToList();
+            foreach (var d in toRemove) services.Remove(d);
+        });
         // more config follows
     }
 }
+
 
 
 
