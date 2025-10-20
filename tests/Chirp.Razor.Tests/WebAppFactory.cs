@@ -3,5 +3,10 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
 {
-    // udfyldes i de næste commits
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.UseEnvironment("Test");
+        // more config follows
+    }
 }
+
