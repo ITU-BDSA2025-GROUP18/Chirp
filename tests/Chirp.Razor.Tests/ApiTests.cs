@@ -1,14 +1,13 @@
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
-public class ApiTests : IClassFixture<WebAppFactory>, IDisposable
+public class ApiTests : IClassFixture<WebAppFactory>
 {
     private readonly HttpClient _client;
-    private readonly string _dbPath;
 
     public ApiTests(WebAppFactory factory)
     {
-        _dbPath = TestDb.CreateWithSeed();
-        Environment.SetEnvironmentVariable("CHIRPDBPATH", _dbPath);
         _client = factory.CreateClient();
     }
 
@@ -30,11 +29,5 @@ public class ApiTests : IClassFixture<WebAppFactory>, IDisposable
         var html = await res.Content.ReadAsStringAsync();
         Assert.Contains("Adrian", html);
         Assert.Contains("Hej, velkommen til kurset.", html);
-    }
-
-    public void Dispose()
-    {
-        try { File.Delete(_dbPath); } catch { }
-        Environment.SetEnvironmentVariable("CHIRPDBPATH", null);
     }
 }
