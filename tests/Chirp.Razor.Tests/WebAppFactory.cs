@@ -20,9 +20,19 @@ public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
                 .ToList();
             foreach (var d in toRemove) services.Remove(d);
         });
+        // register in-memory SQLite DbContext
+        builder.ConfigureServices(services =>
+        {
+            _mem = new InMemorySqlite<ChirpDBContext>();
+            services.AddDbContext<ChirpDBContext>(opt =>
+            {
+                opt.UseSqlite(_mem!.Connection);
+            });
+        });
         // more config follows
     }
 }
+
 
 
 
