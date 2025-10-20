@@ -29,9 +29,17 @@ public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
                 opt.UseSqlite(_mem!.Connection);
             });
         });
-        // more config follows
+        // ensure DB is created + seeded by the context constructor
+        builder.ConfigureServices(services =>
+        {
+            using var sp = services.BuildServiceProvider();
+            using var scope = sp.CreateScope();
+            var ctx = scope.ServiceProvider.GetRequiredService<ChirpDBContext>();
+            // if needed: ctx.Database.EnsureCreated();
+        });
     }
 }
+
 
 
 
