@@ -38,10 +38,10 @@ public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
             // if needed: ctx.Database.EnsureCreated();
         });
     }
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        _mem?.Dispose();
+    }
 }
-
-
-
-
-
 
