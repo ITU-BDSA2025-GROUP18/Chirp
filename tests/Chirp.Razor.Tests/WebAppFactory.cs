@@ -1,0 +1,47 @@
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Chirp.Razor; // for ChirpDBContext
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Testing;
+
+public class WebAppFactory : WebApplicationFactory<Chirp.Razor.Program>
+{
+    private InMemorySqlite<ChirpDBContext>? _mem;
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder.UseEnvironment("Test");
+        // remove app registrations for ChirpDBContext to override in tests
+        builder.ConfigureServices(services =>
+        {
+            var toRemove = services
+                .Where(d => d.ServiceType == typeof(DbContextOptions<ChirpDBContext>) ||
+                            d.ServiceType == typeof(ChirpDBContext))
+                .ToList();
+            foreach (var d in toRemove) services.Remove(d);
+        });
+        // register in-memory SQLite DbContext
+        builder.ConfigureServices(services =>
+        {
+            _mem = new InMemorySqlite<ChirpDBContext>();
+            services.AddDbContext<ChirpDBContext>(opt =>
+            {
+                opt.UseSqlite(_mem!.Connection);
+            });
+        });
+        // ensure DB is created + seeded by the context constructor
+        builder.ConfigureServices(services =>
+        {
+            using var sp = services.BuildServiceProvider();
+            using var scope = sp.CreateScope();
+            var ctx = scope.ServiceProvider.GetRequiredService<ChirpDBContext>();
+            // if needed: ctx.Database.EnsureCreated();
+        });
+    }
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        _mem?.Dispose();
+    }
+}
+
