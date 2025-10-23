@@ -2,7 +2,7 @@
 using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Razor;
+namespace Chirp.Repositories;
 
 #nullable disable
 
@@ -15,17 +15,17 @@ public class CheepDTO
 
 #nullable restore
 
-public interface ICheepQueryRepository
+public interface ICheepRepository
 {
     public Task<List<CheepDTO>> GetCheepsAsync(int page);
     public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page);
 }
 
-public class CheepQueryRepository : ICheepQueryRepository
+public class CheepRepository : ICheepRepository
 {
     private readonly ChirpDBContext _dbContext;
 
-    public CheepQueryRepository(ChirpDBContext dbContext)
+    public CheepRepository(ChirpDBContext dbContext)
     {
         _dbContext = dbContext;
     }
