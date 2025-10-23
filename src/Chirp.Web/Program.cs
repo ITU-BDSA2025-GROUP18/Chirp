@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Razor;
+namespace Chirp.Web;
 
 public abstract class Program
 {
