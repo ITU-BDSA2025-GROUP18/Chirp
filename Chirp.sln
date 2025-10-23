@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Repositories", "src\C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Services", "src\Chirp.Infrastructure\Chirp.Services\Chirp.Services.csproj", "{729C7BF0-D36D-0275-55C7-C234684E7161}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp.Database", "src\Chirp.Infrastructure\Chirp.Database\Chirp.Database.csproj", "{72316AC7-A8AB-4B23-A712-B1997A917956}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{729C7BF0-D36D-0275-55C7-C234684E7161}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{729C7BF0-D36D-0275-55C7-C234684E7161}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{729C7BF0-D36D-0275-55C7-C234684E7161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72316AC7-A8AB-4B23-A712-B1997A917956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72316AC7-A8AB-4B23-A712-B1997A917956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72316AC7-A8AB-4B23-A712-B1997A917956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72316AC7-A8AB-4B23-A712-B1997A917956}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{62CB5DD8-7D9D-76DC-DD6C-2987D16DEAFE} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{996A4DB8-3FD8-044D-0C29-E1697628ADD5} = {62CB5DD8-7D9D-76DC-DD6C-2987D16DEAFE}
 		{729C7BF0-D36D-0275-55C7-C234684E7161} = {62CB5DD8-7D9D-76DC-DD6C-2987D16DEAFE}
+		{72316AC7-A8AB-4B23-A712-B1997A917956} = {62CB5DD8-7D9D-76DC-DD6C-2987D16DEAFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9DE32F0E-8A47-4815-913D-F4D901A7BB65}

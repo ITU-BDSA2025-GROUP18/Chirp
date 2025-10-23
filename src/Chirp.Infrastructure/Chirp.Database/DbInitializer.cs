@@ -1,7 +1,7 @@
 
 using Chirp.Core;
 
-namespace Chirp.Web;
+namespace Chirp.Database;
 
 public static class DbInitializer
 {

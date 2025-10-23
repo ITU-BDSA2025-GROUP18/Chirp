@@ -2,7 +2,7 @@
 using Chirp.Core;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Web;
+namespace Chirp.Database;
 
 public class ChirpDBContext : DbContext
 {

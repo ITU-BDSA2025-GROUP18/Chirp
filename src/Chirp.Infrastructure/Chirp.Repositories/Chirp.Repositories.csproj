@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chirp.Database\Chirp.Database.csproj" />
+  </ItemGroup>
+
 </Project>
