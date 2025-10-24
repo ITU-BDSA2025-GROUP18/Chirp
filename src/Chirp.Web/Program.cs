@@ -16,7 +16,7 @@ public abstract class Program
 
         // Load database connection via configuration
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
-        builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString));
+        builder.Services.AddDbContext<ChirpDBContext>(options => options.UseSqlite(connectionString, b => b.MigrationsAssembly("Chirp.Web")));
 
         var app = builder.Build();
 
