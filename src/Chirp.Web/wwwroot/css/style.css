@@ -229,8 +229,9 @@ div.topics {
     padding: 10px;
 }
 
-div.pagination_controls {
-    background-color: #7e2c2c;
+.pagination_controls {
+    display: flex;
+    justify-content: space-between;
 }
 
 ul.topic {
