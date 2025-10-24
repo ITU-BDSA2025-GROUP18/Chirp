@@ -13,11 +13,11 @@
         @RenderBody()
     </div>
     <div class=footer>
-        <div class="pagination_controls">
-            <a href="?page=1"><<</a>
+        <div class="pagination-controls">
+            <a class="first-page" href="?page=1"><<</a>
             <a>Previous Page</a>
             1
-            <a>Next Page</a>
+            <a class="next-page">Next Page</a>
             <a>>></a>
         </div>
         <div>
@@ -33,9 +33,7 @@
     <!-- Hello, BDSA students! -->
 </environment>
 </body>
-<script>
-    
-</script>
+<script src="js/script.js" type="text/javascript"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </html>
 

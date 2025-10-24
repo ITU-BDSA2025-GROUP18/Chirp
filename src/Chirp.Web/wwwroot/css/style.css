@@ -229,12 +229,12 @@ div.topics {
     padding: 10px;
 }
 
-.pagination_controls {
+.pagination-controls {
     display: flex;
     justify-content: space-between;
 }
 
-.pagination_controls a {
+.pagination-controls a {
     text-decoration: none;
 }
 
