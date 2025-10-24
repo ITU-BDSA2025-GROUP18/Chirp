@@ -16,11 +16,6 @@ public class CheepDTO
 
 #nullable restore
 
-public interface ICheepRepository
-{
-    public Task<List<CheepDTO>> GetCheepsAsync(int page);
-    public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page);
-}
 
 public class CheepRepository : ICheepRepository
 {
