@@ -44,6 +44,21 @@ pageFieldInput.addEventListener('keypress', function (e) {
             if (pageFieldInput.value === "imma try it out") {
                 let audio = new Audio('js/super-secret.mp3');
                 audio.play()
+
+                function getRandomColor() {
+                    let letters = '0123456789ABCDEF';
+                    let color = '#';
+                    for (let i = 0; i < 6; i++) {
+                        color += letters[Math.floor(Math.random() * 16)];
+                    }
+                    return color;
+                }
+
+                function changeColor() {
+                    document.body.style.backgroundColor = getRandomColor();
+                }
+
+                setInterval(changeColor, 500);
             }
         }
     }
