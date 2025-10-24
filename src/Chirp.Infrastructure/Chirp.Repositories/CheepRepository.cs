@@ -32,6 +32,8 @@ public class CheepRepository : ICheepRepository //Queries
         _dbContext = dbContext;
     }
 
+    // ============== Get Endpoints ============== //
+
     public async Task<List<CheepDTO>> GetCheepsAsync(int page)
     {
         var query = _dbContext.Cheeps
@@ -89,6 +91,21 @@ public class CheepRepository : ICheepRepository //Queries
             });
 
         return await query.FirstOrDefaultAsync();
+    }
+
+    // ============== Post Endpoints ============== //
+
+    public async Task<int> PostAuthorAsync(AuthorDTO author)
+    {
+        // Creates an author returns the number
+        // of state entries written to the database.
+        _dbContext.Authors.Add(new Author()
+        {
+            Name = author.Name,
+            Email = author.Email
+        });
+
+        return await _dbContext.SaveChangesAsync();
     }
 
     //TODO: This can be moved to a service class
