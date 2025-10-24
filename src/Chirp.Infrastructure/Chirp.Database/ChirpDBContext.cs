@@ -31,7 +31,7 @@ public class ChirpDBContext : DbContext
             .HasMaxLength(160);
 
         modelBuilder.Entity<Author>()
-            .HasIndex(c => c.Email)
+            .HasIndex(a => a.Email)
             .IsUnique();
     }
 }
