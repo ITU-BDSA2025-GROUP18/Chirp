@@ -1,5 +1,6 @@
 
 using System.Globalization;
+using Chirp.Core;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,12 @@ public class CheepDTO
     public string AuthorName;
     public string Text;
     public string Timestamp;
+}
+
+public class AuthorDTO
+{
+    public string Name;
+    public string Email;
 }
 
 #nullable restore
@@ -58,10 +65,11 @@ public class CheepRepository : ICheepRepository //Queries
         return await query.ToListAsync();
     }
 
-    public async Task<List<CheepDTO>> GetAuthorFromNameAsync(string name, int page)
+    public async Task<List<AuthorDTO>> GetAuthorFromNameAsync(string name, int page)
     {
-        var query = _dbContext.Cheeps
-            .Where(cheep => cheep.)
+        var query = _dbContext.Authors
+            .Where(author => author.Name == name)
+            .Ord
     }
 
     //TODO: This can be moved to a service class
