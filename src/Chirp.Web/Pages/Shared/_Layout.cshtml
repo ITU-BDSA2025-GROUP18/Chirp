@@ -12,9 +12,9 @@
             @if (User.Identity.IsAuthenticated) //We need to add ASP.NET Core Identity for further development.
             {
                 <div>
-                    <a href="/@(User.Identity.Name)">my timeline</a> | <!-- reference to logged in user -->
+                    <a href="/@(User.Identity.Name)">my timeline</a> | <!-- reference to logged in users timeline -->
                     <a href="/">public timeline</a> |
-                    <a ... >logout [@(User.Identity.Name)]</a> <!-- Needs to logout user -->
+                    <a ... >logout [@(User.Identity.Name)]</a> <!-- needs to logout user -->
                 </div>
             }
             else
