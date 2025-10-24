@@ -234,6 +234,10 @@ div.topics {
     justify-content: space-between;
 }
 
+.pagination_controls a {
+    text-decoration: none;
+}
+
 ul.topic {
     list-style: none;
     margin: 0;
