@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Database;
 
+
+
+
 public class ChirpDBContext : DbContext
 {
     public DbSet<Cheep> Cheeps { get; set; }
@@ -13,5 +16,20 @@ public class ChirpDBContext : DbContext
     {
         // Seeding the database with example data
         DbInitializer.SeedDatabase(this);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Cheep>()
+            .HasIndex(c => c.CheepId)
+            .IsUnique();
+
+        
+
+        modelBuilder.Entity<Author>()
+            .HasIndex(c => c.Email)
+            .IsUnique();
     }
 }
