@@ -26,7 +26,9 @@ public class ChirpDBContext : DbContext
             .HasIndex(c => c.CheepId)
             .IsUnique();
 
-        
+        modelBuilder.Entity<Cheep>()
+            .Property(c => c.Text)
+            .HasMaxLength(160);
 
         modelBuilder.Entity<Author>()
             .HasIndex(c => c.Email)
