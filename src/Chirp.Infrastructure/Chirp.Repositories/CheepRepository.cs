@@ -95,8 +95,11 @@ public class CheepRepository : ICheepRepository //Queries
 
     // ============== Post Endpoints ============== //
 
+    //TODO: Can this be moved to a service class
     public async Task<int> PostAuthorAsync(AuthorDTO author)
     {
+        //TODO: Does this automatically create author id and list cheeps?
+
         // Creates an author returns the number
         // of state entries written to the database.
         _dbContext.Authors.Add(new Author()
@@ -108,7 +111,22 @@ public class CheepRepository : ICheepRepository //Queries
         return await _dbContext.SaveChangesAsync();
     }
 
-    //TODO: This can be moved to a service class
+    //TODO: Can this be moved to a service class
+    /*public async Task<int> PostCheepAsync(CheepDTO cheep, AuthorDTO author)
+    {
+        var entry = await GetAuthorFromNameAsync(author.Name);
+        if (entry != null)
+        {
+            _dbContext.Cheeps.Add(new Cheep()
+            {
+                Author = _dbContext.Authors.Find(author.Name)
+                Text = cheep.Text,
+            })
+        }
+    }*/
+
+
+    //TODO: Can this be moved to a service class
     private static string TimeStampToLocalTimeString(DateTime timestamp)
     {
         return timestamp.ToLocalTime().ToString(CultureInfo.InvariantCulture);
