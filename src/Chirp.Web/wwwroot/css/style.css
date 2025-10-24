@@ -232,6 +232,8 @@ div.topics {
 .pagination-controls {
     display: flex;
     justify-content: space-between;
+    padding-left: 20%;
+    padding-right: 20%;
 }
 
 .pagination-controls a {
@@ -240,8 +242,15 @@ div.topics {
     text-decoration: none;
 }
 
+.page-field-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .page-field {
-    width: 5px;
+    width: 10px;
+    font-size: 11px;
 }
 
 ul.topic {
