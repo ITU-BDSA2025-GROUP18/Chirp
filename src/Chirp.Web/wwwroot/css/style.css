@@ -235,6 +235,8 @@ div.topics {
 }
 
 .pagination-controls a {
+    user-select: none;
+    cursor: pointer;
     text-decoration: none;
 }
 
