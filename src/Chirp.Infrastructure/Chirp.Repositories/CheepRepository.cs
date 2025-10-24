@@ -57,7 +57,13 @@ public class CheepRepository : ICheepRepository //Queries
 
         return await query.ToListAsync();
     }
-    
+
+    public async Task<List<CheepDTO>> GetAuthorFromNameAsync(string name, int page)
+    {
+        var query = _dbContext.Cheeps
+            .Where(cheep => cheep.)
+    }
+
     //TODO: This can be moved to a service class
     private static string TimeStampToLocalTimeString(DateTime timestamp)
     {
