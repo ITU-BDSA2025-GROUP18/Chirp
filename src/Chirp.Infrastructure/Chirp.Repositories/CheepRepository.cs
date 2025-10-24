@@ -65,11 +65,11 @@ public class CheepRepository : ICheepRepository //Queries
         return await query.ToListAsync();
     }
 
-    public async Task<List<AuthorDTO>> GetAuthorFromNameAsync(string name, int page)
+    public async Task<List<AuthorDTO>> GetAuthorFromNameAsync(string name)
     {
         var query = _dbContext.Authors
             .Where(author => author.Name == name)
-            .Ord
+
     }
 
     //TODO: This can be moved to a service class
