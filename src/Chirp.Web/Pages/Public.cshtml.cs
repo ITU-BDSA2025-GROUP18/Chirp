@@ -6,10 +6,10 @@ namespace Chirp.Web.Pages;
 
 public class PublicModel : PageModel //All queries
 {
-    private readonly ICheepQueryRepository _repository;
+    private readonly ICheepRepository _repository;
     public List<CheepDTO> Cheeps { get; set; }
 
-    public PublicModel(ICheepQueryRepository repository)
+    public PublicModel(ICheepRepository repository)
     {
         _repository = repository;
         Cheeps = new List<CheepDTO>();

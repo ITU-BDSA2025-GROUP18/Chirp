@@ -12,7 +12,7 @@ public abstract class Program
 
         // Add services to the container.
         builder.Services.AddRazorPages();
-        builder.Services.AddScoped<ICheepQueryRepository, CheepQueryRepository>();
+        builder.Services.AddScoped<ICheepRepository, CheepRepository>();
 
         // Load database connection via configuration
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
