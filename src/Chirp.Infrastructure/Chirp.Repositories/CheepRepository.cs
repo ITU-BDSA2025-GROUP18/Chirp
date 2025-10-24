@@ -78,6 +78,19 @@ public class CheepRepository : ICheepRepository //Queries
         return await query.FirstOrDefaultAsync();
     }
 
+    public async Task<AuthorDTO?> GetAuthorFromEmailAsync(string email)
+    {
+        var query = _dbContext.Authors
+            .Where(author => author.Email == email)
+            .Select(author => new AuthorDTO
+            {
+                Name = author.Name,
+                Email = author.Email
+            });
+
+        return await query.FirstOrDefaultAsync();
+    }
+
     //TODO: This can be moved to a service class
     private static string TimeStampToLocalTimeString(DateTime timestamp)
     {
