@@ -1,14 +1,12 @@
-﻿
-namespace Chirp.Razor;
+
+using Chirp.Core;
+
+namespace Chirp.Database;
 
 public static class DbInitializer
 {
-    public static void SeedDatabase(ChirpDBContext chirpContext){
-    // Create schema automatically when running tests with ephemeral SQLite:
-    if (System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Testing")
+    public static void SeedDatabase(ChirpDBContext chirpContext)
     {
-        chirpContext.Database.EnsureCreated();
-    }
         if (!(chirpContext.Authors.Any() && chirpContext.Cheeps.Any()))
         {
             var a1 = new Author() { AuthorId = 1, Name = "Roger Histand", Email = "Roger+Histand@hotmail.com", Cheeps = new List<Cheep>() };
@@ -704,4 +702,3 @@ public static class DbInitializer
         }
     }
 }
-

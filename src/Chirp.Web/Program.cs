@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Chirp.Database;
+using Chirp.Repositories;
 
-namespace Chirp.Razor;
+namespace Chirp.Web;
 
 public abstract class Program
 {

@@ -1,8 +1,9 @@
 
 using System.Globalization;
+using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Razor;
+namespace Chirp.Repositories;
 
 #nullable disable
 
@@ -15,11 +16,14 @@ public class CheepDTO
 
 #nullable restore
 
+<<<<<<<< HEAD:src/Chirp.Web/CheepQueryRepository.cs
 public interface ICheepQueryRepository
 {
     public Task<List<CheepDTO>> GetCheepsAsync(int page);
     public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page);
 }
+========
+>>>>>>>> EddieOnion-Architecture:src/Chirp.Infrastructure/Chirp.Repositories/CheepRepository.cs
 
 public class CheepQueryRepository : ICheepQueryRepository //Queries
 {
