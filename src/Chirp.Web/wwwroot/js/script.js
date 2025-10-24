@@ -13,7 +13,7 @@ let currentPage = searchParams.get('page');
 
 firstPageButton.addEventListener("click", () => {
     if (currentPage > 1) {
-        document.location = "/?page=1"
+        document.location = "?page=1"
     }
 })
 
@@ -23,13 +23,13 @@ nextPageButton.addEventListener("click", () => {
     } else {
         currentPage++;
     }
-    document.location = `/?page=${currentPage}`
+    document.location = `?page=${currentPage}`
 })
 
 previousPageButton.addEventListener("click", () => {
     if (currentPage > 1) {
         currentPage--
-        document.location = `/?page=${currentPage}`
+        document.location = `?page=${currentPage}`
     }
 })
 
@@ -37,7 +37,7 @@ pageFieldInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             let pageint = parseInt(pageFieldInput.value);
             if (pageint >= 1 && Number.isInteger(pageint)) {
-                document.location = `/?page=${pageint}`
+                document.location = `?page=${pageint}`
             }
 
             // secret 🤫🤫🤫🤫
