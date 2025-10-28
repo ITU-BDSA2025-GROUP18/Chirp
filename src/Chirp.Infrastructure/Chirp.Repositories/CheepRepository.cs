@@ -96,16 +96,15 @@ public class CheepRepository : ICheepRepository //Queries
     // ============== Post Endpoints ============== //
 
     //TODO: Can this be moved to a service class
-    public async Task<int> PostAuthorAsync(AuthorDTO author)
+    public async Task<int> PostAuthorAsync(string name, string email)
     {
-        //TODO: Does this automatically create author id and list cheeps?
-
-        // Creates an author returns the number
-        // of state entries written to the database.
+        // Creates an author returns the number of state entries written to the database.
         _dbContext.Authors.Add(new Author()
         {
-            Name = author.Name,
-            Email = author.Email
+            AuthorId = _dbContext.Authors.Last().AuthorId + 1,
+            Name = name,
+            Email = email,
+            Cheeps = new List<Cheep>()
         });
 
         return await _dbContext.SaveChangesAsync();
