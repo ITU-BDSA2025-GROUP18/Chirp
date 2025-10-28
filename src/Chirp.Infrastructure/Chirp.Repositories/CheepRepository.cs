@@ -111,18 +111,19 @@ public class CheepRepository : ICheepRepository //Queries
     }
 
     //TODO: Can this be moved to a service class
-    /*public async Task<int> PostCheepAsync(CheepDTO cheep, AuthorDTO author)
+    public async Task<int> PostCheepAsync(Author author, string text)
     {
-        var entry = await GetAuthorFromNameAsync(author.Name);
-        if (entry != null)
+        _dbContext.Cheeps.Add(new Cheep()
         {
-            _dbContext.Cheeps.Add(new Cheep()
-            {
-                Author = _dbContext.Authors.Find(author.Name)
-                Text = cheep.Text,
-            })
-        }
-    }*/
+            CheepId = _dbContext.Cheeps.Last().CheepId + 1,
+            Text = text,
+            TimeStamp = DateTime.UtcNow,
+            Author = author,
+            AuthorId = author.AuthorId
+        });
+
+        return await _dbContext.SaveChangesAsync();
+    }
 
 
     //TODO: Can this be moved to a service class
