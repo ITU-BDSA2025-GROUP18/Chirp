@@ -4,6 +4,18 @@ body {
     font-size: 14px;
 }
 
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    display: none;
+}
+
 a {
     color: #26776F;
 }
@@ -42,9 +54,11 @@ input[type="submit"] {
 
 div.page {
     background: white;
+    position: relative;
     border: 1px solid #cc6e6e;
     width: 700px;
     margin: 30px auto;
+    z-index: 2;
 }
 
 div.page > h1 {
