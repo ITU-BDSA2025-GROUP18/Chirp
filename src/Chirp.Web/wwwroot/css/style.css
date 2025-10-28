@@ -55,7 +55,6 @@ input[type="submit"] {
 div.page {
     background: white;
     position: relative;
-    border: 1px solid #cc6e6e;
     width: 700px;
     margin: 30px auto;
     z-index: 2;
