@@ -6,6 +6,9 @@ const lastPageButton = document.querySelector(".last-page")
 
 const pageFieldInput = document.querySelector(".page-field")
 
+const bgVideo = document.getElementById("bg-video")
+const bgSource = document.getElementById("bg-source")
+
 const searchParams = new URLSearchParams(window.location.search);
 let currentPage = searchParams.get('page');
 
@@ -45,20 +48,20 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 let audio = new Audio('js/super-secret.mp3');
                 audio.play()
 
-                function getRandomColor() {
-                    let letters = '0123456789ABCDEF';
-                    let color = '#';
-                    for (let i = 0; i < 6; i++) {
-                        color += letters[Math.floor(Math.random() * 16)];
-                    }
-                    return color;
-                }
+                bgSource.setAttribute("src", 'js/bo2.mp4')
+                bgSource.setAttribute('type', 'video/mp4')
 
-                function changeColor() {
-                    document.body.style.backgroundColor = getRandomColor();
-                }
+                bgVideo.style.display = "block"
+                bgVideo.playbackRate = 1.5;
+                bgVideo.appendChild(bgSource)
+                bgVideo.play()
+            } else if (pageFieldInput.value === "okay") {
+                bgSource.setAttribute("src", 'js/OKAY.mp4')
+                bgSource.setAttribute('type', 'video/mp4')
 
-                setInterval(changeColor, 500);
+                bgVideo.style.display = "block"
+                bgVideo.appendChild(bgSource)
+                bgVideo.play()
             }
         }
     }
