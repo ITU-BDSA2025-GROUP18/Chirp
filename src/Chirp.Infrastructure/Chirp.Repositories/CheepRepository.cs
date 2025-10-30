@@ -33,7 +33,7 @@ public class CheepRepository : ICheepRepository //Queries
             .Take(32)
             .Select(cheep => new CheepDTO
             {
-                AuthorName = cheep.Author.Name,
+                AuthorName = cheep.Author.UserName,
                 Text = cheep.Text,
                 Timestamp = TimeStampToLocalTimeString(cheep.TimeStamp)
             });
@@ -44,13 +44,13 @@ public class CheepRepository : ICheepRepository //Queries
     public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page)
     {
         var query = _dbContext.Cheeps
-            .Where(cheep => cheep.Author.Name == author)
+            .Where(cheep => cheep.Author.UserName == author)
             .OrderByDescending(cheep => cheep.TimeStamp)
             .Skip((page - 1) * 32)
             .Take(32)
             .Select(cheep => new CheepDTO
             {
-                AuthorName = cheep.Author.Name,
+                AuthorName = cheep.Author.UserName,
                 Text = cheep.Text,
                 Timestamp = TimeStampToLocalTimeString(cheep.TimeStamp)
             });
