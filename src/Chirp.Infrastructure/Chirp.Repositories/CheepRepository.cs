@@ -1,5 +1,6 @@
 
 using System.Globalization;
+using Chirp.Core;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,12 @@ public class CheepDTO
     public string Timestamp;
 }
 
+public class AuthorDTO
+{
+    public string Name;
+    public string Email;
+}
+
 #nullable restore
 
 public class CheepRepository : ICheepRepository //Queries
@@ -24,6 +31,8 @@ public class CheepRepository : ICheepRepository //Queries
     {
         _dbContext = dbContext;
     }
+
+    // ============== Get Endpoints ============== //
 
     public async Task<List<CheepDTO>> GetCheepsAsync(int page)
     {
@@ -58,7 +67,66 @@ public class CheepRepository : ICheepRepository //Queries
         return await query.ToListAsync();
     }
 
-    //TODO: This can be moved to a service class
+    public async Task<AuthorDTO?> GetAuthorFromNameAsync(string name)
+    {
+        var query = _dbContext.Authors
+            .Where(author => author.Name == name)
+            .Select(author => new AuthorDTO
+            {
+                Name = author.Name,
+                Email = author.Email
+            });
+
+        return await query.FirstOrDefaultAsync();
+    }
+
+    public async Task<AuthorDTO?> GetAuthorFromEmailAsync(string email)
+    {
+        var query = _dbContext.Authors
+            .Where(author => author.Email == email)
+            .Select(author => new AuthorDTO
+            {
+                Name = author.Name,
+                Email = author.Email
+            });
+
+        return await query.FirstOrDefaultAsync();
+    }
+
+    // ============== Post Endpoints ============== //
+
+    //TODO: Can this be moved to a service class
+    public async Task<int> PostAuthorAsync(string name, string email)
+    {
+        // Creates an author returns the number of state entries written to the database.
+        _dbContext.Authors.Add(new Author()
+        {
+            AuthorId = _dbContext.Authors.Last().AuthorId + 1,
+            Name = name,
+            Email = email,
+            Cheeps = new List<Cheep>()
+        });
+
+        return await _dbContext.SaveChangesAsync();
+    }
+
+    //TODO: Can this be moved to a service class
+    public async Task<int> PostCheepAsync(Author author, string text)
+    {
+        _dbContext.Cheeps.Add(new Cheep()
+        {
+            CheepId = _dbContext.Cheeps.Last().CheepId + 1,
+            Text = text,
+            TimeStamp = DateTime.UtcNow,
+            Author = author,
+            AuthorId = author.AuthorId
+        });
+
+        return await _dbContext.SaveChangesAsync();
+    }
+
+
+    //TODO: Can this be moved to a service class
     private static string TimeStampToLocalTimeString(DateTime timestamp)
     {
         return timestamp.ToLocalTime().ToString(CultureInfo.InvariantCulture);
