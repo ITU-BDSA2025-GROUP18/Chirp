@@ -18,8 +18,10 @@
                 <a href="/">Public timeline</a> |
                 <a href="/Identity/Account/Manage">Manage account</a> |
                 <a>
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                        <button  type="submit" class="nav-link btn btn-link text-dark">Logout [@(User.Identity.Name)]</button>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout [@(User.Identity.Name)]
+                        </button>
                     </form>
                 </a>
                 <!-- a href="/Identity/Account/Logout">Logout [@(User.Identity.Name)]</a-->
@@ -29,8 +31,8 @@
         {
             <div>
                 <a href="/">Public timeline</a> |
-                <a href="/Identity/Account/Register"... >Register</a> |
-                <a href="/Identity/Account/Login"... >Login</a>
+                <a href="/Identity/Account/Register" ...>Register</a> |
+                <a href="/Identity/Account/Login" ...>Login</a>
             </div>
         }
     </div>
@@ -39,17 +41,19 @@
         @RenderBody()
     </div>
     <div class=footer>
-        <div class="pagination-controls">
-            <a class="first-page"><<</a>
-            <a class="previous-page">Previous Page</a>
-            <div class="page-indicator"></div>
-            <a class="next-page">Next Page</a>
-            <a class="last-page">>></a>
-        </div>
-        <div class="page-field-container">
-            Enter page: <
-            <input class="page-field"/>
-            >
+        <div class="pagination-footer">
+            <div class="pagination-controls">
+                <a class="first-page"><<</a>
+                <a class="previous-page">Previous Page</a>
+                <div class="page-indicator"></div>
+                <a class="next-page">Next Page</a>
+                <a class="last-page">>></a>
+            </div>
+            <div class="page-field-container">
+                Enter page: <
+                <input class="page-field"/>
+                >
+            </div>
         </div>
         <div>
             Chirp &mdash; An ASP.NET Application
