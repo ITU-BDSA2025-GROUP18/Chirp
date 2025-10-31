@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>@ViewData["Title"]</title>
-    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/png" href="/favicon/favicon.ico">
 </head>
 <body>
@@ -26,14 +26,52 @@
                 </div>
             }
         </div>
+    <h1 onclick="location.href='/'" id="Icon1"><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
+
+    <div class=navigation>
+        @if (User.Identity.IsAuthenticated) //TODO: This creates an error in console right now, but will be fixed with auth
+        //TODO: User.Identity.Name needs to be changed, so it works with the auth process
+        {
+            <div>
+                <a href="/@(User.Identity.Name)">my timeline</a> |
+                <a href="/">public timeline</a> |
+                <a ... >logout [@(User.Identity.Name)]</a>
+            </div>
+        }
+        else
+        {
+            <div>
+                <a href="/">public timeline</a> |
+                <a href="/register"... >register</a> |
+                <a href="login"... >login</a>
+            </div>
+        }
+    </div>
+
     <div class=body>
         @RenderBody()
     </div>
     <div class=footer>
-        Chirp &mdash; An ASP.NET Application
+        <div class="pagination-controls">
+            <a class="first-page"><<</a>
+            <a class="previous-page">Previous Page</a>
+            <div class="page-indicator"></div>
+            <a class="next-page">Next Page</a>
+            <a class="last-page">>></a>
+        </div>
+        <div class="page-field-container">
+            Enter page: <
+            <input class="page-field"/>
+            >
+        </div>
+        <div>
+            Chirp &mdash; An ASP.NET Application
+        </div>
     </div>
 </div>
-
+<video autoplay loop id="bg-video" style="pointer-events: none;">
+    <source src="" id="bg-source"/>
+</video>
 <environment include="Testing">
     <span style="display:none">Helge</span>
 </environment>
@@ -41,6 +79,7 @@
     <!-- Hello, BDSA students! -->
 </environment>
 </body>
+<script src="js/script.js" type="text/javascript"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </html>
 
