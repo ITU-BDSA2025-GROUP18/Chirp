@@ -4,6 +4,7 @@ using Chirp.Database;
 using Chirp.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Chirp.Web;
 
@@ -24,25 +25,14 @@ public abstract class Program
             .AddEntityFrameworkStores<ChirpDBContext>();
 
         // Add OAuth authentication via GitHub to the container. Source: README_PROJECT, session 8
-        builder.Services.AddAuthentication(options =>
-            {
-                /*options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;*/
-
-                // The above code was included in the session 8 README_PROJECT OAuth example, however
-                // the app only works properly if it is commented out. Do not know if this poses any
-                // risks to the site... Source: https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers/issues/62
-
-                options.DefaultChallengeScheme = "GitHub";
-            })
+        builder.Configuration.AddUserSecrets<Program>();
+        builder.Services.AddAuthentication()
             .AddCookie()
             .AddGitHub(o =>
             {
                 o.ClientId = builder.Configuration["authentication_github_clientId"]!;
                 o.ClientSecret = builder.Configuration["authentication_github_clientSecret"]!;
-                o.CallbackPath = "/tmp/signin-github";
-                // Changed from "signin-github" as to not confuse the url for an Author
-                // (not sure if that is right or even needed)
+                o.CallbackPath = "/signin-github";
             });
         builder.Services.AddSession();
 
