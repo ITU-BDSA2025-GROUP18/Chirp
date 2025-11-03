@@ -49,20 +49,20 @@ pageFieldInput.addEventListener('keypress', function (e) {
 
             // secret 🤫🤫🤫🤫
             if (pageFieldInput.value === "imma try it out") {
-                let audio = new Audio('secret/super-secret.mp3');
+                let audio = new Audio('../secret/super-secret.mp3');
                 audio.play()
 
-                bgSource.setAttribute("src", 'secret/bo2.mp4')
+                bgSource.setAttribute("src", '../secret/bo2.mp4')
                 bgSource.setAttribute('type', 'video/mp4')
                 document.querySelector("div.page > h1").style.background = "#636363"
-                document.getElementById("Icon1").innerHTML = `<img src="/secret/cooler_chirp.png" alt="Cooler chirp xD"/>Chirp of Duty`
+                document.getElementById("Icon1").innerHTML = `<img src="../secret/cooler_chirp.png" alt="Cooler chirp xD"/>Chirp of Duty`
 
                 bgVideo.style.display = "block"
                 bgVideo.playbackRate = 1.5;
                 bgVideo.appendChild(bgSource)
                 bgVideo.play()
             } else if (pageFieldInput.value === "okay") {
-                bgSource.setAttribute("src", 'secret/OKAY.mp4')
+                bgSource.setAttribute("src", '../secret/OKAY.mp4')
                 bgSource.setAttribute('type', 'video/mp4')
 
                 bgVideo.style.display = "block"
