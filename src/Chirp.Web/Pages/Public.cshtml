@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Collections.Specialized
 @model Chirp.Web.Pages.PublicModel
 @{
     ViewData["Title"] = "Chirp!";
@@ -30,3 +31,16 @@
         <em>There are no cheeps so far.</em>
     }
 </div>
+
+@section scripts {
+    <script>
+        console.log("Cheeps count: " + @Model.CheepsCount);
+        const ct = Math.ceil(@Model.CheepsCount / 32);
+
+        const lastPageButton = document.querySelector(".last-page")
+
+        lastPageButton.addEventListener("click", () => {
+            document.location = "?page=" + ct;
+        })
+    </script>
+}
