@@ -71,6 +71,11 @@ public class CheepRepository : ICheepRepository //Queries
         return await query.ToListAsync();
     }
 
+    public async Task<int> GetCheepsFromAuthorCountAsync(string author)
+    {
+        return await _dbContext.Cheeps.Where(cheep => cheep.Author.Name == author).CountAsync();
+    }
+
     public async Task<AuthorDTO?> GetAuthorFromNameAsync(string name)
     {
         var query = _dbContext.Authors
