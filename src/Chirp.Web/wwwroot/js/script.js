@@ -2,7 +2,6 @@
 const previousPageButton = document.querySelector(".previous-page")
 const pageIndicator = document.querySelector(".page-indicator")
 const nextPageButton = document.querySelector(".next-page")
-const lastPageButton = document.querySelector(".last-page")
 
 const pageFieldInput = document.querySelector(".page-field")
 
@@ -34,10 +33,6 @@ previousPageButton.addEventListener("click", () => {
         currentPage--
         document.location = `?page=${currentPage}`
     }
-})
-
-lastPageButton.addEventListener("click", () => {
-    alert("Not yet implemented.")
 })
 
 pageFieldInput.addEventListener('keypress', function (e) {
