@@ -1,4 +1,3 @@
-
 using System.Globalization;
 using Chirp.Core;
 using Chirp.Database;
@@ -48,6 +47,11 @@ public class CheepRepository : ICheepRepository //Queries
             });
 
         return await query.ToListAsync();
+    }
+
+    public async Task<int> GetCheepsCountAsync()
+    {
+        return await _dbContext.Cheeps.CountAsync();
     }
 
     public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page)
