@@ -73,16 +73,16 @@ public class CheepRepository : ICheepRepository //Queries
 
     public async Task<int> GetCheepsFromAuthorCountAsync(string author)
     {
-        return await _dbContext.Cheeps.Where(cheep => cheep.Author.Name == author).CountAsync();
+        return await _dbContext.Cheeps.Where(cheep => cheep.Author.UserName == author).CountAsync();
     }
 
     public async Task<AuthorDTO?> GetAuthorFromNameAsync(string name)
     {
         var query = _dbContext.Authors
-            .Where(author => author.Name == name)
+            .Where(author => author.UserName == name)
             .Select(author => new AuthorDTO
             {
-                Name = author.Name,
+                Name = author.UserName,
                 Email = author.Email
             });
 
@@ -95,7 +95,7 @@ public class CheepRepository : ICheepRepository //Queries
             .Where(author => author.Email == email)
             .Select(author => new AuthorDTO
             {
-                Name = author.Name,
+                Name = author.UserName,
                 Email = author.Email
             });
 
@@ -110,8 +110,7 @@ public class CheepRepository : ICheepRepository //Queries
         // Creates an author returns the number of state entries written to the database.
         _dbContext.Authors.Add(new Author()
         {
-            AuthorId = _dbContext.Authors.Last().AuthorId + 1,
-            Name = name,
+            UserName = name,
             Email = email,
             Cheeps = new List<Cheep>()
         });
@@ -127,8 +126,7 @@ public class CheepRepository : ICheepRepository //Queries
             CheepId = _dbContext.Cheeps.Last().CheepId + 1,
             Text = text,
             TimeStamp = DateTime.UtcNow,
-            Author = author,
-            AuthorId = author.AuthorId
+            Author = author
         });
 
         return await _dbContext.SaveChangesAsync();
