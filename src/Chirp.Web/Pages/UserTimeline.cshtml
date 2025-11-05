@@ -1,4 +1,4 @@
-﻿@page "/{author}"
+﻿@page "/Users/{author}"
 @model Chirp.Web.Pages.UserTimelineModel
 @{
     ViewData["Title"] = "Chirp!";
@@ -34,6 +34,7 @@
 
 @section scripts {
     <script>
+        document.querySelector(".pagination-footer").style.display = "block";
         const ct = Math.ceil(@Model.AuthorCheepsCount / 32);
 
         const lastPageButton = document.querySelector(".last-page")

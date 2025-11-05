@@ -34,6 +34,7 @@
 
 @section scripts {
     <script>
+        document.querySelector(".pagination-footer").style.display = "block";
         const ct = Math.ceil(@Model.CheepsCount / 32);
 
         const lastPageButton = document.querySelector(".last-page")
