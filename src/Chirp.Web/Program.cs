@@ -1,7 +1,7 @@
-
 using Chirp.Repositories;
 using Chirp.Database;
 using Chirp.Core;
+using Chirp.Web.Util;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -17,11 +17,12 @@ public abstract class Program
         // Load database connection via configuration
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
         builder.Services.AddDbContext<ChirpDBContext>(options =>
-                options.UseSqlite(connectionString, b => b.MigrationsAssembly("Chirp.Web")));
+            options.UseSqlite(connectionString, b => b.MigrationsAssembly("Chirp.Web")));
 
         // Add ASP.NET Core Identity to the container. Source: course book, ch. 23.4
         builder.Services.AddDefaultIdentity<Author>(options =>
                 options.SignIn.RequireConfirmedAccount = true)
+            .AddSignInManager<EmailSignInManager>()
             .AddEntityFrameworkStores<ChirpDBContext>();
 
         // Add OAuth authentication via GitHub to the container. Source: README_PROJECT, session 8
