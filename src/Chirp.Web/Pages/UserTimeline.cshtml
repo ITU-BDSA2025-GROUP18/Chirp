@@ -31,3 +31,15 @@
         <em>There are no cheeps so far.</em>
     }
 </div>
+
+@section scripts {
+    <script>
+        const ct = Math.ceil(@Model.AuthorCheepsCount / 32);
+
+        const lastPageButton = document.querySelector(".last-page")
+
+        lastPageButton.addEventListener("click", () => {
+            document.location = "?page=" + ct;
+        })
+    </script>
+}

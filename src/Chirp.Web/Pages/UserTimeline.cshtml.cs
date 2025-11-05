@@ -8,6 +8,7 @@ public class UserTimelineModel : PageModel //All queries
 {
     private readonly ICheepRepository _repository;
     public List<CheepDTO> Cheeps { get; set; }
+    public int AuthorCheepsCount;
 
     public UserTimelineModel(ICheepRepository repository)
     {
@@ -18,6 +19,7 @@ public class UserTimelineModel : PageModel //All queries
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
         Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page);
+        AuthorCheepsCount = _repository.GetCheepsFromAuthorCountAsync(author).Result;
         return Page();
     }
 }
