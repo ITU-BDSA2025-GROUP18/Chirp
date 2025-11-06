@@ -34,6 +34,9 @@ jobs:
             /p:RuntimeIdentifier=linux-x64 \
             /p:SelfContained=false
 
+      - name: Remove Data folder from publish
+        run: rm -rf ${{ github.workspace }}/publish/Data
+
       - name: Zip published output
         run: |
           cd ${{ github.workspace }}/publish
@@ -73,7 +76,6 @@ jobs:
           app-name: "bdsagroup18chirpweb"
           slot-name: "Production"
           package: ./artifact/Chirp.Web.zip
-          clean: true
 
       - name: Logout of Azure
         run: az logout
