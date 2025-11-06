@@ -125,8 +125,9 @@ public class CheepRepository : ICheepRepository //Queries
 
         var author = await query.FirstOrDefaultAsync();
 
-        var cheepId = _dbContext.Cheeps.Any() ?
-            _dbContext.Cheeps.OrderBy(cheep => cheep.CheepId).Last().CheepId + 1 : 0;
+        var cheepId = _dbContext.Cheeps.Any()
+            ? _dbContext.Cheeps.OrderBy(cheep => cheep.CheepId).Last().CheepId + 1
+            : 0;
 
         _dbContext.Cheeps.Add(new Cheep()
         {
@@ -143,6 +144,6 @@ public class CheepRepository : ICheepRepository //Queries
     //TODO: Can this be moved to a service class
     private static string TimeStampToLocalTimeString(DateTime timestamp)
     {
-        return timestamp.ToLocalTime().ToString(/*CultureInfo.InvariantCulture*/);
+        return timestamp.ToLocalTime().ToString(CultureInfo.InvariantCulture);
     }
 }
