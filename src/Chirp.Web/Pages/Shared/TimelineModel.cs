@@ -23,6 +23,6 @@ public class TimelineModel : PageModel
 
     public async void OnPostAsync()
     {
-        await _repository.PostCheepAsync(User.Identity.Name, Message);
+        await _repository.PostCheepAsync(User.Identity!.Name!, Message!);
     }
 }
