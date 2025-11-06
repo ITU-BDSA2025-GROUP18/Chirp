@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - bdsa18test
+name: Build and deploy ASP.Net Core app to Azure Web App - bdsagroup18chirpweb
 run-name: 🚀 Deploying ${{ github.sha }} by ${{ github.actor }}
 
 on:
@@ -70,7 +70,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: "bdsa18test"
+          app-name: "bdsagroup18chirpweb"
           slot-name: "Production"
           package: ./artifact/Chirp.Web.zip
           clean: true
