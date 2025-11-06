@@ -119,11 +119,18 @@ public class CheepRepository : ICheepRepository //Queries
     }
 
     //TODO: Can this be moved to a service class
-    public async Task<int> PostCheepAsync(Author author, string text)
+    public async Task<int> PostCheepAsync(string authorName, string text)
     {
+        var query = _dbContext.Authors.Where(author => author.UserName == authorName);
+
+        var author = await query.FirstOrDefaultAsync();
+
+        var cheepId = _dbContext.Cheeps.Any() ?
+            _dbContext.Cheeps.OrderBy(cheep => cheep.CheepId).Last().CheepId + 1 : 0;
+
         _dbContext.Cheeps.Add(new Cheep()
         {
-            CheepId = _dbContext.Cheeps.Last().CheepId + 1,
+            CheepId = cheepId,
             Text = text,
             TimeStamp = DateTime.UtcNow,
             Author = author
@@ -136,6 +143,6 @@ public class CheepRepository : ICheepRepository //Queries
     //TODO: Can this be moved to a service class
     private static string TimeStampToLocalTimeString(DateTime timestamp)
     {
-        return timestamp.ToLocalTime().ToString(CultureInfo.InvariantCulture);
+        return timestamp.ToLocalTime().ToString(/*CultureInfo.InvariantCulture*/);
     }
 }
