@@ -13,7 +13,7 @@ public class TimelineModel : PageModel
     [BindProperty]
     [StringLength(160, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
         MinimumLength = 1)]
-    public string Message { get; set; }
+    public required string Message { get; set; }
 
     public TimelineModel(ICheepRepository repository)
     {
@@ -29,6 +29,7 @@ public class TimelineModel : PageModel
         }
 
         await _repository.PostCheepAsync(User.Identity!.Name!, Message!);
+
         return RedirectToPage();
     }
 }
