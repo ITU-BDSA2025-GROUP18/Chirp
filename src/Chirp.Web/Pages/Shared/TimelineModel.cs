@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations;
 using Chirp.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +11,9 @@ public class TimelineModel : PageModel
     public List<CheepDTO> Cheeps { get; set; }
 
     [BindProperty]
-    [StringLength(160, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
-    public string? Message { get; set; }
+    [StringLength(160, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+        MinimumLength = 1)]
+    public string Message { get; set; }
 
     public TimelineModel(ICheepRepository repository)
     {
@@ -21,8 +21,14 @@ public class TimelineModel : PageModel
         Cheeps = new List<CheepDTO>();
     }
 
-    public async void OnPostAsync()
+    public async Task<IActionResult> OnPostAsync()
     {
+        if (!ModelState.IsValid)
+        {
+            return RedirectToPage();
+        }
+
         await _repository.PostCheepAsync(User.Identity!.Name!, Message!);
+        return RedirectToPage();
     }
 }
