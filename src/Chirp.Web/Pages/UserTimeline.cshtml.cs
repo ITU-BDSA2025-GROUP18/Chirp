@@ -1,20 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Chirp.Repositories;
 
 namespace Chirp.Web.Pages;
 
-public class UserTimelineModel : PageModel //All queries
+public class UserTimelineModel : TimelineModel //All queries
 {
-    private readonly ICheepRepository _repository;
-    public List<CheepDTO> Cheeps { get; set; }
     public int AuthorCheepsCount;
 
-    public UserTimelineModel(ICheepRepository repository)
-    {
-        _repository = repository;
-        Cheeps = new List<CheepDTO>();
-    }
+    public UserTimelineModel(ICheepRepository repository) : base(repository) { }
 
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
