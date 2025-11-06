@@ -69,6 +69,7 @@ div.page > h1 {
     text-shadow: 0 0 3px #772424;
     font-weight: normal;
     font-size: 80px;
+    user-select: none;
 }
 
 div.page h1 img {
