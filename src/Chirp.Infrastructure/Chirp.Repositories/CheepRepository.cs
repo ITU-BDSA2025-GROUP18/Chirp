@@ -70,15 +70,11 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return await query.FirstOrDefaultAsync();
     }
 
+
     // ============== Post Endpoints ============== //
 
-    public async Task<int> PostCheepAsync(Author author, string text)
+    public async Task<int> PostCheepAsync(Author author, int cheepId, string text)
     {
-
-        var cheepId = dbContext.Cheeps.Any()
-            ? dbContext.Cheeps.OrderBy(cheep => cheep.CheepId).Last().CheepId + 1
-            : 0;
-
         dbContext.Cheeps.Add(new Cheep()
         {
             CheepId = cheepId,

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Chirp.Core.DTOS;
 using Chirp.Repositories;
+using Chirp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -30,7 +31,8 @@ public class TimelineModel : PageModel
         }
 
         var author = await _repository.GetAuthorFromNameAsync(User.Identity!.Name!);
-        await _repository.PostCheepAsync(author!, Message!);
+        var cheepId = CheepIdGenerator.GetNextCheepsId();
+        await _repository.PostCheepAsync(author!, cheepId, Message!);
 
         return RedirectToPage();
     }

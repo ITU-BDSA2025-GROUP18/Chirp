@@ -12,5 +12,5 @@ public interface ICheepRepository
     public Task<int> GetCheepsFromAuthorCountAsync(string authorName);
     public Task<Author?> GetAuthorFromNameAsync(string name);
     public Task<Author?> GetAuthorFromEmailAsync(string email);
-    public Task<int> PostCheepAsync(Author author, string text);
+    public Task<int> PostCheepAsync(Author author, int cheepId, string text);
 }
