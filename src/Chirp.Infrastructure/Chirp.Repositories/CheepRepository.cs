@@ -76,39 +76,26 @@ public class CheepRepository : ICheepRepository //Queries
         return await _dbContext.Cheeps.Where(cheep => cheep.Author.UserName == authorName).CountAsync();
     }
 
-    public async Task<AuthorDTO?> GetAuthorFromNameAsync(string name)
+    public async Task<Author?> GetAuthorFromNameAsync(string authorName)
     {
         var query = _dbContext.Authors
-            .Where(author => author.UserName == name)
-            .Select(author => new AuthorDTO
-            {
-                Name = author.UserName,
-                Email = author.Email
-            });
+            .Where(author => author.UserName == authorName);
 
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<AuthorDTO?> GetAuthorFromEmailAsync(string email)
+    public async Task<Author?> GetAuthorFromEmailAsync(string email)
     {
         var query = _dbContext.Authors
-            .Where(author => author.Email == email)
-            .Select(author => new AuthorDTO
-            {
-                Name = author.UserName,
-                Email = author.Email
-            });
+            .Where(author => author.Email == email);
 
         return await query.FirstOrDefaultAsync();
     }
 
     // ============== Post Endpoints ============== //
 
-    public async Task<int> PostCheepAsync(string authorName, string text)
+    public async Task<int> PostCheepAsync(Author author, string text)
     {
-        var query = _dbContext.Authors.Where(author => author.UserName == authorName);
-
-        var author = await query.FirstOrDefaultAsync();
 
         var cheepId = _dbContext.Cheeps.Any()
             ? _dbContext.Cheeps.OrderBy(cheep => cheep.CheepId).Last().CheepId + 1

@@ -9,7 +9,7 @@ public interface ICheepRepository
     public Task<int> GetCheepsCountAsync();
     public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string authorName, int page);
     public Task<int> GetCheepsFromAuthorCountAsync(string authorName);
-    public Task<AuthorDTO?> GetAuthorFromNameAsync(string name);
-    public Task<AuthorDTO?> GetAuthorFromEmailAsync(string email);
-    public Task<int> PostCheepAsync(string authorName, string text);
+    public Task<Author?> GetAuthorFromNameAsync(string name);
+    public Task<Author?> GetAuthorFromEmailAsync(string email);
+    public Task<int> PostCheepAsync(Author author, string text);
 }
