@@ -10,8 +10,8 @@ public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbCon
 
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
-        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page);
-        AuthorCheepsCount = _repository.GetCheepsFromAuthorCountAsync(author).Result;
+        Cheeps = await Repository.GetCheepsFromAuthorAsync(author, page);
+        AuthorCheepsCount = Repository.GetCheepsFromAuthorCountAsync(author).Result;
         return Page();
     }
 }

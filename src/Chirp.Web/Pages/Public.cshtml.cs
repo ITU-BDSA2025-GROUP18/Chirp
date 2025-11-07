@@ -10,8 +10,8 @@ public class PublicModel(ICheepRepository repository, ChirpDBContext dbContext) 
 
     public async Task<ActionResult> OnGet([FromQuery] int page = 1)
     {
-        Cheeps = await _repository.GetCheepsAsync(page);
-        CheepsCount = _repository.GetCheepsCountAsync().Result;
+        Cheeps = await Repository.GetCheepsAsync(page);
+        CheepsCount = Repository.GetCheepsCountAsync().Result;
         return Page();
     }
 }
