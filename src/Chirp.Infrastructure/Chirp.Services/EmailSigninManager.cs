@@ -16,8 +16,7 @@ public class EmailSignInManager : SignInManager<Author>
         ILogger<SignInManager<Author>> logger,
         IAuthenticationSchemeProvider schemes,
         IUserConfirmation<Author> confirmation)
-        : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes,
-            confirmation)
+        : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes, confirmation)
     {
     }
 
