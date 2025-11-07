@@ -103,8 +103,7 @@ public class CheepRepository : ICheepRepository //Queries
     }
 
     // ============== Post Endpoints ============== //
-
-    //TODO: Can this be moved to a service class
+    
     public async Task<int> PostAuthorAsync(string name, string email)
     {
         // Creates an author returns the number of state entries written to the database.
@@ -118,7 +117,6 @@ public class CheepRepository : ICheepRepository //Queries
         return await _dbContext.SaveChangesAsync();
     }
 
-    //TODO: Can this be moved to a service class
     public async Task<int> PostCheepAsync(string authorName, string text)
     {
         var query = _dbContext.Authors.Where(author => author.UserName == authorName);
