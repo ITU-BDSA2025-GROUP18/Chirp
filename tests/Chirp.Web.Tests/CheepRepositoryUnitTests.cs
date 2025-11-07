@@ -34,9 +34,14 @@ public class CheepRepositoryUnitTests
         var author = new Author { UserName = "Eddie" }; //creates author
         dbContext.Authors.AddRange(author);
 
-        dbContext.Cheeps.AddRange(
-            new Cheep { Author = author, Text = "Eddies cheep", TimeStamp = DateTime.UtcNow }
-        ); //Creates cheep(s) with author, text & time
+        dbContext.Cheeps.AddRange(new Cheep
+        {
+            Author = author,
+            Text = "Eddies cheep",
+            TimeStamp = DateTime.UtcNow
+        }); //Creates cheep(s) with author, text & time
+
+
 
         await dbContext.SaveChangesAsync();
 
@@ -46,6 +51,8 @@ public class CheepRepositoryUnitTests
         // We're retrieving all results from eddie's page 1.
 
         //Assert
-
+        Assert.NotEmpty(results); //Testing that results isnt emmpty
+        Assert.All(results, cheep => Assert.Equal("Eddie", cheep.AuthorName));
+        //Testing that GetCheepsFromAuthorAsync works with results only having cheeps from specific author
     }
 }
