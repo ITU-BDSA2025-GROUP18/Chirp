@@ -55,4 +55,19 @@ public class CheepRepositoryUnitTests
         Assert.All(results, cheep => Assert.Equal("Eddie", cheep.AuthorName));
         //Testing that GetCheepsFromAuthorAsync works with results only having cheeps from specific author
     }
+
+    public async Task GetCheepsAsync()
+    {
+        //GetCheepsAsync retrieves a paged list of cheeps from not a specific author, but all authors.
+        //We will now test if our paging works correctly.
+
+        //Arrange
+        var dbContext = SqliteDBContext(); //Using fresh sql database
+
+        //Act
+        var results = await
+
+        //Assert
+
+    }
 }
