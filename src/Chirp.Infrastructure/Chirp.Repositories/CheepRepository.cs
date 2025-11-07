@@ -54,10 +54,10 @@ public class CheepRepository : ICheepRepository //Queries
         return await _dbContext.Cheeps.CountAsync();
     }
 
-    public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page)
+    public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string authorName, int page)
     {
         var query = _dbContext.Cheeps
-            .Where(cheep => cheep.Author.UserName == author)
+            .Where(cheep => cheep.Author.UserName == authorName)
             .OrderByDescending(cheep => cheep.TimeStamp)
             .Skip((page - 1) * 32)
             .Take(32)
@@ -103,7 +103,7 @@ public class CheepRepository : ICheepRepository //Queries
     }
 
     // ============== Post Endpoints ============== //
-    
+
     public async Task<int> PostCheepAsync(string authorName, string text)
     {
         var query = _dbContext.Authors.Where(author => author.UserName == authorName);
