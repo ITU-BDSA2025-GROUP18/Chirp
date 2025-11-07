@@ -4,7 +4,6 @@ using Chirp.Core;
 using Chirp.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Chirp.Web;
 
