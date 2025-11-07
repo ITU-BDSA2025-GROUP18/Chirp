@@ -29,7 +29,7 @@ public class TimelineModel : PageModel
         }
 
         var author = await _repository.GetAuthorFromNameAsync(User.Identity!.Name!);
-        await _repository.PostCheepAsync(User.Identity!.Name!, Message!);
+        await _repository.PostCheepAsync(author!, Message!);
 
         return RedirectToPage();
     }
