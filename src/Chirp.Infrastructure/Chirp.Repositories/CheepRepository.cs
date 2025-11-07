@@ -1,47 +1,25 @@
 using Chirp.Core;
+using Chirp.Core.DTOS;
 using Chirp.Core.Helpers;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Repositories;
 
-#nullable disable
 
-public class CheepDTO
+public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Queries
 {
-    public string AuthorName;
-    public string Text;
-    public string Timestamp;
-}
-
-public class AuthorDTO
-{
-    public string Name;
-    public string Email;
-}
-
-#nullable restore
-
-public class CheepRepository : ICheepRepository //Queries
-{
-    private readonly ChirpDBContext _dbContext;
-
-    public CheepRepository(ChirpDBContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     // ============== Get Endpoints ============== //
 
     public async Task<List<CheepDTO>> GetCheepsAsync(int page)
     {
-        var query = _dbContext.Cheeps
+        var query = dbContext.Cheeps
             .OrderByDescending(cheep => cheep.TimeStamp)
             .Skip((page - 1) * 32)
             .Take(32)
             .Select(cheep => new CheepDTO
             {
-                AuthorName = cheep.Author.UserName,
+                AuthorName = cheep.Author.UserName!,
                 Text = cheep.Text,
                 Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
             });
@@ -51,19 +29,19 @@ public class CheepRepository : ICheepRepository //Queries
 
     public async Task<int> GetCheepsCountAsync()
     {
-        return await _dbContext.Cheeps.CountAsync();
+        return await dbContext.Cheeps.CountAsync();
     }
 
     public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string authorName, int page)
     {
-        var query = _dbContext.Cheeps
+        var query = dbContext.Cheeps
             .Where(cheep => cheep.Author.UserName == authorName)
             .OrderByDescending(cheep => cheep.TimeStamp)
             .Skip((page - 1) * 32)
             .Take(32)
             .Select(cheep => new CheepDTO
             {
-                AuthorName = cheep.Author.UserName,
+                AuthorName = cheep.Author.UserName!,
                 Text = cheep.Text,
                 Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
             });
@@ -73,12 +51,12 @@ public class CheepRepository : ICheepRepository //Queries
 
     public async Task<int> GetCheepsFromAuthorCountAsync(string authorName)
     {
-        return await _dbContext.Cheeps.Where(cheep => cheep.Author.UserName == authorName).CountAsync();
+        return await dbContext.Cheeps.Where(cheep => cheep.Author.UserName == authorName).CountAsync();
     }
 
     public async Task<Author?> GetAuthorFromNameAsync(string authorName)
     {
-        var query = _dbContext.Authors
+        var query = dbContext.Authors
             .Where(author => author.UserName == authorName);
 
         return await query.FirstOrDefaultAsync();
@@ -86,7 +64,7 @@ public class CheepRepository : ICheepRepository //Queries
 
     public async Task<Author?> GetAuthorFromEmailAsync(string email)
     {
-        var query = _dbContext.Authors
+        var query = dbContext.Authors
             .Where(author => author.Email == email);
 
         return await query.FirstOrDefaultAsync();
@@ -97,11 +75,11 @@ public class CheepRepository : ICheepRepository //Queries
     public async Task<int> PostCheepAsync(Author author, string text)
     {
 
-        var cheepId = _dbContext.Cheeps.Any()
-            ? _dbContext.Cheeps.OrderBy(cheep => cheep.CheepId).Last().CheepId + 1
+        var cheepId = dbContext.Cheeps.Any()
+            ? dbContext.Cheeps.OrderBy(cheep => cheep.CheepId).Last().CheepId + 1
             : 0;
 
-        _dbContext.Cheeps.Add(new Cheep()
+        dbContext.Cheeps.Add(new Cheep()
         {
             CheepId = cheepId,
             Text = text,
@@ -109,6 +87,6 @@ public class CheepRepository : ICheepRepository //Queries
             Author = author
         });
 
-        return await _dbContext.SaveChangesAsync();
+        return await dbContext.SaveChangesAsync();
     }
 }

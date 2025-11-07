@@ -1,5 +1,6 @@
 ﻿
 using Chirp.Core;
+using Chirp.Core.DTOS;
 
 namespace Chirp.Repositories;
 
