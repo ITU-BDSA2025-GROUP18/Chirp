@@ -1,9 +1,4 @@
-using Chirp.Repositories;
-using Chirp.Database;
-using Chirp.Core;
 using Chirp.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace Chirp.Web;
 
@@ -24,7 +19,7 @@ public abstract class Program
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
-        
+
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
