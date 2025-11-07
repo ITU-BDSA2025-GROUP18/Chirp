@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Chirp.Database;
+﻿using Chirp.Database;
 
 namespace Chirp.Services;
 
