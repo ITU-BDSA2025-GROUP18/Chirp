@@ -7,5 +7,5 @@ namespace Chirp.Core;
 
 public class Author : IdentityUser
 {
-    public ICollection<Cheep> Cheeps { get; set; }
+    public ICollection<Cheep> Cheeps { get; init; }
 }

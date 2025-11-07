@@ -6,7 +6,7 @@ using Chirp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Chirp.Web.Pages;
+namespace Chirp.Web.Pages.Shared;
 
 public class TimelineModel(ICheepRepository repository, ChirpDBContext dbContext) : PageModel
 {

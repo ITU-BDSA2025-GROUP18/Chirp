@@ -1,6 +1,7 @@
 ﻿using Chirp.Database;
 using Microsoft.AspNetCore.Mvc;
 using Chirp.Repositories;
+using Chirp.Web.Pages.Shared;
 
 namespace Chirp.Web.Pages;
 
