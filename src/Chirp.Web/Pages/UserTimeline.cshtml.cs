@@ -4,11 +4,9 @@ using Chirp.Repositories;
 
 namespace Chirp.Web.Pages;
 
-public class UserTimelineModel : TimelineModel //All queries
+public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbContext) : TimelineModel(repository, dbContext) //All queries
 {
     public int AuthorCheepsCount;
-
-    public UserTimelineModel(ICheepRepository repository, ChirpDBContext dbContext) : base(repository, dbContext) { }
 
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
