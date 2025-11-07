@@ -24,7 +24,7 @@ public class CheepRepositoryUnitTests
     }
 
     [Fact]
-    public void GetCheepsFromAuthorAsyncTest()
+    public async Task GetCheepsFromAuthorAsyncTest()
     {
         //Lets test if we retrieve a list of cheeps made by a chosen author
         //Keep in mind with our pagination, it returns 32 cheeps a page.
@@ -42,6 +42,8 @@ public class CheepRepositoryUnitTests
 
         var repository = new CheepRepository(dbContext);
         //Act
+        var results = await repository.GetCheepsFromAuthorAsync("Eddie", page: 1);
+        // We're retrieving all results from eddie's page 1.
 
         //Assert
 
