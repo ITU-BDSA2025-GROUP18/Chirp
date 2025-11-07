@@ -1,5 +1,5 @@
-using System.Globalization;
 using Chirp.Core;
+using Chirp.Core.Helpers;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,7 +43,7 @@ public class CheepRepository : ICheepRepository //Queries
             {
                 AuthorName = cheep.Author.UserName,
                 Text = cheep.Text,
-                Timestamp = TimeStampToLocalTimeString(cheep.TimeStamp)
+                Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
             });
 
         return await query.ToListAsync();
@@ -65,7 +65,7 @@ public class CheepRepository : ICheepRepository //Queries
             {
                 AuthorName = cheep.Author.UserName,
                 Text = cheep.Text,
-                Timestamp = TimeStampToLocalTimeString(cheep.TimeStamp)
+                Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
             });
 
         return await query.ToListAsync();
@@ -138,12 +138,5 @@ public class CheepRepository : ICheepRepository //Queries
         });
 
         return await _dbContext.SaveChangesAsync();
-    }
-
-
-    //TODO: Can this be moved to a service class
-    private static string TimeStampToLocalTimeString(DateTime timestamp)
-    {
-        return timestamp.ToLocalTime().ToString(CultureInfo.InvariantCulture);
     }
 }
