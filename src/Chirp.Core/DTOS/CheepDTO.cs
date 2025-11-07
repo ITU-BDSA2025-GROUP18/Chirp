@@ -2,7 +2,7 @@
 
 public class CheepDTO
 {
-    public string AuthorName;
-    public string Text;
-    public string Timestamp;
+    public required string AuthorName;
+    public required string Text;
+    public required string Timestamp;
 }
