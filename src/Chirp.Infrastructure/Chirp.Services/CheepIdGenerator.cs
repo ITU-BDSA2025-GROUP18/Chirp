@@ -3,7 +3,7 @@ using Chirp.Database;
 
 namespace Chirp.Services;
 
-public class CheepIdGenerator()
+public abstract class CheepIdGenerator()
 {
     public static int GetNextCheepsId(ChirpDBContext dbContext)
     {
