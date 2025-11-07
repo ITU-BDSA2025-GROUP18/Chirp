@@ -34,7 +34,7 @@ public class TimelineModel : PageModel
         }
 
         var author = await _repository.GetAuthorFromNameAsync(User.Identity!.Name!);
-        var cheepId = CheepIdGenerator.GetNextCheepsId(_dbContext);
+        var cheepId = CheepIDGenerator.GetNextCheepsId(_dbContext);
         await _repository.PostCheepAsync(author!, cheepId, Message!);
 
         return RedirectToPage();

@@ -2,7 +2,7 @@
 
 namespace Chirp.Services;
 
-public abstract class CheepIdGenerator()
+public abstract class CheepIDGenerator()
 {
     public static int GetNextCheepsId(ChirpDBContext dbContext)
     {
