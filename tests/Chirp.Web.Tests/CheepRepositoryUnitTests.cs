@@ -1,4 +1,6 @@
-﻿using Chirp.Database;
+﻿using Chirp.Core;
+using Chirp.Database;
+using Chirp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Xunit.Sdk;
 
@@ -28,9 +30,17 @@ public class CheepRepositoryUnitTests
         //Keep in mind with our pagination, it returns 32 cheeps a page.
 
         //Arrange
-        var dbContext = SqliteDBContext();
+        var dbContext = SqliteDBContext(); //Using fresh sql database
+        var author = new Author { UserName = "Eddie" }; //creates author
+        dbContext.Authors.AddRange(author);
 
+        dbContext.Cheeps.AddRange(
+            new Cheep { Author = author, Text = "Eddies cheep", TimeStamp = DateTime.UtcNow }
+        ); //Creates cheep(s) with author, text & time
 
+        await dbContext.SaveChangesAsync();
+
+        var repository = new CheepRepository(dbContext);
         //Act
 
         //Assert
