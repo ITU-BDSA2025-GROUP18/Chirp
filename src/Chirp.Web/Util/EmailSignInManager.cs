@@ -1,4 +1,4 @@
-using Chirp.Core;
+/*using Chirp.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -40,4 +40,4 @@ public class EmailSignInManager : SignInManager<Author>
 
         return await PasswordSignInAsync(user, password, isPersistent, lockoutOnFailure);
     }
-}
+}*/
