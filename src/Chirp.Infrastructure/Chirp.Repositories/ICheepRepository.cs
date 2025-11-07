@@ -1,5 +1,6 @@
 ﻿
 using Chirp.Core;
+using Chirp.Core.DTOS;
 
 namespace Chirp.Repositories;
 
@@ -7,10 +8,9 @@ public interface ICheepRepository
 {
     public Task<List<CheepDTO>> GetCheepsAsync(int page);
     public Task<int> GetCheepsCountAsync();
-    public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page);
-    public Task<int> GetCheepsFromAuthorCountAsync(string author);
-    public Task<AuthorDTO?> GetAuthorFromNameAsync(string name);
-    public Task<AuthorDTO?> GetAuthorFromEmailAsync(string email);
-    public Task<int> PostAuthorAsync(string name, string email);
-    public Task<int> PostCheepAsync(string authorName, string text);
+    public Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string authorName, int page);
+    public Task<int> GetCheepsFromAuthorCountAsync(string authorName);
+    public Task<Author?> GetAuthorFromNameAsync(string name);
+    public Task<Author?> GetAuthorFromEmailAsync(string email);
+    public Task<int> PostCheepAsync(Author author, int cheepId, string text);
 }

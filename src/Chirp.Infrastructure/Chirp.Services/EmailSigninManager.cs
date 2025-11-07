@@ -1,24 +1,28 @@
-using Chirp.Core;
+﻿using Chirp.Core;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Chirp.Web.Util;
+namespace Chirp.Services;
 
-public class EmailSignInManager : SignInManager<Author>
+public class EmailSignInManager(
+    UserManager<Author> userManager,
+    IHttpContextAccessor contextAccessor,
+    IUserClaimsPrincipalFactory<Author> claimsFactory,
+    IOptions<IdentityOptions> optionsAccessor,
+    ILogger<SignInManager<Author>> logger,
+    IAuthenticationSchemeProvider schemes,
+    IUserConfirmation<Author> confirmation)
+    : SignInManager<Author>(userManager,
+        contextAccessor,
+        claimsFactory,
+        optionsAccessor,
+        logger,
+        schemes,
+        confirmation)
 {
-    public EmailSignInManager(UserManager<Author> userManager,
-        IHttpContextAccessor contextAccessor,
-        IUserClaimsPrincipalFactory<Author> claimsFactory,
-        IOptions<IdentityOptions> optionsAccessor,
-        ILogger<SignInManager<Author>> logger,
-        IAuthenticationSchemeProvider schemes,
-        IUserConfirmation<Author> confirmation)
-        : base(userManager, contextAccessor, claimsFactory, optionsAccessor, logger, schemes,
-            confirmation)
-    {
-    }
-
     /// <summary>
     /// Attempts to sign in the specified <paramref name="email"/> and <paramref name="password"/> combination
     /// as an asynchronous operation.

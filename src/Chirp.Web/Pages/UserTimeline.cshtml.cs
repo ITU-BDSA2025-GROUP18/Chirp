@@ -1,18 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Chirp.Database;
+using Microsoft.AspNetCore.Mvc;
 using Chirp.Repositories;
+using Chirp.Web.Pages.Shared;
 
 namespace Chirp.Web.Pages;
 
-public class UserTimelineModel : TimelineModel //All queries
+public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbContext) : TimelineModel(repository, dbContext) //All queries
 {
     public int AuthorCheepsCount;
 
-    public UserTimelineModel(ICheepRepository repository) : base(repository) { }
-
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
-        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page);
-        AuthorCheepsCount = _repository.GetCheepsFromAuthorCountAsync(author).Result;
+        Cheeps = await Repository.GetCheepsFromAuthorAsync(author, page);
+        AuthorCheepsCount = Repository.GetCheepsFromAuthorCountAsync(author).Result;
         return Page();
     }
 }
