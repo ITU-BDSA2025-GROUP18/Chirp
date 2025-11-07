@@ -2,6 +2,7 @@
 @inject SignInManager<Author> SignInManager
 @model Chirp.Web.Pages.Shared.TimelineModel
 
+
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="cheepbox">
@@ -12,3 +13,4 @@
         </form>
     </div>
 }
+

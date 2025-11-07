@@ -11,6 +11,8 @@ const bgSource = document.getElementById("bg-source")
 const searchParams = new URLSearchParams(window.location.search);
 let currentPage = searchParams.get('page');
 
+
+
 (currentPage == null) ? pageIndicator.innerHTML = "Page 1" : pageIndicator.innerHTML = "Page " + currentPage;
 
 firstPageButton.addEventListener("click", () => {
@@ -35,12 +37,28 @@ previousPageButton.addEventListener("click", () => {
     }
 })
 
+
+
 pageFieldInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             let pageint = parseInt(pageFieldInput.value);
             if (pageint >= 1 && Number.isInteger(pageint)) {
                 document.location = `?page=${pageint}`
             }
+
+            bgSource.setAttribute("src", '../secret/12676876_1920_1080_30fps.mp4')
+            bgSource.setAttribute('type', 'video/mp4')
+
+            bgVideo.playbackRate = 1;
+            bgVideo.style.display = "block"
+            bgVideo.style.width = "100%"
+            bgVideo.style.height = "100%"
+            bgVideo.style.objectFit = "cover"
+            bgVideo.appendChild(bgSource)
+
+// Wait for the video to load before playing
+            bgVideo.load() // Important: trigger the load
+            bgVideo.play()
 
             // secret 🤫🤫🤫🤫
             if (pageFieldInput.value === "imma try it out") {
