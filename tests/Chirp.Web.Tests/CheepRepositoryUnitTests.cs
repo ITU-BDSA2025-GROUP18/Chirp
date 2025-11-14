@@ -119,6 +119,50 @@ public class CheepRepositoryUnitTests
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
 
+        var author1 = new Author { UserName = "Eddie" };
+        dbContext.Authors.AddRange(author1);
+        var author2 = new Author { UserName = "Vinnie" };
+        dbContext.Authors.AddRange(author2);
+        var author3 = new Author { UserName = "Oli" };
+        dbContext.Authors.AddRange(author3);
+
+        await dbContext.SaveChangesAsync();
+
+        for (int i = 0; i < 5; i++)
+        { //Creating cheeps for author Vinnie
+            dbContext.Cheeps.Add(new Cheep
+            {
+                Author = author1,
+                Text = $"Chirp {i}",
+                TimeStamp = DateTime.UtcNow
+            });
+
+        }
+
+        for (int i = 0; i < 7; i++)
+        { //Creating cheeps for author Vinnie
+            dbContext.Cheeps.Add(new Cheep
+            {
+                Author = author2,
+                Text = $"Chirp {i}",
+                TimeStamp = DateTime.UtcNow
+            });
+
+        }
+
+        for (int i = 0; i < 2; i++)
+        { //Creating cheeps for author Vinnie
+            dbContext.Cheeps.Add(new Cheep
+            {
+                Author = author3,
+                Text = $"Chirp {i}",
+                TimeStamp = DateTime.UtcNow
+            });
+
+        }
+        await dbContext.SaveChangesAsync();
+        var repository = new CheepRepository(dbContext);
+
         //Act
         var results
         //Assert
