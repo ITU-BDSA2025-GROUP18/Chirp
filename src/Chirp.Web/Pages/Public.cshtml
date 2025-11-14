@@ -19,7 +19,9 @@
                         <strong>
                             <a href="/Users/@cheep.AuthorName">@cheep.AuthorName</a>
                         </strong>
-                        <button class="follow-button">Follow</button>
+                        <form method="post">
+                        <button class="follow-button" asp-page-handler="Follow">Follow</button>
+                        <form/>
                         @cheep.Text
                         <small>&mdash; @cheep.Timestamp</small>
                     </p>
