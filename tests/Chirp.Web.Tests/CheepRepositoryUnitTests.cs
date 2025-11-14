@@ -129,7 +129,7 @@ public class CheepRepositoryUnitTests
         await dbContext.SaveChangesAsync();
 
         for (int i = 0; i < 5; i++)
-        { //Creating cheeps for author Vinnie
+        { //Creating cheeps for author Eddie
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author1,
@@ -151,7 +151,7 @@ public class CheepRepositoryUnitTests
         }
 
         for (int i = 0; i < 2; i++)
-        { //Creating cheeps for author Vinnie
+        { //Creating cheeps for author Oli
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author3,
@@ -164,8 +164,11 @@ public class CheepRepositoryUnitTests
         var repository = new CheepRepository(dbContext);
 
         //Act
-        var results
+        //There should be 14 cheeps in total.
+        var results = await repository.GetCheepsCountAsync();
+        
         //Assert
+
     }
 
     [Fact]
