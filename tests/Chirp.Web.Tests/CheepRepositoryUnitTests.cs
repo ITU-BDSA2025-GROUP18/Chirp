@@ -67,16 +67,21 @@ public class CheepRepositoryUnitTests
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
 
-        dbContext.Authors.Add(new Author { UserName = "Eddie" }); //Creating author Eddie
-        dbContext.Authors.Add(new Author { UserName = "Vinnie" }); //Creating author Vinnie
+        var author1 = new Author { UserName = "Eddie" }; //creates author
+        dbContext.Authors.AddRange(author1);
+
+        var author2 = new Author { UserName = "Vinnie" }; //creates author
+        dbContext.Authors.AddRange(author2);
+
+        await dbContext.SaveChangesAsync(); //Saves changes(adding authors) to dbContext
 
         for (int i = 0; i < 32; i++)
         { //Creating cheeps for author Eddie
             dbContext.Cheeps.Add(new Cheep
             {
+                Author = author1,
                 Text = $"Chirp {i}",
-                TimeStamp = DateTime.UtcNow,
-                Author = dbContext.Authors.First(a => a.UserName == "Eddie")
+                TimeStamp = DateTime.UtcNow
             });
 
         }
@@ -85,9 +90,9 @@ public class CheepRepositoryUnitTests
         { //Creating cheeps for author Vinnie
             dbContext.Cheeps.Add(new Cheep
             {
+                Author = author2,
                 Text = $"Chirp {i}",
-                TimeStamp = DateTime.UtcNow,
-                Author = dbContext.Authors.First(a => a.UserName == "Vinnie")
+                TimeStamp = DateTime.UtcNow
             });
 
         }
