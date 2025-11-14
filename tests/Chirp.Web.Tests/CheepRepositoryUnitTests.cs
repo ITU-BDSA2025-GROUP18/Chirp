@@ -138,7 +138,7 @@ public class CheepRepositoryUnitTests
     }
 
     [Fact]
-    public async Task GetAuthorFromName_ButNonExistantAsyncTest()
+    public async Task GetAuthorFromName_NonExistant_ReturnsNullAsyncTest()
     {
         //We should test that if a name doesn't belong to any author. We should
         //get null. In the case that no author exists with that name.
@@ -164,5 +164,21 @@ public class CheepRepositoryUnitTests
         //Testing if it is true that the result(Jack) would not belong to any author
         //and therefore it should return null.
         Assert.Null(results);
+    }
+
+    [Fact]
+    public async Task GetAuthorFromEmailAsyncTest()
+    {
+        //We will test for getting the correct Author just by knowing
+        //that Author's email
+
+        //Arrange
+        var dbContext = SqliteDBContext(); //Using fresh sql database
+
+        //Act
+
+        //Assert
+        //We'll assert if this email belongs to that author.
+        //and that we can get the author from that email.
     }
 }
