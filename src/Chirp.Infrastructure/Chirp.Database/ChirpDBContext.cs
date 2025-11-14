@@ -26,5 +26,13 @@ public class ChirpDBContext(DbContextOptions<ChirpDBContext> options) : Identity
             .HasOne(c => c.Author)
             .WithMany(a => a.Cheeps)
             .HasForeignKey("AuthorId");
+
+        modelBuilder.Entity<Followers>()
+            .HasIndex(f => f.FollowingAuthorId)
+            .IsUnique();
+
+        modelBuilder.Entity<Followers>()
+            .HasIndex(f => f.FollowedAuthorId)
+            .IsUnique();
     }
 }
