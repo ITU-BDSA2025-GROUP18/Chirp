@@ -56,10 +56,13 @@ public class CheepRepositoryUnitTests
         //Testing that GetCheepsFromAuthorAsync works with results only having cheeps from specific author
     }
 
+    [Fact]
     public async Task GetCheepsAsync()
     {
         //GetCheepsAsync retrieves a paged list of cheeps from not a specific author, but all authors.
         //We will now test if our paging works correctly. A page has 32 cheeps.
+        //But we will create 37 cheeps. Should return true in two pages
+        //which Page 1 has 32 cheeps and Page 2: 5 cheeps.
 
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
@@ -98,6 +101,7 @@ public class CheepRepositoryUnitTests
         var page2 = await repository.GetCheepsAsync(2);
 
         //Assert
-
+        Assert.Equal(32, page1.Count); //Should return true if page1 has 32 cheeps
+        Assert.Equal(5, page2.Count); //Should return true if page2 has 5 cheeps.
     }
 }
