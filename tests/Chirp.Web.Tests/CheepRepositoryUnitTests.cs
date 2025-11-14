@@ -64,11 +64,11 @@ public class CheepRepositoryUnitTests
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
 
-        dbContext.Authors.Add(new Author { UserName = "Eddie" });
-        dbContext.Authors.Add(new Author { UserName = "Vinnie" });
+        dbContext.Authors.Add(new Author { UserName = "Eddie" }); //Creating author Eddie
+        dbContext.Authors.Add(new Author { UserName = "Vinnie" }); //Creating author Vinnie
 
         for (int i = 0; i < 32; i++)
-        {
+        { //Creating cheeps for author Eddie
             dbContext.Cheeps.Add(new Cheep
             {
                 Text = $"Chirp {i}",
@@ -79,7 +79,7 @@ public class CheepRepositoryUnitTests
         }
 
         for (int i = 0; i < 5; i++)
-        {
+        { //Creating cheeps for author Vinnie
             dbContext.Cheeps.Add(new Cheep
             {
                 Text = $"Chirp {i}",
