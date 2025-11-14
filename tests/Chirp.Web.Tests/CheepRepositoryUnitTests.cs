@@ -157,7 +157,7 @@ public class CheepRepositoryUnitTests
         //Act
 
         //Running GetAuthorFromName-method with name "Jack" which we know
-        //doesn't belong to any author, to results. Should return null.
+        //doesn't belong to any author to results. Should return null.
         var results = await repository.GetAuthorFromNameAsync("Jack");
 
         //Assert
@@ -211,11 +211,13 @@ public class CheepRepositoryUnitTests
         var repository = new CheepRepository(dbContext);
         //Act
 
-        var results = await repository.GetAuthorFromEmailAsync("erze@itu.dk");
+        //Running GetAuthorFromName-method with email "jack@itu.dk" which we know
+        //doesn't belong to any author to results. Should return null.
+        var results = await repository.GetAuthorFromEmailAsync("jacke@itu.dk");
 
         //Assert
-        //Testing if it is true that the results(email) in act would not belong to any author
+        //Testing if it is true that the result(jack@itu.dk) would not belong to any author
         //and therefore it should return null.
-
+        Assert.Null(results);
     }
 }
