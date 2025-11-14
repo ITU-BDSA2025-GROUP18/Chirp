@@ -133,5 +133,7 @@ public class CheepRepositoryUnitTests
         //Assert
         //We'll assert if this name belongs to that author.
         //and that we can get the author from that name.
+        Assert.NotNull(results);
+        Assert.Equal("Eddie", results.UserName);
     }
 }
