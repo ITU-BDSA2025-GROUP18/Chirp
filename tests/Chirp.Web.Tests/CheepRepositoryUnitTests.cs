@@ -111,6 +111,31 @@ public class CheepRepositoryUnitTests
     }
 
     [Fact]
+    public async Task GetCheepsCountAsyncTest()
+    {
+        //We will test that we can find the correct total amount of cheeps in
+        //our database by all authors.
+
+        //Arrange
+        var dbContext = SqliteDBContext(); //Using fresh sql database
+
+        //Act
+        var results
+        //Assert
+    }
+
+    [Fact]
+    public async Task GetCheepsFromAuthorCountAsyncTest()
+    {
+        //Arrange
+        var dbContext = SqliteDBContext(); //Using fresh sql database
+
+        //Act
+        var results
+        //Assert
+    }
+
+    [Fact]
     public async Task GetAuthorFromNameAsyncTest()
     {
         //We will test for getting the correct Author just by knowing
