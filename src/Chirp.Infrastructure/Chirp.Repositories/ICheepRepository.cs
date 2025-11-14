@@ -13,4 +13,5 @@ public interface ICheepRepository
     public Task<Author?> GetAuthorFromNameAsync(string name);
     public Task<Author?> GetAuthorFromEmailAsync(string email);
     public Task<int> PostCheepAsync(Author author, int cheepId, string text);
+    public Task<int> AddFollowerAsync(Author followingAuthor, Author followedAuthor);
 }

@@ -84,4 +84,15 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
 
         return await dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> AddFollowerAsync(Author followingAuthor, Author followedAuthor)
+    {
+        dbContext.Followers.Add(new Followers()
+        {
+            FollowingAuthorId = followingAuthor.Id,
+            FollowedAuthorId = followedAuthor.Id
+        });
+
+        return await dbContext.SaveChangesAsync();
+    }
 }
