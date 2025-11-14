@@ -57,7 +57,7 @@ public class CheepRepositoryUnitTests
     }
 
     [Fact]
-    public async Task GetCheepsAsync()
+    public async Task GetCheepsAsyncTest()
     {
         //GetCheepsAsync retrieves a paged list of cheeps from not a specific author, but all authors.
         //We will now test if our paging works correctly. A page has 32 cheeps.
@@ -108,5 +108,21 @@ public class CheepRepositoryUnitTests
         //Assert
         Assert.Equal(32, page1.Count); //Should return true if page1 has 32 cheeps
         Assert.Equal(5, page2.Count); //Should return true if page2 has 5 cheeps.
+    }
+
+    [Fact]
+    public async Task GetAuthorFromNameAsyncTest()
+    {
+        //We will test for getting the correct Author just by knowing
+        //that Author's name. (An authors name is an authors username)
+
+        //Arrange
+        var dbContext = SqliteDBContext(); //Using fresh sql database
+
+        //Act
+
+        //Assert
+        //We'll assert if this name belongs to that author.
+        //and that we can get the author from that name.
     }
 }
