@@ -157,6 +157,8 @@ public class CheepRepositoryUnitTests
         var results = await repository.GetAuthorFromNameAsync("Jack");
 
         //Assert
-        //Testing if it is true that the result is incorrect.
+        //Testing if it is true that the result(Jack) would not belong to any author
+        //and therefore it should return null.
+        Assert.Null(results);
     }
 }
