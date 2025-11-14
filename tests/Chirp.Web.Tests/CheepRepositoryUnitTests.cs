@@ -175,6 +175,13 @@ public class CheepRepositoryUnitTests
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
 
+        //creates author with username and email
+        var author = new Author { UserName = "Eddie", Email = "erze@itu.dk"};
+        dbContext.Authors.AddRange(author);
+
+        //Saving changes and adds it to the repository
+        await dbContext.SaveChangesAsync();
+        var repository = new CheepRepository(dbContext);
         //Act
 
         //Assert
