@@ -184,8 +184,12 @@ public class CheepRepositoryUnitTests
         var repository = new CheepRepository(dbContext);
         //Act
 
+        var results = await repository.GetAuthorFromEmailAsync("erze@itu.dk");
+
         //Assert
         //We'll assert if this email belongs to that author.
         //and that we can get the author from that email.
+        Assert.NotNull(results);
+        Assert.Equal(author.Email, results.Email);
     }
 }
