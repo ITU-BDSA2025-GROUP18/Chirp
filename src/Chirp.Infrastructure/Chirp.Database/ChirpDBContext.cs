@@ -10,6 +10,8 @@ public class ChirpDBContext(DbContextOptions<ChirpDBContext> options) : Identity
     public DbSet<Cheep> Cheeps { get; set; }
     public DbSet<Author> Authors { get; set; }
 
+    public DbSet<Followers> Followers { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -28,11 +30,6 @@ public class ChirpDBContext(DbContextOptions<ChirpDBContext> options) : Identity
             .HasForeignKey("AuthorId");
 
         modelBuilder.Entity<Followers>()
-            .HasIndex(f => f.FollowingAuthorId)
-            .IsUnique();
-
-        modelBuilder.Entity<Followers>()
-            .HasIndex(f => f.FollowedAuthorId)
-            .IsUnique();
+            .HasKey(f => new { f.FollowingAuthorId, f.FollowedAuthorId });
     }
 }
