@@ -139,6 +139,8 @@ public class CheepRepositoryUnitTests
 
     public async Task GetAuthorFromName_ButNonExistantAsyncTest()
     {
+        //We should test if it is that the name we search for, doesn't belong
+        //to any author. In other words. No author exists with that name.
 
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
@@ -152,9 +154,9 @@ public class CheepRepositoryUnitTests
 
         //Act
 
-        var results = await repository.GetAuthorFromNameAsync("Eddie");
+        var results = await repository.GetAuthorFromNameAsync("Jack");
 
         //Assert
-
+        //Testing if it is true that the result is incorrect.
     }
 }
