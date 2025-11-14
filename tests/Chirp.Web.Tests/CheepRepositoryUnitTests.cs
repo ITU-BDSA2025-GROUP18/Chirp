@@ -192,4 +192,30 @@ public class CheepRepositoryUnitTests
         Assert.NotNull(results);
         Assert.Equal(author.Email, results.Email);
     }
+
+    [Fact]
+    public async Task GetAuthorFromEmail_NonExistant_ReturnsNullAsyncTest()
+    {
+        //We should test that if a email doesn't belong to any author. We should
+        //get null. In the case that no author exists with that email.
+
+        //Arrange
+        var dbContext = SqliteDBContext(); //Using fresh sql database
+
+        //creates author with username and email
+        var author = new Author { UserName = "Eddie", Email = "erze@itu.dk"};
+        dbContext.Authors.AddRange(author);
+
+        //Saving changes and adds it to the repository
+        await dbContext.SaveChangesAsync();
+        var repository = new CheepRepository(dbContext);
+        //Act
+
+        var results = await repository.GetAuthorFromEmailAsync("erze@itu.dk");
+
+        //Assert
+        //Testing if it is true that the results(email) in act would not belong to any author
+        //and therefore it should return null.
+
+    }
 }
