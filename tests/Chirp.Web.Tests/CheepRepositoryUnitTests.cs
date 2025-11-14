@@ -166,9 +166,9 @@ public class CheepRepositoryUnitTests
         //Act
         //There should be 14 cheeps in total.
         var results = await repository.GetCheepsCountAsync();
-        
-        //Assert
 
+        //Assert
+        Assert.Equal(14,results);
     }
 
     [Fact]
