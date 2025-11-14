@@ -306,6 +306,17 @@ button:hover {
     background-color: #8b4949;
 }
 
+.follow-button {
+    background: #dee9e8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: black;
+}
+
+.follow-button:hover {
+    background: #c1d3d2;
+}
+
 ul.nav {
     list-style-type: none;
     margin: 0;
