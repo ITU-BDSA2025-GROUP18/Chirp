@@ -59,7 +59,7 @@ public class CheepRepositoryUnitTests
     public async Task GetCheepsAsync()
     {
         //GetCheepsAsync retrieves a paged list of cheeps from not a specific author, but all authors.
-        //We will now test if our paging works correctly.
+        //We will now test if our paging works correctly. A page has 32 cheeps.
 
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
@@ -93,7 +93,9 @@ public class CheepRepositoryUnitTests
         var repository = new CheepRepository(dbContext);
 
         //Act
-        var results = await
+        //We'll store lists of the cheeps from page 1 & 2 into variables
+        var page1 = await repository.GetCheepsAsync(1);
+        var page2 = await repository.GetCheepsAsync(2);
 
         //Assert
 
