@@ -7,6 +7,7 @@ const pageFieldInput = document.querySelector(".page-field")
 
 const bgVideo = document.getElementById("bg-video")
 const bgSource = document.getElementById("bg-source")
+const title = document.getElementById("chirptitle")
 
 const searchParams = new URLSearchParams(window.location.search);
 let currentPage = searchParams.get('page');
@@ -50,7 +51,11 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 bgSource.setAttribute("src", '../secret/bo2.mp4')
                 bgSource.setAttribute('type', 'video/mp4')
                 document.querySelector("div.page > h1").style.background = "#636363"
-                document.getElementById("Icon1").innerHTML = `<img src="../secret/cooler_chirp.png" alt="Cooler chirp xD"/>Chirp of Duty`
+                document.querySelector("div.page > h1").style.borderTop = "5px solid #888"
+                document.querySelector("div.page > h1").style.borderBottom = "5px solid #555"
+                document.getElementById("Icon1").setAttribute("src", "../secret/cooler_chirp.png");
+                title.innerHTML = "Chirp of Duty"
+                title.style.textShadow = "0 3px 0 #222"
 
                 bgVideo.style.display = "block"
                 bgVideo.playbackRate = 1.5;
@@ -64,7 +69,7 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 bgVideo.appendChild(bgSource)
                 bgVideo.play()
             } else if (pageFieldInput.value === "written") {
-                document.getElementById("Icon1").innerHTML = "Written"
+                title.innerHTML = "Written"
             }
         }
     }
