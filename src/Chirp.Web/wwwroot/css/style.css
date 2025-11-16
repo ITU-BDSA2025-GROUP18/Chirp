@@ -18,7 +18,7 @@ body {
     background: linear-gradient(var(--bg-color1) 0%, var(--bg-color2) 100%) no-repeat;
     background-attachment: fixed;
     font-family: var(--ff);
-    font-size: 100%;
+    font-size: 14.5px;
 }
 
 div.page {
