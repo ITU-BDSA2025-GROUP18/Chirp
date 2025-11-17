@@ -197,8 +197,13 @@ public class CheepRepositoryUnitTests
 
         }
 
+        //Saving changes and adds it to the repository
+        await dbContext.SaveChangesAsync();
+        var repository = new CheepRepository(dbContext);
+
         //Act
-        var results
+        var results = await repository.GetCheepsFromAuthorCountAsync("Eddie");
+
         //Assert
     }
 
