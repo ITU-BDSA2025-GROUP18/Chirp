@@ -9,7 +9,7 @@
 
 <div>
     <h2> Public Timeline </h2>
-    <partial name="_PostPartial" />
+    <partial name="_PostPartial"/>
 
     @if (Model.Cheeps.Any())
     {
@@ -24,9 +24,16 @@
                             </strong>
                             @if (SignInManager.IsSignedIn(User))
                             {
-                            <form method="post" class="follow-form">
-                                <button class="follow-button" asp-page-handler="Follow" name="AuthorName" value="@cheep.AuthorName">Follow</button>
-                            </form>
+                                <form method="post" class="follow-form">
+                                    <button class="follow-button" asp-page-handler="Follow" name="AuthorName"
+                                            value="@cheep.AuthorName">Follow
+                                    </button>
+                                </form>
+                                <form method="post" class="follow-form">
+                                    <button class="follow-button" asp-page-handler="Unfollow" name="AuthorName"
+                                            value="@cheep.AuthorName">Unfollow
+                                    </button>
+                                </form>
                             }
                         </div>
 

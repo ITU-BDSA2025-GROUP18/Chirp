@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Repositories;
 
-
 public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Queries
 {
     // ============== Get Endpoints ============== //
@@ -74,7 +73,7 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
 
     public async Task<int> PostCheepAsync(Author author, int cheepId, string text)
     {
-        dbContext.Cheeps.Add(new Cheep()
+        dbContext.Cheeps.Add(new Cheep
         {
             CheepId = cheepId,
             Text = text,
@@ -88,19 +87,21 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
     //TODO: Move into seperate class "FollowerRepository"
     public async Task<int> FollowAsync(Author followingAuthor, Author followedAuthor)
     {
-        dbContext.Followers.Add(new Followers()
+        dbContext.Followers.Add(new Followers
         {
             FollowingAuthorId = followingAuthor.Id,
             FollowedAuthorId = followedAuthor.Id
         });
 
+        AuthorFollowing(followingAuthor);
         return await dbContext.SaveChangesAsync();
     }
 
     //TODO: Move into seperate class "FollowerRepository"
     public async Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor)
     {
-        int rowsDeleted = await dbContext.Followers
+        Console.WriteLine(followingAuthor + " " + followedAuthor);
+        var rowsDeleted = await dbContext.Followers
             .Where(follower =>
                 follower.FollowingAuthorId == followingAuthor.Id &&
                 follower.FollowedAuthorId == followedAuthor.Id)
@@ -109,13 +110,14 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return rowsDeleted;
     }
 
-    public async Task<Author?> GetAuthorFollowers(Author author)
+    public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor)
     {
-        //
-        return null;
+        return Task.FromResult(dbContext.Followers.Where(follower => follower.FollowingAuthorId == followingAuthor.Id)
+            .ToHashSet());
+        ;
     }
 
-    public async Task<Author?> GetAuthorFollowing(Author author)
+    public async Task<Author?> GetAuthorFollowers(Author author)
     {
         //
         return null;

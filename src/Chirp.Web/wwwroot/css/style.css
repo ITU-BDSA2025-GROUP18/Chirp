@@ -169,6 +169,7 @@ div.page ul.cheeps li small {
 
 div.page ul.cheeps .follow-form {
     margin: 0;
+    padding-right: 5px;
 }
 
 div.page ul.cheeps .follow-form button {

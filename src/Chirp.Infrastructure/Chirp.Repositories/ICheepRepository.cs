@@ -1,5 +1,4 @@
-﻿
-using Chirp.Core;
+﻿using Chirp.Core;
 using Chirp.Core.DTOS;
 
 namespace Chirp.Repositories;
@@ -16,5 +15,5 @@ public interface ICheepRepository
     public Task<int> FollowAsync(Author followingAuthor, Author followedAuthor);
     public Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor);
     public Task<Author?> GetAuthorFollowers(Author author);
-    public Task<Author?> GetAuthorFollowing(Author author);
+    public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor);
 }
