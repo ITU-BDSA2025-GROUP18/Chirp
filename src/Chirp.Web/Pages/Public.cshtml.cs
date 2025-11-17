@@ -15,6 +15,15 @@ public class PublicModel(ICheepRepository repository, ChirpDBContext dbContext)
     {
         Cheeps = await Repository.GetCheepsAsync(page);
         CheepsCount = Repository.GetCheepsCountAsync().Result;
+        var author = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+        var followerStringSet = new HashSet<string> { };
+        if (author != null)
+        {
+            var followerSet = Repository.AuthorFollowing(author).Result;
+            foreach (var follower in followerSet) followerStringSet.Add(follower.FollowedAuthorName);
+        }
+
+        Following = followerStringSet;
         return Page();
     }
 
