@@ -96,8 +96,9 @@ public class CheepRepositoryUnitTests
             });
 
         }
-        await dbContext.SaveChangesAsync();
 
+        //Saving changes and adds it to the repository
+        await dbContext.SaveChangesAsync();
         var repository = new CheepRepository(dbContext);
 
         //Act
@@ -119,6 +120,7 @@ public class CheepRepositoryUnitTests
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
 
+        //Creation of authors
         var author1 = new Author { UserName = "Eddie" };
         dbContext.Authors.AddRange(author1);
         var author2 = new Author { UserName = "Vinnie" };
@@ -126,6 +128,7 @@ public class CheepRepositoryUnitTests
         var author3 = new Author { UserName = "Oli" };
         dbContext.Authors.AddRange(author3);
 
+        //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
 
         for (int i = 0; i < 5; i++)
@@ -160,6 +163,7 @@ public class CheepRepositoryUnitTests
             });
 
         }
+        //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
         var repository = new CheepRepository(dbContext);
 
@@ -176,7 +180,7 @@ public class CheepRepositoryUnitTests
     {
         //This test will test if we can receieve the correct amount of cheeps
         //from specific authors.
-        
+
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
         var author1 = new Author { UserName = "Eddie" }; //creates author
@@ -232,7 +236,7 @@ public class CheepRepositoryUnitTests
         Assert.Equal(7, eddieresults);
         Assert.Equal(11, vinnieresults);
         Assert.Equal(3, oliresults);
-        //Checking that the correct count of cheeps is for all three authors
+        //Checking that we receive the correct amount of cheeps from specific authors
     }
 
     [Fact]
