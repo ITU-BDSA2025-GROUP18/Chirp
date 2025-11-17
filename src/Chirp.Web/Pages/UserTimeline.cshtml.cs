@@ -13,10 +13,21 @@ public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbCon
 
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
-        Cheeps = await Repository.GetCheepsFromAuthorAsync(author, page);
-        //TODO add following uathor's cheeps appear in cheeps
-        foreach (var follower in Following) Cheeps.Union(await Repository.GetCheepsFromAuthorAsync(follower, page));
-        AuthorCheepsCount = Repository.GetCheepsFromAuthorCountAsync(author).Result;
+        var authorsToFetch = new HashSet<string> { author };
+        var principal = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+
+        if (principal != null)
+        {
+            var followerSet = Repository.AuthorFollowing(principal).Result;
+            foreach (var follower in followerSet) authorsToFetch.Add(follower.FollowedAuthorName);
+        }
+
+        Cheeps = await Repository.GetCheepsFromAuthorsAsync(authorsToFetch, page);
+
+        Following = new HashSet<string>(authorsToFetch.Where(name => name != author));
+
+        AuthorCheepsCount = await Repository.GetCheepsFromAuthorsCountAsync(authorsToFetch);
+
         return Page();
     }
 }
