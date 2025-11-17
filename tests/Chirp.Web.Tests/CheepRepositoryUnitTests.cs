@@ -176,6 +176,26 @@ public class CheepRepositoryUnitTests
     {
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
+        var author = new Author { UserName = "Eddie" }; //creates author
+        dbContext.Authors.AddRange(author);
+
+        dbContext.Cheeps.AddRange(new Cheep
+        {
+            Author = author,
+            Text = "Eddies cheep",
+            TimeStamp = DateTime.UtcNow
+        }); //Creates cheep(s) with author, text & time
+
+        for (int i = 0; i < 7; i++)
+        { //Creating cheeps for author Eddie
+            dbContext.Cheeps.Add(new Cheep
+            {
+                Author = author,
+                Text = $"Chirp {i}",
+                TimeStamp = DateTime.UtcNow
+            });
+
+        }
 
         //Act
         var results
