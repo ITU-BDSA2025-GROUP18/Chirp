@@ -31,4 +31,46 @@ public class TimelineModel(ICheepRepository repository, ChirpDBContext dbContext
 
         return RedirectToPage();
     }
+
+    public async Task<IActionResult> OnPostFollowAsync(string authorName)
+    {
+        var follower = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+        var followed = await Repository.GetAuthorFromNameAsync(authorName);
+
+        if (follower == null || followed == null) return RedirectToPage();
+
+        var followerSet = await Repository.AuthorFollowing(follower);
+
+        var alreadyFollowing = followerSet.Any(f =>
+            f.FollowingAuthorId == follower.Id &&
+            f.FollowedAuthorId == followed.Id
+        );
+
+        if (alreadyFollowing) return RedirectToPage();
+        if (follower.Id != followed.Id)
+            await Repository.FollowAsync(follower, followed);
+
+        return RedirectToPage();
+    }
+
+    public async Task<IActionResult> OnPostUnfollowAsync(string authorName)
+    {
+        var follower = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+        var followed = await Repository.GetAuthorFromNameAsync(authorName);
+
+        if (follower == null || followed == null) return RedirectToPage();
+
+        var followerSet = await Repository.AuthorFollowing(follower);
+
+        var alreadyFollowing = followerSet.Any(f =>
+            f.FollowingAuthorId == follower.Id &&
+            f.FollowedAuthorId == followed.Id
+        );
+
+        if (!alreadyFollowing) return RedirectToPage();
+        if (follower.Id != followed.Id)
+            await Repository.UnfollowAsync(follower, followed);
+
+        return RedirectToPage();
+    }
 }

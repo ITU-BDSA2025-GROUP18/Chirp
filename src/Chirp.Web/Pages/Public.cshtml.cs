@@ -15,57 +15,15 @@ public class PublicModel(ICheepRepository repository, ChirpDBContext dbContext)
     {
         Cheeps = await Repository.GetCheepsAsync(page);
         CheepsCount = Repository.GetCheepsCountAsync().Result;
-        var author = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+        var principal = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
         var followerStringSet = new HashSet<string> { };
-        if (author != null)
+        if (principal != null)
         {
-            var followerSet = Repository.AuthorFollowing(author).Result;
+            var followerSet = Repository.AuthorFollowing(principal).Result;
             foreach (var follower in followerSet) followerStringSet.Add(follower.FollowedAuthorName);
         }
 
         Following = followerStringSet;
         return Page();
-    }
-
-    public async Task<IActionResult> OnPostFollowAsync(string authorName)
-    {
-        var follower = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
-        var followed = await Repository.GetAuthorFromNameAsync(authorName);
-
-        if (follower == null || followed == null) return RedirectToPage();
-
-        var followerSet = await Repository.AuthorFollowing(follower);
-
-        var alreadyFollowing = followerSet.Any(f =>
-            f.FollowingAuthorId == follower.Id &&
-            f.FollowedAuthorId == followed.Id
-        );
-
-        if (alreadyFollowing) return RedirectToPage();
-        if (follower.Id != followed.Id)
-            await Repository.FollowAsync(follower, followed);
-
-        return RedirectToPage();
-    }
-
-    public async Task<IActionResult> OnPostUnfollowAsync(string authorName)
-    {
-        var follower = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
-        var followed = await Repository.GetAuthorFromNameAsync(authorName);
-
-        if (follower == null || followed == null) return RedirectToPage();
-
-        var followerSet = await Repository.AuthorFollowing(follower);
-
-        var alreadyFollowing = followerSet.Any(f =>
-            f.FollowingAuthorId == follower.Id &&
-            f.FollowedAuthorId == followed.Id
-        );
-
-        if (!alreadyFollowing) return RedirectToPage();
-        if (follower.Id != followed.Id)
-            await Repository.UnfollowAsync(follower, followed);
-
-        return RedirectToPage();
     }
 }
