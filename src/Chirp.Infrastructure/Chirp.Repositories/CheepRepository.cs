@@ -72,6 +72,23 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return await query.FirstOrDefaultAsync();
     }
 
+    public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor)
+    {
+        return Task.FromResult(dbContext.Followers.Where(follower => follower.FollowingAuthorId == followingAuthor.Id)
+            .ToHashSet());
+        ;
+    }
+
+    public async Task<int> AuthorFollowersCount(Author author)
+    {
+        var count = await
+            dbContext.Followers
+                .Where(follower => follower.FollowedAuthorId == author.Id)
+                .CountAsync();
+
+        return count;
+    }
+
     // ============== Post Endpoints ============== //
 
     public async Task<int> PostCheepAsync(Author author, int cheepId, string text)
@@ -113,12 +130,5 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
             .ExecuteDeleteAsync();
 
         return rowsDeleted;
-    }
-
-    public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor)
-    {
-        return Task.FromResult(dbContext.Followers.Where(follower => follower.FollowingAuthorId == followingAuthor.Id)
-            .ToHashSet());
-        ;
     }
 }
