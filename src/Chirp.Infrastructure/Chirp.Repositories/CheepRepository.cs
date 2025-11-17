@@ -90,7 +90,9 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         dbContext.Followers.Add(new Followers
         {
             FollowingAuthorId = followingAuthor.Id,
-            FollowedAuthorId = followedAuthor.Id
+            FollowingAuthorName = followingAuthor.UserName,
+            FollowedAuthorId = followedAuthor.Id,
+            FollowedAuthorName = followedAuthor.UserName
         });
 
         AuthorFollowing(followingAuthor);
