@@ -145,6 +145,7 @@ div.page ul.cheeps {
     padding: 0;
 }
 
+
 div.page ul.cheeps li {
     margin: 10px 0;
     padding: 5px;
@@ -156,10 +157,6 @@ div.page ul.cheeps li {
     min-height: 48px;
 }
 
-div.page ul.cheeps p {
-    margin: 0;
-}
-
 div.page ul.cheeps li img {
     float: left;
     padding: 0 10px 0 0;
@@ -168,6 +165,29 @@ div.page ul.cheeps li img {
 div.page ul.cheeps li small {
     font-size: 0.9em;
     color: #888;
+}
+
+div.page ul.cheeps .follow-form {
+    margin: 0;
+}
+
+div.page ul.cheeps .follow-form button {
+    margin: 0;
+}
+
+div.page ul.cheeps .cheep-content {
+    margin: 0;
+}
+
+div.page ul.cheeps .cheep-content strong {
+    margin-right: 8px;
+}
+
+div.page ul.cheeps .cheep-content .header-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
 }
 
 div.page div.cheepbox {

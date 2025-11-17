@@ -15,16 +15,19 @@
             @foreach (var cheep in Model.Cheeps)
             {
                 <li>
-                    <p>
-                        <strong>
-                            <a href="/Users/@cheep.AuthorName">@cheep.AuthorName</a>
-                        </strong>
-                        <form method="post">
-                        <button class="follow-button" asp-page-handler="Follow">Follow</button>
-                        <form/>
+                    <div class="cheep-content">
+                        <div class="header-line">
+                            <strong>
+                                <a href="/Users/@cheep.AuthorName">@cheep.AuthorName</a>
+                            </strong>
+                            <form method="post" class="follow-form">
+                                <button class="follow-button" asp-page-handler="Follow" name="AuthorName" value="@cheep.AuthorName">Follow</button>
+                            </form>
+                        </div>
+
                         @cheep.Text
                         <small>&mdash; @cheep.Timestamp</small>
-                    </p>
+                    </div>
                 </li>
             }
         </ul>
