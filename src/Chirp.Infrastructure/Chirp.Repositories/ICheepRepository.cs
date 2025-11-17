@@ -14,6 +14,5 @@ public interface ICheepRepository
     public Task<int> PostCheepAsync(Author author, int cheepId, string text);
     public Task<int> FollowAsync(Author followingAuthor, Author followedAuthor);
     public Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor);
-    public Task<Author?> GetAuthorFollowers(Author author);
     public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor);
 }

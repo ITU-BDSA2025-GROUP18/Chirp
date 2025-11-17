@@ -118,10 +118,4 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
             .ToHashSet());
         ;
     }
-
-    public async Task<Author?> GetAuthorFollowers(Author author)
-    {
-        //
-        return null;
-    }
 }
