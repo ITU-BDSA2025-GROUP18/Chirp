@@ -31,10 +31,18 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return await dbContext.Cheeps.CountAsync();
     }
 
-    public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string authorName, int page)
+    public async Task<int> GetCheepsFromAuthorsCountAsync(IEnumerable<string> authors)
+    {
+        var query = dbContext.Cheeps.Where(cheep => authors.Contains(cheep.Author.UserName))
+            .OrderByDescending(cheep => cheep.TimeStamp).CountAsync();
+
+        return await query;
+    }
+
+    public async Task<List<CheepDTO>> GetCheepsFromAuthorsAsync(IEnumerable<string> authors, int page)
     {
         var query = dbContext.Cheeps
-            .Where(cheep => cheep.Author.UserName == authorName)
+            .Where(cheep => authors.Contains(cheep.Author.UserName))
             .OrderByDescending(cheep => cheep.TimeStamp)
             .Skip((page - 1) * 32)
             .Take(32)
@@ -46,11 +54,6 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
             });
 
         return await query.ToListAsync();
-    }
-
-    public async Task<int> GetCheepsFromAuthorCountAsync(string authorName)
-    {
-        return await dbContext.Cheeps.Where(cheep => cheep.Author.UserName == authorName).CountAsync();
     }
 
     public async Task<Author?> GetAuthorFromNameAsync(string authorName)
