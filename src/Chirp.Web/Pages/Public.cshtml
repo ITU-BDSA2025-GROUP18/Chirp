@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using Chirp.Core
 @model Chirp.Web.Pages.PublicModel
+@inject SignInManager<Author> SignInManager
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
@@ -20,9 +22,12 @@
                             <strong>
                                 <a href="/Users/@cheep.AuthorName">@cheep.AuthorName</a>
                             </strong>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
                             <form method="post" class="follow-form">
                                 <button class="follow-button" asp-page-handler="Follow" name="AuthorName" value="@cheep.AuthorName">Follow</button>
                             </form>
+                            }
                         </div>
 
                         @cheep.Text
