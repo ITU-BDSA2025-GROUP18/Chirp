@@ -174,26 +174,48 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetCheepsFromAuthorCountAsyncTest()
     {
+        //This test will test if we can receieve the correct amount of cheeps
+        //from specific authors.
+        
         //Arrange
         var dbContext = SqliteDBContext(); //Using fresh sql database
-        var author = new Author { UserName = "Eddie" }; //creates author
-        dbContext.Authors.AddRange(author);
-
-        dbContext.Cheeps.AddRange(new Cheep
-        {
-            Author = author,
-            Text = "Eddies cheep",
-            TimeStamp = DateTime.UtcNow
-        }); //Creates cheep(s) with author, text & time
+        var author1 = new Author { UserName = "Eddie" }; //creates author
+        dbContext.Authors.AddRange(author1);
+        var author2 = new Author { UserName = "Vinnie" }; //creates author
+        dbContext.Authors.AddRange(author2);
+        var author3 = new Author { UserName = "Oli" }; //creates author
+        dbContext.Authors.AddRange(author3);
 
         for (int i = 0; i < 7; i++)
         { //Creating cheeps for author Eddie
             dbContext.Cheeps.Add(new Cheep
             {
-                Author = author,
-                Text = $"Chirp {i}",
+                Author = author1,
+                Text = $"Eddies cheep {i}",
                 TimeStamp = DateTime.UtcNow
-            });
+            });//Creates cheep(s) with author, text & time
+
+        }
+
+        for (int i = 0; i < 11; i++)
+        { //Creating cheeps for author Vinnie
+            dbContext.Cheeps.Add(new Cheep
+            {
+                Author = author2,
+                Text = $"Vinnies {i}",
+                TimeStamp = DateTime.UtcNow
+            });//Creates cheep(s) with author, text & time
+
+        }
+
+        for (int i = 0; i < 3; i++)
+        { //Creating cheeps for author Oli
+            dbContext.Cheeps.Add(new Cheep
+            {
+                Author = author3,
+                Text = $"Olis {i}",
+                TimeStamp = DateTime.UtcNow
+            });//Creates cheep(s) with author, text & time
 
         }
 
@@ -202,9 +224,15 @@ public class CheepRepositoryUnitTests
         var repository = new CheepRepository(dbContext);
 
         //Act
-        var results = await repository.GetCheepsFromAuthorCountAsync("Eddie");
+        var eddieresults = await repository.GetCheepsFromAuthorCountAsync("Eddie");
+        var vinnieresults = await repository.GetCheepsFromAuthorCountAsync("Vinnie");
+        var oliresults = await repository.GetCheepsFromAuthorCountAsync("Oli");
 
         //Assert
+        Assert.Equal(7, eddieresults);
+        Assert.Equal(11, vinnieresults);
+        Assert.Equal(3, oliresults);
+        //Checking that the correct count of cheeps is for all three authors
     }
 
     [Fact]
