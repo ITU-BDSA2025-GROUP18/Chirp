@@ -1,5 +1,7 @@
-﻿@page "/{author}"
+﻿@page "/Users/{author}"
+@using Chirp.Core
 @model Chirp.Web.Pages.UserTimelineModel
+@inject SignInManager<Author> SignInManager
 @{
     ViewData["Title"] = "Chirp!";
     Layout = "Shared/_Layout";
@@ -7,7 +9,16 @@
 }
 
 <div>
-    <h2> @routeName's Timeline </h2>
+    <div class="user-header">
+        <h2>@routeName's Timeline </h2>
+        <div class="stats-box">
+            <div class="stat-item stat-title">Following</div>
+            <div class="stat-item stat-title">Followers</div>
+            <div class="stat-item">@Model.Following.Count</div>
+            <div class="stat-item">@Model.Followers</div>
+        </div>
+    </div>
+    <partial name="_PostPartial"/>
 
     @if (Model.Cheeps.Any())
     {
@@ -15,13 +26,34 @@
             @foreach (var cheep in Model.Cheeps)
             {
                 <li>
-                    <p>
-                        <strong>
-                            <a href="/@cheep.AuthorName">@cheep.AuthorName</a>
-                        </strong>
+                    <div class="cheep-content">
+                        <div class="header-line">
+                            <strong>
+                                <a href="/Users/@cheep.AuthorName">@cheep.AuthorName</a>
+                            </strong>
+                            @if (SignInManager.IsSignedIn(User) && User.Identity!.Name! != cheep.AuthorName)
+                            {
+                                @if (!Model.Following.Contains(cheep.AuthorName))
+                                {
+                                    <form method="post" class="follow-form">
+                                        <button class="follow-button" asp-page-handler="Follow" name="AuthorName"
+                                                value="@cheep.AuthorName">Follow
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form method="post" class="follow-form">
+                                        <button class="follow-button" asp-page-handler="Unfollow" name="AuthorName"
+                                                value="@cheep.AuthorName">Unfollow
+                                        </button>
+                                    </form>
+                                }
+                            }
+                        </div>
                         @cheep.Text
                         <small>&mdash; @cheep.Timestamp</small>
-                    </p>
+                    </div>
                 </li>
             }
         </ul>
@@ -31,3 +63,18 @@
         <em>There are no cheeps so far.</em>
     }
 </div>
+
+@section scripts {
+    <script>
+        document.querySelector(".pagination-footer").style.display = "block";
+        let ct = Math.ceil(@Model.AuthorCheepsCount / 32);
+        if (ct === 0) {
+            ct = 1;
+        }
+        const lastPageButton = document.querySelector(".last-page")
+
+        lastPageButton.addEventListener("click", () => {
+            document.location = "?page=" + ct;
+        })
+    </script>
+}

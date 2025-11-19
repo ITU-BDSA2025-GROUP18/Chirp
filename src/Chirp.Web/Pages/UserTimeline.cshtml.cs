@@ -1,23 +1,44 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Chirp.Core;
+using Chirp.Database;
+using Microsoft.AspNetCore.Mvc;
 using Chirp.Repositories;
+using Chirp.Web.Pages.Shared;
 
 namespace Chirp.Web.Pages;
 
-public class UserTimelineModel : PageModel //All queries
+public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbContext)
+    : TimelineModel(repository, dbContext) //All queries
 {
-    private readonly ICheepRepository _repository;
-    public List<CheepDTO> Cheeps { get; set; }
-
-    public UserTimelineModel(ICheepRepository repository)
-    {
-        _repository = repository;
-        Cheeps = new List<CheepDTO>();
-    }
+    public int AuthorCheepsCount;
 
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
-        Cheeps = await _repository.GetCheepsFromAuthorAsync(author, page);
+        var authorsToFetch = new HashSet<string> { author };
+        var principal = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+
+        if (principal != null)
+        {
+            Followers = await Repository.AuthorFollowersCount(principal);
+            var followerSet = Repository.AuthorFollowing(principal).Result;
+            foreach (var follower in followerSet) authorsToFetch.Add(follower.FollowedAuthorName);
+        }
+        else
+        {
+            var viewedAuthor = await Repository.GetAuthorFromNameAsync(author);
+
+            if (viewedAuthor != null)
+            {
+                Followers = await Repository.AuthorFollowersCount(viewedAuthor);
+                var followerSet = Repository.AuthorFollowing(viewedAuthor).Result;
+                foreach (var follower in followerSet) authorsToFetch.Add(follower.FollowedAuthorName);
+            }
+        }
+
+        Cheeps = await Repository.GetCheepsFromAuthorsAsync(authorsToFetch, page);
+
+        Following = new HashSet<string>(authorsToFetch.Where(name => name != author));
+        AuthorCheepsCount = await Repository.GetCheepsFromAuthorsCountAsync(authorsToFetch);
+
         return Page();
     }
 }

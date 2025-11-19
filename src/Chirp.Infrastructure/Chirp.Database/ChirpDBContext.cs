@@ -1,22 +1,16 @@
 
 using Chirp.Core;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Database;
 
-
-
-
-public class ChirpDBContext : DbContext
+public class ChirpDBContext(DbContextOptions<ChirpDBContext> options) : IdentityDbContext<Author>(options)
 {
     public DbSet<Cheep> Cheeps { get; set; }
     public DbSet<Author> Authors { get; set; }
 
-    public ChirpDBContext(DbContextOptions<ChirpDBContext> options) : base(options)
-    {
-        // Seeding the database with example data
-        DbInitializer.SeedDatabase(this);
-    }
+    public DbSet<Followers> Followers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,16 +24,12 @@ public class ChirpDBContext : DbContext
             .Property(c => c.Text)
             .HasMaxLength(160);
 
-        modelBuilder.Entity<Author>()
-            .HasIndex(a => a.AuthorId)
-            .IsUnique();
+        modelBuilder.Entity<Cheep>()
+            .HasOne(c => c.Author)
+            .WithMany(a => a.Cheeps)
+            .HasForeignKey("AuthorId");
 
-        modelBuilder.Entity<Author>()
-                    .HasIndex(a => a.Name)
-                    .IsUnique();
-        
-        modelBuilder.Entity<Author>()
-            .HasIndex(a => a.Email)
-            .IsUnique();
+        modelBuilder.Entity<Followers>()
+            .HasKey(f => new { f.FollowingAuthorId, f.FollowedAuthorId });
     }
 }

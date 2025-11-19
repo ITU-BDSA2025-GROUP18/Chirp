@@ -5,9 +5,7 @@ permissions:
   contents: write
 
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -63,7 +61,15 @@ jobs:
 
     strategy:
       matrix:
-        os: ['linux-arm64', 'linux-x64', 'osx-arm64', 'osx-x64', 'win-arm64', 'win-x64']
+        os:
+          [
+            "linux-arm64",
+            "linux-x64",
+            "osx-arm64",
+            "osx-x64",
+            "win-arm64",
+            "win-x64",
+          ]
 
     runs-on: ubuntu-latest
     steps:

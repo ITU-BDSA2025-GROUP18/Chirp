@@ -7,42 +7,31 @@
 </head>
 <body>
 <div class=page>
-    <h1><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
-    <div class=navigation>
-        @if (User.Identity.IsAuthenticated) //TODO: This creates an error in console right now, but will be fixed with auth
-        //TODO: User.Identity.Name needs to be changed, so it works with the auth process
-        {
-            <div>
-                <a href="/@(User.Identity.Name)">my timeline</a> |
-                <a href="/">public timeline</a> |
-                <a ... >logout [@(User.Identity.Name)]</a>
-            </div>
-        }
-        else
-        {
-            <div>
-                <a href="/">public timeline</a> |
-                <a href="/register"... >register</a> |
-                <a href="login"... >login</a>
-            </div>
-        }
-    </div>
+    <h1>
+        <img src="/images/icon1.png" alt="Icon1" id="Icon1" onclick="location.href='/'"/>
+        <a id="chirptitle">Chirp!</a>
+    </h1>
+
+    <partial name="_LoginPartial" />
 
     <div class=body>
         @RenderBody()
     </div>
+
     <div class=footer>
-        <div class="pagination-controls">
-            <a class="first-page"><<</a>
-            <a class="previous-page">Previous Page</a>
-            <div class="page-indicator"></div>
-            <a class="next-page">Next Page</a>
-            <a class="last-page">>></a>
-        </div>
-        <div class="page-field-container">
-            Enter page: <
-            <input class="page-field"/>
-            >
+        <div class="pagination-footer">
+            <div class="pagination-controls">
+                <a class="first-page"><<</a>
+                <a class="previous-page">Previous Page</a>
+                <div class="page-indicator"></div>
+                <a class="next-page">Next Page</a>
+                <a class="last-page">>></a>
+            </div>
+            <div class="page-field-container">
+                Enter page: <
+                <input class="page-field"/>
+                >
+            </div>
         </div>
         <div>
             Chirp &mdash; An ASP.NET Application
@@ -52,15 +41,7 @@
 <video autoplay loop id="bg-video" style="pointer-events: none;">
     <source src="" id="bg-source"/>
 </video>
-<environment include="Testing">
-    <span style="display:none">Helge</span>
-</environment>
-<environment include="Testing">
-    <!-- Hello, BDSA students! -->
-</environment>
 </body>
-<script src="js/script.js" type="text/javascript"></script>
+<script src="../js/script.js" type="text/javascript"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </html>
-
-

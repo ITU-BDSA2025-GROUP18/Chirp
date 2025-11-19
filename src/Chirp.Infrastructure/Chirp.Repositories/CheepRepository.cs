@@ -1,134 +1,134 @@
-
-using System.Globalization;
 using Chirp.Core;
+using Chirp.Core.DTOS;
+using Chirp.Core.Helpers;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chirp.Repositories;
 
-#nullable disable
-
-public class CheepDTO
+public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Queries
 {
-    public string AuthorName;
-    public string Text;
-    public string Timestamp;
-}
-
-public class AuthorDTO
-{
-    public string Name;
-    public string Email;
-}
-
-#nullable restore
-
-public class CheepRepository : ICheepRepository //Queries
-{
-    private readonly ChirpDBContext _dbContext;
-
-    public CheepRepository(ChirpDBContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     // ============== Get Endpoints ============== //
 
     public async Task<List<CheepDTO>> GetCheepsAsync(int page)
     {
-        var query = _dbContext.Cheeps
+        var query = dbContext.Cheeps
             .OrderByDescending(cheep => cheep.TimeStamp)
             .Skip((page - 1) * 32)
             .Take(32)
             .Select(cheep => new CheepDTO
             {
-                AuthorName = cheep.Author.Name,
+                AuthorName = cheep.Author.UserName!,
                 Text = cheep.Text,
-                Timestamp = TimeStampToLocalTimeString(cheep.TimeStamp)
+                Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
             });
 
         return await query.ToListAsync();
     }
 
-    public async Task<List<CheepDTO>> GetCheepsFromAuthorAsync(string author, int page)
+    public async Task<int> GetCheepsCountAsync()
     {
-        var query = _dbContext.Cheeps
-            .Where(cheep => cheep.Author.Name == author)
+        return await dbContext.Cheeps.CountAsync();
+    }
+
+    public async Task<int> GetCheepsFromAuthorsCountAsync(IEnumerable<string> authors)
+    {
+        var query = dbContext.Cheeps.Where(cheep => authors.Contains(cheep.Author.UserName))
+            .OrderByDescending(cheep => cheep.TimeStamp).CountAsync();
+
+        return await query;
+    }
+
+    public async Task<List<CheepDTO>> GetCheepsFromAuthorsAsync(IEnumerable<string> authors, int page)
+    {
+        var query = dbContext.Cheeps
+            .Where(cheep => authors.Contains(cheep.Author.UserName))
             .OrderByDescending(cheep => cheep.TimeStamp)
             .Skip((page - 1) * 32)
             .Take(32)
             .Select(cheep => new CheepDTO
             {
-                AuthorName = cheep.Author.Name,
+                AuthorName = cheep.Author.UserName!,
                 Text = cheep.Text,
-                Timestamp = TimeStampToLocalTimeString(cheep.TimeStamp)
+                Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
             });
 
         return await query.ToListAsync();
     }
 
-    public async Task<AuthorDTO?> GetAuthorFromNameAsync(string name)
+    public async Task<Author?> GetAuthorFromNameAsync(string authorName)
     {
-        var query = _dbContext.Authors
-            .Where(author => author.Name == name)
-            .Select(author => new AuthorDTO
-            {
-                Name = author.Name,
-                Email = author.Email
-            });
+        var query = dbContext.Authors
+            .Where(author => author.UserName == authorName);
 
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<AuthorDTO?> GetAuthorFromEmailAsync(string email)
+    public async Task<Author?> GetAuthorFromEmailAsync(string email)
     {
-        var query = _dbContext.Authors
-            .Where(author => author.Email == email)
-            .Select(author => new AuthorDTO
-            {
-                Name = author.Name,
-                Email = author.Email
-            });
+        var query = dbContext.Authors
+            .Where(author => author.Email == email);
 
         return await query.FirstOrDefaultAsync();
+    }
+
+    public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor)
+    {
+        return Task.FromResult(dbContext.Followers.Where(follower => follower.FollowingAuthorId == followingAuthor.Id)
+            .ToHashSet());
+        ;
+    }
+
+    public async Task<int> AuthorFollowersCount(Author author)
+    {
+        var count = await
+            dbContext.Followers
+                .Where(follower => follower.FollowedAuthorId == author.Id)
+                .CountAsync();
+
+        return count;
     }
 
     // ============== Post Endpoints ============== //
 
-    //TODO: Can this be moved to a service class
-    public async Task<int> PostAuthorAsync(string name, string email)
+    public async Task<int> PostCheepAsync(Author author, int cheepId, string text)
     {
-        // Creates an author returns the number of state entries written to the database.
-        _dbContext.Authors.Add(new Author()
+        dbContext.Cheeps.Add(new Cheep
         {
-            AuthorId = _dbContext.Authors.Last().AuthorId + 1,
-            Name = name,
-            Email = email,
-            Cheeps = new List<Cheep>()
-        });
-
-        return await _dbContext.SaveChangesAsync();
-    }
-
-    //TODO: Can this be moved to a service class
-    public async Task<int> PostCheepAsync(Author author, string text)
-    {
-        _dbContext.Cheeps.Add(new Cheep()
-        {
-            CheepId = _dbContext.Cheeps.Last().CheepId + 1,
+            CheepId = cheepId,
             Text = text,
             TimeStamp = DateTime.UtcNow,
-            Author = author,
-            AuthorId = author.AuthorId
+            Author = author
         });
 
-        return await _dbContext.SaveChangesAsync();
+        return await dbContext.SaveChangesAsync();
     }
 
-
-    //TODO: Can this be moved to a service class
-    private static string TimeStampToLocalTimeString(DateTime timestamp)
+    //TODO: Move into seperate class "FollowerRepository"
+    public async Task<int> FollowAsync(Author followingAuthor, Author followedAuthor)
     {
-        return timestamp.ToLocalTime().ToString(CultureInfo.InvariantCulture);
+        dbContext.Followers.Add(new Followers
+        {
+            FollowingAuthorId = followingAuthor.Id,
+            FollowingAuthorName = followingAuthor.UserName,
+            FollowedAuthorId = followedAuthor.Id,
+            FollowedAuthorName = followedAuthor.UserName
+        });
+
+        AuthorFollowing(followingAuthor);
+        return await dbContext.SaveChangesAsync();
+    }
+
+    //TODO: Move into seperate class "FollowerRepository"
+    public async Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor)
+    {
+        Console.WriteLine(followingAuthor + " " + followedAuthor);
+        var rowsDeleted = await dbContext.Followers
+            .Where(follower =>
+                follower.FollowingAuthorId == followingAuthor.Id &&
+                follower.FollowedAuthorId == followedAuthor.Id)
+            .ExecuteDeleteAsync();
+
+        return rowsDeleted;
     }
 }

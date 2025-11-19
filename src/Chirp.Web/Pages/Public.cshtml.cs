@@ -1,23 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Chirp.Core;
+using Chirp.Database;
+using Microsoft.AspNetCore.Mvc;
 using Chirp.Repositories;
+using Chirp.Web.Pages.Shared;
 
 namespace Chirp.Web.Pages;
 
-public class PublicModel : PageModel //All queries
+public class PublicModel(ICheepRepository repository, ChirpDBContext dbContext)
+    : TimelineModel(repository, dbContext) //All queries
 {
-    private readonly ICheepRepository _repository;
-    public List<CheepDTO> Cheeps { get; set; }
-
-    public PublicModel(ICheepRepository repository)
-    {
-        _repository = repository;
-        Cheeps = new List<CheepDTO>();
-    }
+    public int CheepsCount;
 
     public async Task<ActionResult> OnGet([FromQuery] int page = 1)
     {
-        Cheeps = await _repository.GetCheepsAsync(page);
+        Cheeps = await Repository.GetCheepsAsync(page);
+        CheepsCount = Repository.GetCheepsCountAsync().Result;
+        var principal = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+        var followerStringSet = new HashSet<string> { };
+        if (principal != null)
+        {
+            var followerSet = Repository.AuthorFollowing(principal).Result;
+            foreach (var follower in followerSet) followerStringSet.Add(follower.FollowedAuthorName);
+        }
+
+        Following = followerStringSet;
         return Page();
     }
 }
