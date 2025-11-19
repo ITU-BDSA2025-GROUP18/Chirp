@@ -42,12 +42,11 @@ public class CheepRepositoryUnitTests
         }); //Creates cheep(s) with author, text & time
 
 
-
         await dbContext.SaveChangesAsync();
 
         var repository = new CheepRepository(dbContext);
         //Act
-        var results = await repository.GetCheepsFromAuthorAsync("Eddie", page: 1);
+        var results = await repository.GetCheepsFromAuthorsAsync(new HashSet<string> { "Eddie" }, 1);
         // We're retrieving all results from eddie's page 1.
 
         //Assert
@@ -75,8 +74,8 @@ public class CheepRepositoryUnitTests
 
         await dbContext.SaveChangesAsync(); //Saves changes(adding authors) to dbContext
 
-        for (int i = 0; i < 32; i++)
-        { //Creating cheeps for author Eddie
+        for (var i = 0; i < 32; i++)
+            //Creating cheeps for author Eddie
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author1,
@@ -84,18 +83,14 @@ public class CheepRepositoryUnitTests
                 TimeStamp = DateTime.UtcNow
             });
 
-        }
-
-        for (int i = 0; i < 5; i++)
-        { //Creating cheeps for author Vinnie
+        for (var i = 0; i < 5; i++)
+            //Creating cheeps for author Vinnie
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author2,
                 Text = $"Chirp {i}",
                 TimeStamp = DateTime.UtcNow
             });
-
-        }
 
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
@@ -131,8 +126,8 @@ public class CheepRepositoryUnitTests
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
 
-        for (int i = 0; i < 5; i++)
-        { //Creating cheeps for author Eddie
+        for (var i = 0; i < 5; i++)
+            //Creating cheeps for author Eddie
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author1,
@@ -140,10 +135,8 @@ public class CheepRepositoryUnitTests
                 TimeStamp = DateTime.UtcNow
             });
 
-        }
-
-        for (int i = 0; i < 7; i++)
-        { //Creating cheeps for author Vinnie
+        for (var i = 0; i < 7; i++)
+            //Creating cheeps for author Vinnie
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author2,
@@ -151,18 +144,14 @@ public class CheepRepositoryUnitTests
                 TimeStamp = DateTime.UtcNow
             });
 
-        }
-
-        for (int i = 0; i < 2; i++)
-        { //Creating cheeps for author Oli
+        for (var i = 0; i < 2; i++)
+            //Creating cheeps for author Oli
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author3,
                 Text = $"Chirp {i}",
                 TimeStamp = DateTime.UtcNow
             });
-
-        }
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
         var repository = new CheepRepository(dbContext);
@@ -172,7 +161,7 @@ public class CheepRepositoryUnitTests
         var results = await repository.GetCheepsCountAsync();
 
         //Assert
-        Assert.Equal(14,results);
+        Assert.Equal(14, results);
     }
 
     [Fact]
@@ -190,47 +179,41 @@ public class CheepRepositoryUnitTests
         var author3 = new Author { UserName = "Oli" }; //creates author
         dbContext.Authors.AddRange(author3);
 
-        for (int i = 0; i < 7; i++)
-        { //Creating cheeps for author Eddie
+        for (var i = 0; i < 7; i++)
+            //Creating cheeps for author Eddie
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author1,
                 Text = $"Eddies cheep {i}",
                 TimeStamp = DateTime.UtcNow
-            });//Creates cheep(s) with author, text & time
+            }); //Creates cheep(s) with author, text & time
 
-        }
-
-        for (int i = 0; i < 11; i++)
-        { //Creating cheeps for author Vinnie
+        for (var i = 0; i < 11; i++)
+            //Creating cheeps for author Vinnie
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author2,
                 Text = $"Vinnies {i}",
                 TimeStamp = DateTime.UtcNow
-            });//Creates cheep(s) with author, text & time
+            }); //Creates cheep(s) with author, text & time
 
-        }
-
-        for (int i = 0; i < 3; i++)
-        { //Creating cheeps for author Oli
+        for (var i = 0; i < 3; i++)
+            //Creating cheeps for author Oli
             dbContext.Cheeps.Add(new Cheep
             {
                 Author = author3,
                 Text = $"Olis {i}",
                 TimeStamp = DateTime.UtcNow
-            });//Creates cheep(s) with author, text & time
-
-        }
+            }); //Creates cheep(s) with author, text & time
 
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
         var repository = new CheepRepository(dbContext);
 
         //Act
-        var eddieresults = await repository.GetCheepsFromAuthorCountAsync("Eddie");
-        var vinnieresults = await repository.GetCheepsFromAuthorCountAsync("Vinnie");
-        var oliresults = await repository.GetCheepsFromAuthorCountAsync("Oli");
+        var eddieresults = await repository.GetCheepsFromAuthorsCountAsync(new HashSet<string> { "Eddie" });
+        var vinnieresults = await repository.GetCheepsFromAuthorsCountAsync(new HashSet<string> { "Vinnie" });
+        var oliresults = await repository.GetCheepsFromAuthorsCountAsync(new HashSet<string> { "Oli" });
 
         //Assert
         Assert.Equal(7, eddieresults);
@@ -305,7 +288,7 @@ public class CheepRepositoryUnitTests
         var dbContext = SqliteDBContext(); //Using fresh sql database
 
         //creates author with username and email
-        var author = new Author { UserName = "Eddie", Email = "erze@itu.dk"};
+        var author = new Author { UserName = "Eddie", Email = "erze@itu.dk" };
         dbContext.Authors.AddRange(author);
 
         //Saving changes and adds it to the repository
@@ -332,7 +315,7 @@ public class CheepRepositoryUnitTests
         var dbContext = SqliteDBContext(); //Using fresh sql database
 
         //creates author with username and email
-        var author = new Author { UserName = "Eddie", Email = "erze@itu.dk"};
+        var author = new Author { UserName = "Eddie", Email = "erze@itu.dk" };
         dbContext.Authors.AddRange(author);
 
         //Saving changes and adds it to the repository
