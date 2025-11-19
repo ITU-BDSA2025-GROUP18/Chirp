@@ -15,7 +15,8 @@ public class TimelineModel(ICheepRepository repository, ChirpDBContext dbContext
     protected readonly ChirpDBContext DbContext = dbContext;
     public List<CheepDTO> Cheeps { get; set; } = [];
     public HashSet<string> Following { get; set; } = [];
-    public int Followers { get; set; } = 0;
+    public int FollowersCt { get; set; } = 0;
+    public int FollowingCt { get; set; } = 0;
 
     [BindProperty]
     [StringLength(160, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
