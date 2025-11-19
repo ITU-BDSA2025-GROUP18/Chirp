@@ -1,18 +1,44 @@
-﻿using Chirp.Database;
+﻿using Chirp.Core;
+using Chirp.Database;
 using Microsoft.AspNetCore.Mvc;
 using Chirp.Repositories;
 using Chirp.Web.Pages.Shared;
 
 namespace Chirp.Web.Pages;
 
-public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbContext) : TimelineModel(repository, dbContext) //All queries
+public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbContext)
+    : TimelineModel(repository, dbContext) //All queries
 {
     public int AuthorCheepsCount;
 
     public async Task<ActionResult> OnGet(string author, [FromQuery] int page = 1)
     {
-        Cheeps = await Repository.GetCheepsFromAuthorAsync(author, page);
-        AuthorCheepsCount = Repository.GetCheepsFromAuthorCountAsync(author).Result;
+        var authorsToFetch = new HashSet<string> { author };
+        var principal = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+
+        if (principal != null)
+        {
+            Followers = await Repository.AuthorFollowersCount(principal);
+            var followerSet = Repository.AuthorFollowing(principal).Result;
+            foreach (var follower in followerSet) authorsToFetch.Add(follower.FollowedAuthorName);
+        }
+        else
+        {
+            var viewedAuthor = await Repository.GetAuthorFromNameAsync(author);
+
+            if (viewedAuthor != null)
+            {
+                Followers = await Repository.AuthorFollowersCount(viewedAuthor);
+                var followerSet = Repository.AuthorFollowing(viewedAuthor).Result;
+                foreach (var follower in followerSet) authorsToFetch.Add(follower.FollowedAuthorName);
+            }
+        }
+
+        Cheeps = await Repository.GetCheepsFromAuthorsAsync(authorsToFetch, page);
+
+        Following = new HashSet<string>(authorsToFetch.Where(name => name != author));
+        AuthorCheepsCount = await Repository.GetCheepsFromAuthorsCountAsync(authorsToFetch);
+
         return Page();
     }
 }

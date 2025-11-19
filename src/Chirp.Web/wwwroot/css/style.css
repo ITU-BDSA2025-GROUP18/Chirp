@@ -110,6 +110,49 @@ div.page div.navigation form button {
     transition: var(--transition);
 }
 
+div.page h2 {
+    margin: 0 0 15px 0;
+    color: #571010;
+    text-shadow: 0 1px 2px #ccc;
+}
+
+div.page .user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+div.page .user-header .stats-box {
+    display: grid;
+    grid-template-areas:
+        "a b"
+        "c d";
+    grid-gap: 5px;
+    text-align: center;
+}
+
+.stat-title {
+    font-weight: bold;
+}
+
+.stats-box .stat-item:nth-child(1) {
+    grid-area: a;
+}
+
+.stats-box .stat-item:nth-child(2) {
+    grid-area: b;
+}
+
+.stats-box .stat-item:nth-child(3) {
+    grid-area: c;
+}
+
+.stats-box .stat-item:nth-child(4) {
+    grid-area: d;
+}
+
+div.page div.body {
+    padding: 10px;
 div.page div.navigation form button:hover {
     color: #772424;
 }
@@ -143,6 +186,21 @@ div.page div.footer {
     align-items: center;
 }
 
+
+div.page ul.cheeps li {
+    margin: 10px 0;
+    padding: 5px;
+    background: #F0FAF9;
+    border: 1px solid #DBF3F1;
+    border-radius: 2px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    min-height: 48px;
+}
+
+div.page ul.cheeps li img {
+    float: left;
+    padding: 0 10px 0 0;
 .page-field {
     width: 20px;
     font-size: 11px;
@@ -161,6 +219,30 @@ div.page h2 {
     color: #571010;
     text-shadow: 0 1px 2px #aaa;
     cursor: default;
+}
+
+div.page ul.cheeps .follow-form {
+    margin: 0;
+    padding-right: 5px;
+}
+
+div.page ul.cheeps .follow-form button {
+    margin: 0;
+}
+
+div.page ul.cheeps .cheep-content {
+    margin: 0;
+}
+
+div.page ul.cheeps .cheep-content strong {
+    margin-right: 8px;
+}
+
+div.page ul.cheeps .cheep-content .header-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
 }
 
 div.page div.cheepbox {
@@ -274,6 +356,17 @@ button {
 
 button:hover {
     background-color: #8b4949;
+}
+
+.follow-button {
+    background: #dee9e8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: black;
+}
+
+.follow-button:hover {
+    background: #c1d3d2;
 }
 
 ul.nav {

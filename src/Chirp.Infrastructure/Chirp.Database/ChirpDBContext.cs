@@ -10,6 +10,8 @@ public class ChirpDBContext(DbContextOptions<ChirpDBContext> options) : Identity
     public DbSet<Cheep> Cheeps { get; set; }
     public DbSet<Author> Authors { get; set; }
 
+    public DbSet<Followers> Followers { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -26,5 +28,8 @@ public class ChirpDBContext(DbContextOptions<ChirpDBContext> options) : Identity
             .HasOne(c => c.Author)
             .WithMany(a => a.Cheeps)
             .HasForeignKey("AuthorId");
+
+        modelBuilder.Entity<Followers>()
+            .HasKey(f => new { f.FollowingAuthorId, f.FollowedAuthorId });
     }
 }
