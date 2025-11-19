@@ -5,36 +5,14 @@
     <link href="/css/style.css" rel="stylesheet" type="text/css"/>
     <link rel="icon" type="image/png" href="/favicon/favicon.ico">
 </head>
-<!-- partial name="_LoginPartial" /-->
 <body>
 <div class=page>
-    <h1 onclick="location.href='/'" id="Icon1"><img src="/images/icon1.png" alt="Icon1"/>Chirp!</h1>
-    <div class=navigation>
-        @if (User.Identity!.IsAuthenticated)
-        {
-            <div>
-                <a href="/Users/@(User.Identity.Name)">My timeline</a> |
-                <a href="/">Public timeline</a> |
-                <a href="/Identity/Account/Manage">Manage account</a> |
-                <a>
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout"
-                          asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                        <button type="submit" class="nav-link btn btn-link text-dark">Logout [@(User.Identity.Name)]
-                        </button>
-                    </form>
-                </a>
-                <!-- a href="/Identity/Account/Logout">Logout [@(User.Identity.Name)]</a-->
-            </div>
-        }
-        else
-        {
-            <div>
-                <a href="/">Public timeline</a> |
-                <a href="/Identity/Account/Register" ...>Register</a> |
-                <a href="/Identity/Account/Login" ...>Login</a>
-            </div>
-        }
-    </div>
+    <h1>
+        <img src="/images/icon1.png" alt="Icon1" id="Icon1" onclick="location.href='/'"/>
+        <a id="chirptitle">Chirp!</a>
+    </h1>
+
+    <partial name="_LoginPartial" />
 
     <div class=body>
         @RenderBody()
@@ -63,15 +41,7 @@
 <video autoplay loop id="bg-video" style="pointer-events: none;">
     <source src="" id="bg-source"/>
 </video>
-<environment include="Testing">
-    <span style="display:none">Helge</span>
-</environment>
-<environment include="Testing">
-    <!-- Hello, BDSA students! -->
-</environment>
 </body>
 <script src="../js/script.js" type="text/javascript"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </html>
-
-
