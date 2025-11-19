@@ -1,27 +1,231 @@
-body {
-    background: #eccaca;
-    font-family: 'Trebuchet MS', sans-serif;
-    font-size: 14px;
-}
-
-#bg-video {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: 1;
-    display: none;
+:root {
+    --ff: 'Trebuchet MS', sans-serif;
+    --bg-color1: #eccaca;
+    --bg-color2: #e5808c;
+    --transition: 0.3s ease-in-out
 }
 
 a {
-    color: #26776F;
+    color: #bd4700;
+    cursor: pointer;
 }
 
 a:hover {
+    color: #722a00;
+}
+
+body {
+    background: linear-gradient(var(--bg-color1) 0%, var(--bg-color2) 100%) no-repeat;
+    background-attachment: fixed;
+    font-family: var(--ff);
+    font-size: 14.5px;
+}
+
+div.page {
+    border-radius: 25px;
+
+    background: transparent;
+    position: relative;
+    width: 700px;
+    margin: 30px auto;
+    z-index: 2;
+}
+
+div.page>h1 {
+    border-radius: 25px 25px 25px 25px;
+    border-top: 5px solid #db7d7d;
+    border-bottom: 5px solid #bd5f5f;
+
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+
+    height: 1.2em;
+    background: #cc6e6e;
+    margin: 0;
+    padding: 10px 30px;
+
+    letter-spacing: 1px;
+    font-size: 80px;
+    font-weight: normal;
+    text-shadow: 0 3px 0 #772424;
+}
+
+div.page>h1 a {
+    color: white;
+    cursor: default;
+}
+
+div.page h1 img {
+    height: 1em;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+div.page h1 img:hover {
+    height: 1.05em;
+}
+
+div.page div.navigation {
+    border-radius: 10px;
+    border-top: 3px solid #f5f5f5;
+    border-bottom: 3px solid #d7d7d7;
+
+    background: #e6e6e6;
+    padding: 6px 12px;
+    color: #888;
+    font-size: 12.5px;
+    letter-spacing: 0.5px;
+    cursor: default;
+}
+
+div.page div.navigation a {
     color: #333;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+div.page div.navigation a:hover {
+    color: #892222;
+}
+
+div.page div.navigation form {
+    display: contents;
+}
+
+div.page div.navigation form button {
+    margin: 0;
+    border: none;
+    padding: unset;
+    background: unset;
+    color: #444;
+    font-weight: bold;
+    display: inline-block;
+    font-size: unset;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: unset;
+    letter-spacing: unset;
+    transition: var(--transition);
+}
+
+div.page div.navigation form button:hover {
+    color: #772424;
+}
+
+div.page div.footer {
+    border-radius: 0 0 25px 25px;
+    border-top: 5px solid #d7d7d7;
+    border-bottom: 5px solid #d7d7d7;
+
+    background: #e6e6e6;
+    color: #888;
+    padding: 10px 10px;
+    font-size: 12.5px;
+}
+
+.pagination-footer {
+    display: none;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.page-field-container {
+    padding-top: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-field {
+    width: 20px;
+    font-size: 11px;
+}
+
+div.page div.body {
+    border-radius: 25px 25px 0 0;
+    border-top: 5px solid #fdfdfd;
+
+    background: #f0f0f0;
+    padding: 10px;
+}
+
+div.page h2 {
+    margin: 0 0 15px 0;
+    color: #571010;
+    text-shadow: 0 1px 2px #aaa;
+    cursor: default;
+}
+
+div.page div.cheepbox {
+    margin: 10px 0;
+    padding: 5px;
+    background: #faf0f0;
+    border: 1px solid #e29494;
+    border-radius: 2px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+div.page div.cheepbox h3 {
+    margin: 0;
+    font-size: 1em;
+    color: #7e2c2c;
+    cursor: default;
+}
+
+div.page div.cheepbox p {
+    margin: 0;
+}
+
+div.page div.cheepbox input[type="text"] {
+    width: 575px;
+}
+
+div.page div.cheepbox input[type="submit"] {
+    width: 70px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+div.page ul.cheeps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.page ul.cheeps p {
+    margin: 0;
+    font-size: 14px;
+    word-break: break-all;
+}
+
+div.page ul.cheeps li {
+    margin: 10px 0;
+    padding: 5px;
+    background: #fefefe;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    min-height: 48px;
+}
+
+div.page ul.cheeps li img {
+    float: left;
+    padding: 0 10px 0 0;
+}
+
+div.page ul.cheeps li small {
+    font-size: 0.9em;
+    color: #888;
+    user-select: none;
 }
 
 input[type="email"],
@@ -31,7 +235,7 @@ input[type="password"] {
     background: white;
     border: 1px solid #e6c0bf;
     padding: 2px;
-    font-family: 'Trebuchet MS', sans-serif;
+    font-family: var(--ff);
     font-size: 14px;
     border-radius: 2px;
     -moz-border-radius: 2px;
@@ -43,7 +247,7 @@ input[type="submit"] {
     background: #571010;
     border: 1px solid #3b0707;
     padding: 1px 3px;
-    font-family: 'Trebuchet MS', sans-serif;
+    font-family: var(--ff);
     font-size: 14px;
     font-weight: bold;
     border-radius: 2px;
@@ -52,254 +256,20 @@ input[type="submit"] {
     color: white;
 }
 
-div.page {
-    background: white;
-    position: relative;
-    width: 700px;
-    margin: 30px auto;
-    z-index: 2;
-}
-
-div.page > h1 {
-    background: #cc6e6e;
-    margin: 0;
-    padding: 10px 14px;
-    color: white;
-    letter-spacing: 1px;
-    text-shadow: 0 0 3px #772424;
-    font-weight: normal;
-    font-size: 80px;
-    user-select: none;
-}
-
-div.page h1 img {
-    height: 1em;
-}
-
-div.page div.navigation {
-    background: #DEE9E8;
-    padding: 4px 10px;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #eee;
-    color: #888;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-}
-
-div.page div.navigation a {
-    color: #444;
-    font-weight: bold;
-}
-
-div.page div.navigation form {
-    display: contents;
-}
-
-div.page div.navigation form button {
-    padding: unset;
-    background: unset;
-    color: #444;
-    font-weight: bold;
-    display: inline-block;
-    font-size: unset;
-    cursor: pointer;
-    text-decoration: underline;
-    font-family: unset;
-    letter-spacing: unset;
-}
-
-div.page h2 {
-    margin: 0 0 15px 0;
-    color: #571010;
-    text-shadow: 0 1px 2px #ccc;
-}
-
-div.page div.body {
-    padding: 10px;
-}
-
-div.page div.footer {
-    background: #eee;
-    color: #888;
-    padding: 5px 10px;
-    font-size: 12px;
-}
-
-.pagination-footer {
-    display: none;
-}
-
-div.page div.followstatus {
-    border: 1px solid #ccc;
-    background: #E3EBEA;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    padding: 3px;
-    font-size: 13px;
-}
-
-div.page ul.cheeps {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-div.page ul.cheeps li {
-    margin: 10px 0;
-    padding: 5px;
-    background: #F0FAF9;
-    border: 1px solid #DBF3F1;
-    border-radius: 2px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    min-height: 48px;
-}
-
-div.page ul.cheeps p {
-    margin: 0;
-}
-
-div.page ul.cheeps li img {
-    float: left;
-    padding: 0 10px 0 0;
-}
-
-div.page ul.cheeps li small {
-    font-size: 0.9em;
-    color: #888;
-}
-
-div.page div.cheepbox {
-    margin: 10px 0;
-    padding: 5px;
-    background: #F0FAF9;
-    border: 1px solid #e29494;
-    border-radius: 2px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-div.page div.cheepbox h3 {
-    margin: 0;
-    font-size: 1em;
-    color: #7e2c2c;
-}
-
-div.page div.cheepbox p {
-    margin: 0;
-}
-
-div.page div.cheepbox input[type="text"] {
-    width: 585px;
-}
-
-div.page div.cheepbox input[type="submit"] {
-    width: 70px;
-    margin-left: 5px;
-}
-
-div.message {
-    list-style: none;
-    margin: 10px 10px 0 10px;
-
-    background: #f3b9b9;
-    border: 1px solid #ce8181;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    padding: 4px;
-    font-size: 13px;
-}
-
-ul.message li {
-    background: #f3b9b9;
-    border: 1px solid #ce8181;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    padding: 4px;
-    font-size: 13px;
-}
-
-div.error {
-    margin: 10px 0;
-    background: #FAE4E4;
-    border: 1px solid #DD6F6F;
-    border-radius: 2px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    padding: 4px;
-    font-size: 13px;
-}
-
-div.topics {
-    width: 180px;
-    height: 250px;
-    background: #ffffff;
-    border: 1px solid #e29494;
-    border-radius: 2px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin-left: 460px;
-    padding: 10px;
-}
-
-.pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 20%;
-    padding-right: 20%;
-}
-
-.pagination-controls a {
-    user-select: none;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.page-field-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.page-field {
-    width: 10px;
-    font-size: 11px;
-}
-
-ul.topic {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-li.topic {
-    margin: 10px 0;
-    padding: 5px;
-    background: #F0FAF9;
-    border: 1px solid #DBF3F1;
-    border-radius: 2px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    min-height: 20px;
-}
-
 form * {
     margin: 2px 0;
 }
 
 button {
     background-color: #cc6e6e;
+    border-radius: 3px;
     border: none;
     color: white;
     padding: 8px 16px;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    font-family: unset;
 }
 
 button:hover {
@@ -307,6 +277,7 @@ button:hover {
 }
 
 ul.nav {
+    border-radius: 3px;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -328,4 +299,24 @@ ul.nav li a {
 
 ul.nav li a:hover {
     background-color: #8b4949;
+}
+
+div.page div.body h1 {
+    font-size: 0;
+}
+
+div.page div.body div.alert button {
+    display: none;
+}
+
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    display: none;
 }
