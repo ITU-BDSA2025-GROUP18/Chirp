@@ -31,7 +31,6 @@ div.page {
     z-index: 2;
 }
 
-
 div.page>h1 {
     border-radius: 25px 25px 25px 25px;
     border-top: 5px solid #db7d7d;
@@ -137,7 +136,6 @@ div.page div.footer {
     padding-right: 20%;
 }
 
-
 .page-field-container {
     padding-top: 3px;
     display: flex;
@@ -205,6 +203,7 @@ div.page ul.cheeps {
 div.page ul.cheeps p {
     margin: 0;
     font-size: 14px;
+    word-break: break-all;
 }
 
 div.page ul.cheeps li {
@@ -217,7 +216,6 @@ div.page ul.cheeps li {
     -webkit-border-radius: 5px;
     min-height: 48px;
 }
-
 
 div.page ul.cheeps li img {
     float: left;
