@@ -4,7 +4,7 @@ using Chirp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Xunit.Sdk;
 
-namespace Chirp.Razor.Tests;
+namespace Chirp.Web.Tests;
 
 public class CheepRepositoryUnitTests
 {
