@@ -16,21 +16,27 @@ public class UserTimelineModel(ICheepRepository repository, ChirpDBContext dbCon
         var authorsToFetch = new HashSet<string> { author };
         var principal = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
 
-        if (principal != null)
+        if (principal != null) // if user is logged in:
         {
-            Followers = await Repository.AuthorFollowersCount(principal);
+            FollowersCt = await Repository.AuthorFollowersCount(principal);
             var followerSet = Repository.AuthorFollowing(principal).Result;
-            foreach (var follower in followerSet) authorsToFetch.Add(follower.FollowedAuthorName);
+            foreach (var follower in followerSet)
+                authorsToFetch.Add(follower.FollowedAuthorName);
+            FollowingCt = followerSet.Count;
         }
-        else
+        else // if user is not logged in:
         {
-            var viewedAuthor = await Repository.GetAuthorFromNameAsync(author);
+            var viewedAuthor = await Repository.GetAuthorFromNameAsync(author); // get author object from viewed author
 
-            if (viewedAuthor != null)
+            if (viewedAuthor != null) // if the object is not null
             {
-                Followers = await Repository.AuthorFollowersCount(viewedAuthor);
-                var followerSet = Repository.AuthorFollowing(viewedAuthor).Result;
-                foreach (var follower in followerSet) authorsToFetch.Add(follower.FollowedAuthorName);
+                Console.WriteLine("DEBUG LOOKOING AH: " + viewedAuthor.Email);
+                FollowersCt = await Repository.AuthorFollowersCount(viewedAuthor); // update hsi follwers count
+                var followerSet = Repository.AuthorFollowing(viewedAuthor).Result; // update followerset
+                if (User.Identity!.Name! == author)
+                    foreach (var follower in followerSet)
+                        authorsToFetch.Add(follower.FollowedAuthorName);
+                FollowingCt = followerSet.Count;
             }
         }
 
