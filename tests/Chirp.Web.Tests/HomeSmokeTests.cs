@@ -4,10 +4,10 @@ using Xunit;
 
 namespace Chirp.Web.Tests;
 
-public class HomeSmokeTests : IClassFixture<WebApplicationFactory<Program>>
+public class HomeSmokeTests : IClassFixture<TestingWebAppFactory>
 {
     private readonly WebApplicationFactory<Program> _factory;
-    public HomeSmokeTests(WebApplicationFactory<Program> factory) => _factory = factory;
+    public HomeSmokeTests(TestingWebAppFactory factory) => _factory = factory;
 
     [Fact]
     public async Task Root_Does_Not_Crash()
