@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.Extensions.Options;
 
 namespace Chirp.Web.Tests;
 
@@ -15,14 +18,17 @@ public class TestingWebAppFactory : WebApplicationFactory<Program>
         {
             var dict = new Dictionary<string, string?>
             {
-                // Sørger for at GitHub OAuth ikke kaster pga. manglende nøgler i test
                 ["Authentication:Schemes:GitHub:ClientId"] = "test-client-id",
                 ["Authentication:Schemes:GitHub:ClientSecret"] = "test-secret",
-                // De fleste skabeloner bruger cookies som SignInScheme
                 ["Authentication:Schemes:GitHub:SignInScheme"] = "Identity.External"
             };
-
             cfg.AddInMemoryCollection(dict!);
+        });
+
+        builder.ConfigureServices(services =>
+        {
+            // Dette sikrer at ALLE OAuth handlers (inkl. GitHub) har gyldige dummy-værdier
+            services.AddSingleton<IPostConfigureOptions<OAuthOptions>, TestOAuthPostConfigure>();
         });
     }
 }
