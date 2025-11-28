@@ -1,5 +1,6 @@
 ﻿using Chirp.Core;
 using Chirp.Database;
+using Chirp.Repositories.AuthorRepository;
 using Chirp.Repositories.CheepRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -43,6 +44,7 @@ public abstract class Builder
         // Add services to the container.
         builder.Services.AddRazorPages();
         builder.Services.AddScoped<ICheepRepository, CheepRepository>();
+        builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
         return builder;
     }

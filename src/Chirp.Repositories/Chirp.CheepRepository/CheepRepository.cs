@@ -99,7 +99,7 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
             FollowedAuthorName = followedAuthor.UserName
         });
 
-        AuthorFollowing(followingAuthor);
+        await AuthorFollowing(followingAuthor);
         return await dbContext.SaveChangesAsync();
     }
 
