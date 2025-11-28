@@ -4,6 +4,8 @@ using Chirp.Core.DTOS;
 using Chirp.Database;
 using Chirp.Repositories;
 using Chirp.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -74,5 +76,22 @@ public class TimelineModel(ICheepRepository repository, ChirpDBContext dbContext
             await Repository.UnfollowAsync(follower, followed);
 
         return RedirectToPage();
+    }
+
+
+    public async Task<IActionResult> OnPostForgetMeAsync()
+    {
+        var author = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
+
+        if (author == null) return RedirectToPage();
+
+        await Repository.ForgetMeAsync(author);
+
+        await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+        await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        await HttpContext.SignOutAsync(IdentityConstants.TwoFactorUserIdScheme);
+        await HttpContext.SignOutAsync();
+
+        return Redirect("/");
     }
 }
