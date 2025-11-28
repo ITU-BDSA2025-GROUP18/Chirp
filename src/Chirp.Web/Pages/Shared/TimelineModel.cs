@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Chirp.Core.DTOS;
+using Chirp.Core.DTOs;
 using Chirp.Database;
 using Chirp.Repositories.CheepRepository;
 using Chirp.Services;

@@ -1,5 +1,5 @@
 using Chirp.Core;
-using Chirp.Core.DTOS;
+using Chirp.Core.DTOs;
 using Chirp.Core.Helpers;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
