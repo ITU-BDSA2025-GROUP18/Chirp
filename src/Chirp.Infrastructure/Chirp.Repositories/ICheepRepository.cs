@@ -16,4 +16,5 @@ public interface ICheepRepository
     public Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor);
     public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor);
     public Task<int> AuthorFollowersCount(Author author);
+    public Task<int> ForgetMeAsync(Author author);
 }
