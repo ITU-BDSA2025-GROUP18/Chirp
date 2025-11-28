@@ -1,5 +1,6 @@
 ﻿using Chirp.Core;
 using Chirp.Database;
+using Chirp.Repositories.AuthorRepository;
 using Chirp.Repositories.CheepRepository;
 using Microsoft.EntityFrameworkCore;
 
@@ -235,7 +236,7 @@ public class CheepRepositoryUnitTests
 
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
-        var repository = new CheepRepository(dbContext);
+        var repository = new AuthorRepository(dbContext);
 
         //Act
 
@@ -263,7 +264,7 @@ public class CheepRepositoryUnitTests
 
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
-        var repository = new CheepRepository(dbContext);
+        var repository = new AuthorRepository(dbContext);
 
         //Act
 
@@ -292,7 +293,7 @@ public class CheepRepositoryUnitTests
 
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
-        var repository = new CheepRepository(dbContext);
+        var repository = new AuthorRepository(dbContext);
         //Act
 
         var results = await repository.GetAuthorFromEmailAsync("erze@itu.dk");
@@ -319,7 +320,7 @@ public class CheepRepositoryUnitTests
 
         //Saving changes and adds it to the repository
         await dbContext.SaveChangesAsync();
-        var repository = new CheepRepository(dbContext);
+        var repository = new AuthorRepository(dbContext);
         //Act
 
         //Running GetAuthorFromName-method with email "jack@itu.dk" which we know
