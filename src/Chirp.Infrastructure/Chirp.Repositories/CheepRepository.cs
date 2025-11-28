@@ -122,7 +122,6 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
     //TODO: Move into seperate class "FollowerRepository"
     public async Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor)
     {
-        Console.WriteLine(followingAuthor + " " + followedAuthor);
         var rowsDeleted = await dbContext.Followers
             .Where(follower =>
                 follower.FollowingAuthorId == followingAuthor.Id &&
@@ -130,5 +129,25 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
             .ExecuteDeleteAsync();
 
         return rowsDeleted;
+    }
+
+    public async Task<int> ForgetMeAsync(Author author)
+    {
+        var cheepsDeleted = await dbContext.Cheeps
+            .Where(cheep => cheep.Author.UserName == author.UserName)
+            .ExecuteDeleteAsync();
+
+        var usersDeleted = await dbContext.Users
+            .Where(user => user.Email == author.Email)
+            .ExecuteDeleteAsync();
+
+        var followersDeleted = await dbContext.Followers
+            .Where(follower =>
+                follower.FollowedAuthorId == author.Id ||
+                follower.FollowingAuthorId == author.Id)
+            .ExecuteDeleteAsync();
+
+
+        return cheepsDeleted;
     }
 }
