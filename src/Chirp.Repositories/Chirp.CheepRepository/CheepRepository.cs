@@ -56,22 +56,6 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return await query.ToListAsync();
     }
 
-    public async Task<Author?> GetAuthorFromNameAsync(string authorName)
-    {
-        var query = dbContext.Authors
-            .Where(author => author.UserName == authorName);
-
-        return await query.FirstOrDefaultAsync();
-    }
-
-    public async Task<Author?> GetAuthorFromEmailAsync(string email)
-    {
-        var query = dbContext.Authors
-            .Where(author => author.Email == email);
-
-        return await query.FirstOrDefaultAsync();
-    }
-
     public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor)
     {
         return Task.FromResult(dbContext.Followers.Where(follower => follower.FollowingAuthorId == followingAuthor.Id)
