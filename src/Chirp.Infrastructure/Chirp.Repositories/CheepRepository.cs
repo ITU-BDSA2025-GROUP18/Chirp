@@ -56,6 +56,21 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return await query.ToListAsync();
     }
 
+    public async Task<List<CheepDTO>> GetAllCheepsFromAuthorsAsync(IEnumerable<string> authors)
+    {
+        var query = dbContext.Cheeps
+            .Where(cheep => authors.Contains(cheep.Author.UserName))
+            .OrderByDescending(cheep => cheep.TimeStamp)
+            .Select(cheep => new CheepDTO
+            {
+                AuthorName = cheep.Author.UserName!,
+                Text = cheep.Text,
+                Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
+            });
+
+        return await query.ToListAsync();
+    }
+
     public async Task<Author?> GetAuthorFromNameAsync(string authorName)
     {
         var query = dbContext.Authors
