@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Chirp.Razor.Migrations
+namespace Chirp.Web.Migrations
 {
     [DbContext(typeof(ChirpDBContext))]
     [Migration("20251114123642_FollowersCreate")]
