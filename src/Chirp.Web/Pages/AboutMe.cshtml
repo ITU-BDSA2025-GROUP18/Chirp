@@ -10,8 +10,12 @@
 <div>
     @if (User.Identity!.IsAuthenticated)
     {
-      <div>
-      <h2>Personal data</h2>
-      </div>
+        <div>
+            <h2>Personal data</h2>
+        </div>
+        <form method="post" class="forget-me-form">
+            <button class="forget-me-button" asp-page-handler="ForgetMe">Forget Me!
+            </button>
+        </form>
     }
 </div>

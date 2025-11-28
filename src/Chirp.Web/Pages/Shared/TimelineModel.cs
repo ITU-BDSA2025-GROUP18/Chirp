@@ -77,21 +77,4 @@ public class TimelineModel(ICheepRepository repository, ChirpDBContext dbContext
 
         return RedirectToPage();
     }
-
-
-    public async Task<IActionResult> OnPostForgetMeAsync()
-    {
-        var author = await Repository.GetAuthorFromNameAsync(User.Identity!.Name!);
-
-        if (author == null) return RedirectToPage();
-
-        await Repository.ForgetMeAsync(author);
-
-        await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-        await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-        await HttpContext.SignOutAsync(IdentityConstants.TwoFactorUserIdScheme);
-        await HttpContext.SignOutAsync();
-
-        return Redirect("/");
-    }
 }
