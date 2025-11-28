@@ -1,0 +1,17 @@
+@page "/AboutMe"
+@using Chirp.Core
+@model Chirp.Web.Pages.AboutMeModel
+@inject SignInManager<Author> SignInManager
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div>
+    @if (User.Identity!.IsAuthenticated)
+    {
+      <div>
+      <h2>Personal data</h2>
+      </div>
+    }
+</div>
