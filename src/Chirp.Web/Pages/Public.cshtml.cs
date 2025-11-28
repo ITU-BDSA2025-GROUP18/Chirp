@@ -1,8 +1,7 @@
-﻿using Chirp.Core;
-using Chirp.Database;
-using Microsoft.AspNetCore.Mvc;
-using Chirp.Repositories;
+﻿using Chirp.Database;
+using Chirp.Repositories.CheepRepository;
 using Chirp.Web.Pages.Shared;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Chirp.Web.Pages;
 

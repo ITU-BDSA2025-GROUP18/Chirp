@@ -1,6 +1,6 @@
 ﻿using Chirp.Core;
 using Chirp.Database;
-using Chirp.Repositories;
+using Chirp.Repositories.CheepRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
