@@ -1,3 +1,5 @@
+using Chirp.Core;
+using Chirp.Core.DTOS;
 using Chirp.Database;
 using Chirp.Repositories;
 using Microsoft.AspNetCore.Authentication;
@@ -10,9 +12,13 @@ namespace Chirp.Web.Pages;
 public class AboutMeModel(ICheepRepository repository, ChirpDBContext dbContext) : PageModel
 {
     protected readonly ICheepRepository Repository = repository;
+    protected readonly ChirpDBContext DbContext = dbContext;
+    public List<CheepDTO> Cheeps { get; set; } = [];
+    public required Author Author;
 
-    public async Task<ActionResult> OnGet()
+    public async Task<ActionResult> OnGet(string author)
     {
+        Cheeps = await Repository.GetAllCheepsFromAuthorsAsync(new HashSet<string> { User.Identity!.Name! });
         return Page();
     }
 
