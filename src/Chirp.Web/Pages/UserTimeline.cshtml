@@ -20,8 +20,7 @@
         @if (SignInManager.IsSignedIn(User) && User.Identity!.Name! == routeName!.ToString())
         {
             <form method="post" class="forget-me-form">
-                <button class="forget-me-button" asp-page-handler="ForgetMe" name="Author"
-                     value="@User.Identity!.Name!">Forget Me!
+                <button class="forget-me-button" asp-page-handler="ForgetMe">Forget Me!
                 </button>
             </form>
         }
