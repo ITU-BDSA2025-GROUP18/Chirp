@@ -1,4 +1,5 @@
 @page "/AboutMe"
+@using System.Text
 @using Chirp.Core
 @model Chirp.Web.Pages.AboutMeModel
 @inject SignInManager<Author> SignInManager
@@ -17,5 +18,22 @@
             <button class="forget-me-button" asp-page-handler="ForgetMe">Forget Me!
             </button>
         </form>
+
+        <h3>Your posted cheeps</h3>
+        @if (Model.Cheeps.Any())
+        {
+            <textarea readonly id="cheeps-textarea"></textarea>
+        }
+        else
+        {
+            <em>You have no cheeps.</em>
+        }
     }
 </div>
+
+@section scripts {
+    <script>
+        const textarea = document.getElementById("cheeps-textarea");
+        textarea.innerHTML = `@string.Join("\n", Model.Cheeps.Select(c => $"\"{c.Text}\" - {c.Timestamp}\n"))`;
+    </script>
+}

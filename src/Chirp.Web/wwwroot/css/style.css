@@ -389,6 +389,13 @@ button:hover {
     background: #cc6969;
 }
 
+#cheeps-textarea {
+    resize: none;
+    width: 100%;
+    height: 100px;
+    margin-right: 10px;
+}
+
 ul.nav {
     border-radius: 3px;
     list-style-type: none;
