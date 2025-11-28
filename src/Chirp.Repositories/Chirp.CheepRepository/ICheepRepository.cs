@@ -10,8 +10,4 @@ public interface ICheepRepository
     public Task<int> GetCheepsFromAuthorsCountAsync(IEnumerable<string> authors);
     public Task<List<CheepDTO>> GetCheepsFromAuthorsAsync(IEnumerable<string> authors, int page);
     public Task<int> PostCheepAsync(Author author, int cheepId, string text);
-    public Task<int> FollowAsync(Author followingAuthor, Author followedAuthor);
-    public Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor);
-    public Task<HashSet<Followers>> AuthorFollowing(Author followingAuthor);
-    public Task<int> AuthorFollowersCount(Author author);
 }

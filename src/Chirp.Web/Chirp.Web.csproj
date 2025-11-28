@@ -38,6 +38,7 @@
         <ProjectReference Include="..\Chirp.Infrastructure\Chirp.Services\Chirp.Services.csproj" />
         <ProjectReference Include="..\Chirp.Repositories\Chirp.AuthorRepository\Chirp.AuthorRepository.csproj"/>
         <ProjectReference Include="..\Chirp.Repositories\Chirp.CheepRepository\Chirp.CheepRepository.csproj"/>
+        <ProjectReference Include="..\Chirp.Repositories\Chirp.FollowerRepository\Chirp.FollowerRepository.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

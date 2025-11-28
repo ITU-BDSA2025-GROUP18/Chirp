@@ -1,13 +1,14 @@
 ﻿using Chirp.Database;
 using Chirp.Repositories.AuthorRepository;
 using Chirp.Repositories.CheepRepository;
+using Chirp.Repositories.FollowerRepository;
 using Chirp.Web.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chirp.Web.Pages;
 
-public class UserTimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo)
-    : TimelineModel(dbContext, authorRepo, cheepRepo)
+public class UserTimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo, IFollowerRepository followerRepo)
+    : TimelineModel(dbContext, authorRepo, cheepRepo, followerRepo)
 {
     public int AuthorCheepsCount;
 
@@ -18,8 +19,8 @@ public class UserTimelineModel(ChirpDBContext dbContext, IAuthorRepository autho
 
         if (principal != null) // if user is logged in:
         {
-            FollowersCt = await CheepRepo.AuthorFollowersCount(principal);
-            var followerSet = CheepRepo.AuthorFollowing(principal).Result;
+            FollowersCt = await FollowerRepo.AuthorFollowersCount(principal);
+            var followerSet = FollowerRepo.AuthorFollowing(principal).Result;
             foreach (var follower in followerSet)
                 authorsToFetch.Add(follower.FollowedAuthorName);
             FollowingCt = followerSet.Count;
@@ -30,8 +31,8 @@ public class UserTimelineModel(ChirpDBContext dbContext, IAuthorRepository autho
 
             if (viewedAuthor != null) // if the object is not null
             {
-                FollowersCt = await CheepRepo.AuthorFollowersCount(viewedAuthor); // update hsi follwers count
-                var followerSet = CheepRepo.AuthorFollowing(viewedAuthor).Result; // update followerset
+                FollowersCt = await FollowerRepo.AuthorFollowersCount(viewedAuthor); // update hsi follwers count
+                var followerSet = FollowerRepo.AuthorFollowing(viewedAuthor).Result; // update followerset
                 if (User.Identity!.Name! == author)
                     foreach (var follower in followerSet)
                         authorsToFetch.Add(follower.FollowedAuthorName);

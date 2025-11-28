@@ -3,17 +3,19 @@ using Chirp.Core.DTOs;
 using Chirp.Database;
 using Chirp.Repositories.AuthorRepository;
 using Chirp.Repositories.CheepRepository;
+using Chirp.Repositories.FollowerRepository;
 using Chirp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Chirp.Web.Pages.Shared;
 
-public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo) : PageModel
+public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo, IFollowerRepository followerRepo) : PageModel
 {
     protected readonly ChirpDBContext DbContext = dbContext;
     protected readonly IAuthorRepository AuthorRepo = authorRepo;
     protected readonly ICheepRepository CheepRepo = cheepRepo;
+    protected readonly IFollowerRepository FollowerRepo = followerRepo;
     public List<CheepDTO> Cheeps { get; set; } = [];
     public HashSet<string> Following { get; set; } = [];
     public int FollowersCt { get; set; } = 0;
@@ -42,7 +44,7 @@ public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRep
 
         if (follower == null || followed == null) return RedirectToPage();
 
-        var followerSet = await CheepRepo.AuthorFollowing(follower);
+        var followerSet = await FollowerRepo.AuthorFollowing(follower);
 
         var alreadyFollowing = followerSet.Any(f =>
             f.FollowingAuthorId == follower.Id &&
@@ -51,7 +53,7 @@ public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRep
 
         if (alreadyFollowing) return RedirectToPage();
         if (follower.Id != followed.Id)
-            await CheepRepo.FollowAsync(follower, followed);
+            await FollowerRepo.FollowAsync(follower, followed);
 
         return RedirectToPage();
     }
@@ -63,7 +65,7 @@ public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRep
 
         if (follower == null || followed == null) return RedirectToPage();
 
-        var followerSet = await CheepRepo.AuthorFollowing(follower);
+        var followerSet = await FollowerRepo.AuthorFollowing(follower);
 
         var alreadyFollowing = followerSet.Any(f =>
             f.FollowingAuthorId == follower.Id &&
@@ -72,7 +74,7 @@ public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRep
 
         if (!alreadyFollowing) return RedirectToPage();
         if (follower.Id != followed.Id)
-            await CheepRepo.UnfollowAsync(follower, followed);
+            await FollowerRepo.UnfollowAsync(follower, followed);
 
         return RedirectToPage();
     }

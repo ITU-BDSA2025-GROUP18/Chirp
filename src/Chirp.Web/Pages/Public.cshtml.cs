@@ -1,13 +1,14 @@
 ﻿using Chirp.Database;
 using Chirp.Repositories.AuthorRepository;
 using Chirp.Repositories.CheepRepository;
+using Chirp.Repositories.FollowerRepository;
 using Chirp.Web.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chirp.Web.Pages;
 
-public class PublicModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo)
-    : TimelineModel(dbContext, authorRepo, cheepRepo)
+public class PublicModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo, IFollowerRepository followerRepo)
+    : TimelineModel(dbContext, authorRepo, cheepRepo, followerRepo)
 {
     public int CheepsCount;
 
@@ -19,7 +20,7 @@ public class PublicModel(ChirpDBContext dbContext, IAuthorRepository authorRepo,
         var followerStringSet = new HashSet<string> { };
         if (principal != null)
         {
-            var followerSet = CheepRepo.AuthorFollowing(principal).Result;
+            var followerSet = FollowerRepo.AuthorFollowing(principal).Result;
             foreach (var follower in followerSet) followerStringSet.Add(follower.FollowedAuthorName);
         }
 
