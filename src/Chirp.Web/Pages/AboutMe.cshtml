@@ -21,8 +21,26 @@
         </div>
         @if (Model.Following.Any() || Model.Followers.Any()) {
             <div class="about-personal">
+            @if (Model.Following.Any()) {
                 <h3>Following:</h3>
+                <ul>
+                @foreach (var f in Model.Following) {
+                    <li>
+                        <a href="/Users/@f.FollowerName">@f.FollowerName</a>
+                    </li>
+                }
+                </ul>
+            }
+            @if (Model.Followers.Any()) {
                 <h3>Followers:</h3>
+                <ul>
+                @foreach (var f in Model.Followers) {
+                    <li>
+                        <a href="/Users/@f.FollowerName">@f.FollowerName</a>
+                    </li>
+                }
+                </ul>
+            }
             </div>
         }
         @if (Model.Cheeps.Any()) {
