@@ -374,19 +374,33 @@ button:hover {
     background: #c1d3d2;
 }
 
+.forget-me-form {
+    display: flex;
+    justify-content: center;
+}
+
 .forget-me-button {
-    background: #de8484;
-    padding: 4px 8px;
+    background: #bc0300;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0.7em 1em;
     border-radius: 4px;
     text-decoration: underline;
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
-    color: #641616;
+    transition: 1.0s ease-in-out;
 }
 
 .forget-me-button:hover {
-    background: #cc6969;
+    background: #910300;
+    padding: 0.9em 18em;
+}
+
+.forget-me-warning {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
 }
 
 #cheeps-textarea {
@@ -439,4 +453,22 @@ div.page div.body div.alert button {
     height: auto;
     z-index: 1;
     display: none;
+}
+
+div.about-personal {
+    border: 2px solid;
+    border-color: #ccc;
+    background: #e0e0e0;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.about-personal>h3 {
+    margin: 8px;
+}
+
+.about-personal>h3>a:hover {
+    color: #bd4700;
+    cursor: unset;
 }

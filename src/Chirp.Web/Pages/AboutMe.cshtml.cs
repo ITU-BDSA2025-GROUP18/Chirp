@@ -1,4 +1,3 @@
-using Chirp.Core;
 using Chirp.Core.DTOs;
 using Chirp.Database;
 using Chirp.Repositories.AuthorRepository;
@@ -13,15 +12,19 @@ namespace Chirp.Web.Pages;
 
 public class AboutMeModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo, IFollowerRepository followerRepo) : PageModel
 {
+    protected readonly ChirpDBContext DbContext = dbContext;
     protected readonly IAuthorRepository AuthorRepo = authorRepo;
     protected readonly ICheepRepository CheepRepo = cheepRepo;
     protected readonly IFollowerRepository FollowerRepo = followerRepo;
-    protected readonly ChirpDBContext DbContext = dbContext;
     public List<CheepDTO> Cheeps { get; set; } = [];
-    public required Author Author;
+    public required AuthorDTO PersonalData;
 
     public async Task<ActionResult> OnGet(string author)
     {
+#pragma warning disable CS8601 // Possible null reference assignment.
+        PersonalData = await AuthorRepo.GetPersonalDataAsync(User.Identity!.Name!);
+#pragma warning restore CS8601 // Possible null reference assignment.
+
         Cheeps = await CheepRepo.GetAllCheepsFromAuthorsAsync(new HashSet<string> { User.Identity!.Name! });
         return Page();
     }
