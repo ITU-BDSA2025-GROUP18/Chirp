@@ -491,3 +491,7 @@ div.about-personal {
     z-index: 1;
     display: none;
 }
+
+#personal-data {
+    display: none;
+}
