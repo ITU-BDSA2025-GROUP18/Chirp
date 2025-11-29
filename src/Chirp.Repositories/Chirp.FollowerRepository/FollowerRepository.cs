@@ -31,7 +31,7 @@ public class FollowerRepository(ChirpDBContext dbContext) : IFollowerRepository
             .Where(f => f.FollowingAuthorName == authorName)
             .Select(f => new FollowerDTO
             {
-                FollowedAuthorName = f.FollowedAuthorName
+                FollowerName = f.FollowedAuthorName
             });
 
         return await query.ToListAsync();
@@ -43,7 +43,7 @@ public class FollowerRepository(ChirpDBContext dbContext) : IFollowerRepository
             .Where(f => f.FollowedAuthorName == authorName)
             .Select(f => new FollowerDTO
             {
-                FollowingAuthorName = f.FollowingAuthorName
+                FollowerName = f.FollowingAuthorName
             });
 
         return await query.ToListAsync();
