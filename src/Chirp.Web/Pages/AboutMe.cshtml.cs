@@ -16,16 +16,22 @@ public class AboutMeModel(ChirpDBContext dbContext, IAuthorRepository authorRepo
     protected readonly IAuthorRepository AuthorRepo = authorRepo;
     protected readonly ICheepRepository CheepRepo = cheepRepo;
     protected readonly IFollowerRepository FollowerRepo = followerRepo;
-    public List<CheepDTO> Cheeps { get; set; } = [];
     public required AuthorDTO PersonalData;
+    public required List<CheepDTO> Cheeps;
+    public required List<FollowerDTO> Following;
+    public required List<FollowerDTO> Followers;
 
-    public async Task<ActionResult> OnGet(string author)
+    public async Task<ActionResult> OnGet()
     {
-#pragma warning disable CS8601 // Possible null reference assignment.
+#nullable disable
         PersonalData = await AuthorRepo.GetPersonalDataAsync(User.Identity!.Name!);
-#pragma warning restore CS8601 // Possible null reference assignment.
-
+#nullable restore
         Cheeps = await CheepRepo.GetAllCheepsFromAuthorsAsync(new HashSet<string> { User.Identity!.Name! });
+
+        Following = await FollowerRepo.GetAuthorFollowing(User.Identity!.Name!);
+
+        Followers = await FollowerRepo.GetAuthorFollowers(User.Identity!.Name!);
+
         return Page();
     }
 
