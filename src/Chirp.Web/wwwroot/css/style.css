@@ -31,7 +31,7 @@ div.page {
     z-index: 2;
 }
 
-div.page > h1 {
+div.page>h1 {
     border-radius: 25px 25px 25px 25px;
     border-top: 5px solid #db7d7d;
     border-bottom: 5px solid #bd5f5f;
@@ -52,7 +52,7 @@ div.page > h1 {
     text-shadow: 0 3px 0 #772424;
 }
 
-div.page > h1 a {
+div.page>h1 a {
     color: white;
     cursor: default;
 }
@@ -391,7 +391,7 @@ button:hover {
 
 #cheeps-textarea {
     resize: none;
-    width: 100%;
+    width: 99.2%;
     height: 100px;
     margin-right: 10px;
 }

@@ -84,34 +84,6 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return await dbContext.SaveChangesAsync();
     }
 
-    //TODO: Move into seperate class "FollowerRepository"
-    public async Task<int> FollowAsync(Author followingAuthor, Author followedAuthor)
-    {
-        dbContext.Followers.Add(new Followers
-        {
-            FollowingAuthorId = followingAuthor.Id,
-            FollowingAuthorName = followingAuthor.UserName,
-            FollowedAuthorId = followedAuthor.Id,
-            FollowedAuthorName = followedAuthor.UserName
-        });
-
-        AuthorFollowing(followingAuthor);
-        return await dbContext.SaveChangesAsync();
-    }
-
-    //TODO: Move into seperate class "FollowerRepository"
-    public async Task<int> UnfollowAsync(Author followingAuthor, Author followedAuthor)
-    {
-        Console.WriteLine(followingAuthor + " " + followedAuthor);
-        var rowsDeleted = await dbContext.Followers
-            .Where(follower =>
-                follower.FollowingAuthorId == followingAuthor.Id &&
-                follower.FollowedAuthorId == followedAuthor.Id)
-            .ExecuteDeleteAsync();
-
-        return rowsDeleted;
-    }
-
     public async Task<int> ForgetMeAsync(Author author)
     {
         var cheepsDeleted = await dbContext.Cheeps
