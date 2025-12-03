@@ -1,0 +1,68 @@
+@page "/AboutMe"
+@using System.Text
+@using Chirp.Core
+@model Chirp.Web.Pages.AboutMeModel
+@inject SignInManager<Author> SignInManager
+@{
+    ViewData["Title"] = "Chirp!";
+    Layout = "Shared/_Layout";
+}
+
+<div>
+    <h2>Personal data</h2>
+    <hr />
+    @if (User.Identity!.IsAuthenticated) {
+        <div class="about-personal">
+            <h3>Username: <a>@Model.PersonalData.UserName</a></h3>
+            <h3>Email: <a>@Model.PersonalData.Email</a></h3>
+            @if (Model.PersonalData.PhoneNumber != null) {
+                <h3>Phone: <a>@Model.PersonalData.PhoneNumber</a></h3>
+            }
+        </div>
+        @if (Model.Following.Any() || Model.Followers.Any()) {
+            <div class="about-personal">
+            @if (Model.Following.Any()) {
+                <h3>Following:</h3>
+                <ul>
+                @foreach (var f in Model.Following) {
+                    <li>
+                        <a href="/Users/@f.FollowerName">@f.FollowerName</a>
+                    </li>
+                }
+                </ul>
+            }
+            @if (Model.Followers.Any()) {
+                <h3>Followers:</h3>
+                <ul>
+                @foreach (var f in Model.Followers) {
+                    <li>
+                        <a href="/Users/@f.FollowerName">@f.FollowerName</a>
+                    </li>
+                }
+                </ul>
+            }
+            </div>
+        }
+        @if (Model.Cheeps.Any()) {
+            <div class="about-personal">
+                <h3>Your posted cheeps:</h3>
+                <textarea readonly id="cheeps-textarea"></textarea>
+            </div>
+        }
+        <hr />
+        <form method="post" class="forget-me-form">
+            <button class="forget-me-button" asp-page-handler="ForgetMe">Forget Me!</button>
+        </form>
+        <em class="forget-me-warning">Delete your account. This action is irreversible!</em>
+    }
+    else {
+        <em>Log in to see personal data</em>
+    }
+</div>
+
+@section scripts {
+    <script>
+        const textarea = document.getElementById("cheeps-textarea");
+        textarea.innerHTML = `@string.Join("\n", Model.Cheeps.Select(c => $"\"{c.Text}\" - {c.Timestamp}\n"))`;
+    </script>
+}

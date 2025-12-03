@@ -1,4 +1,5 @@
 using Chirp.Core;
+using Chirp.Core.DTOs;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,30 @@ public class FollowerRepository(ChirpDBContext dbContext) : IFollowerRepository
                 .CountAsync();
 
         return count;
+    }
+
+    public async Task<List<FollowerDTO>> GetAuthorFollowing(string authorName)
+    {
+        var query = dbContext.Followers
+            .Where(f => f.FollowingAuthorName == authorName)
+            .Select(f => new FollowerDTO
+            {
+                FollowerName = f.FollowedAuthorName
+            });
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<List<FollowerDTO>> GetAuthorFollowers(string authorName)
+    {
+        var query = dbContext.Followers
+            .Where(f => f.FollowedAuthorName == authorName)
+            .Select(f => new FollowerDTO
+            {
+                FollowerName = f.FollowingAuthorName
+            });
+
+        return await query.ToListAsync();
     }
 
     // ============== Post Endpoints ============== //

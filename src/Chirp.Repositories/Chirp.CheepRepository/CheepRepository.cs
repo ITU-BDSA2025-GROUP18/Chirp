@@ -55,6 +55,21 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         return await query.ToListAsync();
     }
 
+    public async Task<List<CheepDTO>> GetAllCheepsFromAuthorsAsync(IEnumerable<string> authors)
+    {
+        var query = dbContext.Cheeps
+            .Where(cheep => authors.Contains(cheep.Author.UserName))
+            .OrderByDescending(cheep => cheep.TimeStamp)
+            .Select(cheep => new CheepDTO
+            {
+                AuthorName = cheep.Author.UserName!,
+                Text = cheep.Text,
+                Timestamp = DateFormatter.TimeStampToLocalTimeString(cheep.TimeStamp)
+            });
+
+        return await query.ToListAsync();
+    }
+
     // ============== Post Endpoints ============== //
     public async Task<int> PostCheepAsync(Author author, int cheepId, string text)
     {
@@ -67,5 +82,25 @@ public class CheepRepository(ChirpDBContext dbContext) : ICheepRepository //Quer
         });
 
         return await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<int> ForgetMeAsync(Author author)
+    {
+        var cheepsDeleted = await dbContext.Cheeps
+            .Where(cheep => cheep.Author.UserName == author.UserName)
+            .ExecuteDeleteAsync();
+
+        var usersDeleted = await dbContext.Users
+            .Where(user => user.Email == author.Email)
+            .ExecuteDeleteAsync();
+
+        var followersDeleted = await dbContext.Followers
+            .Where(follower =>
+                follower.FollowedAuthorId == author.Id ||
+                follower.FollowingAuthorId == author.Id)
+            .ExecuteDeleteAsync();
+
+
+        return cheepsDeleted;
     }
 }

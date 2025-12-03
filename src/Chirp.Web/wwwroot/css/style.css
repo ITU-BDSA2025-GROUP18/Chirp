@@ -188,7 +188,6 @@ div.page div.footer {
     align-items: center;
 }
 
-
 div.page ul.cheeps li {
     margin: 10px 0;
     padding: 5px;
@@ -374,6 +373,11 @@ button:hover {
     background: #c1d3d2;
 }
 
+.forget-me-form {
+    display: flex;
+    justify-content: center;
+}
+
 ul.nav {
     border-radius: 3px;
     list-style-type: none;
@@ -407,6 +411,75 @@ div.page div.body div.alert button {
     display: none;
 }
 
+div.about-personal {
+    border-top: 5px solid #db7d7d;
+    border-bottom: 5px solid #bd5f5f;
+    background: #cc6e6e;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.about-personal>h3 {
+    margin: 8px;
+    color: #571010;
+}
+
+.about-personal>h3>a {
+    color: ghostwhite
+}
+
+.about-personal>h3>a:hover {
+    color: ghostwhite;
+    cursor: unset;
+}
+
+.about-personal ul {
+    margin: 0 0 20px 0;
+}
+
+.about-personal li a {
+    color: ghostwhite;
+}
+
+#cheeps-textarea {
+    background: #cc6e6e;
+    border: none;
+    color: ghostwhite;
+    resize: none;
+    width: 99.2%;
+    height: 100px;
+    margin-right: 10px;
+}
+
+#cheeps-textarea:focus-visible {
+    outline: none;
+}
+
+.forget-me-button {
+    background: #bc0300;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0.7em 1em;
+    border-radius: 4px;
+    text-decoration: underline;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+}
+
+.forget-me-button:hover {
+    background: #910300;
+    padding: 0.9em 18em;
+}
+
+.forget-me-warning {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
 #bg-video {
     position: fixed;
     right: 0;
@@ -416,5 +489,9 @@ div.page div.body div.alert button {
     width: auto;
     height: auto;
     z-index: 1;
+    display: none;
+}
+
+#personal-data {
     display: none;
 }
