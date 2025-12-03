@@ -123,39 +123,57 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 bgVideo.style.display = "block"
                 bgVideo.appendChild(bgSource)
                 bgVideo.play()
-            } else if (pageFieldInput.value === "aqua") {
-                document.querySelectorAll("a").forEach(a => a.id = "frutfont")
-                document.querySelectorAll("h2").forEach(a => a.id = "frutfont")
-                document.querySelectorAll("h3").forEach(a => a.id = "frutfont")
-                document.querySelectorAll("#Message").forEach(a => a.id = "frutfont")
-                document.querySelectorAll("input").forEach(a => a.id = "frutfont")
-                document.querySelectorAll(".follow-button").forEach(a => a.id = "frutfont")
-                document.querySelectorAll("div").forEach(a => a.id = "frutfont")
-
-                document.getElementById("Icon1").setAttribute("src", "../secret/frut-chirp.png")
-
-                title.innerHTML = "Frutiger Chirp"
-                title.style.textShadow = "0 3px 0 #3b76d4"
-
-                document.querySelector("div.page > h1").style.background = "#89b6ff"
-                document.querySelector("div.page > h1").style.borderTop = "5px solid #acccff"
-                document.querySelector("div.page > h1").style.borderBottom = "5px solid #74a1e7"
-
-                document.querySelector("div.page h2").style.color = "#daa20b"
-
-                bgSource.setAttribute("src", "../secret/frut.mp4")
+            } else if (pageFieldInput.value === "ff") {
+                bgSource.setAttribute("src", '../secret/ffvideo.mp4')
                 bgSource.setAttribute('type', 'video/mp4')
 
-                bgVideo.style.zoom = "10%"
-                bgVideo.style.minWidth = "-webkit-fill-available"
-                bgVideo.style.minHeight = "-webkit-fill-available"
-                bgVideo.style.width = "unset"
-                bgVideo.style.height = "unset"
+                document.getElementById("Icon1").setAttribute("src", "../secret/white-ff-logo.png")
+
+                document.querySelectorAll("a").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("h2").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("h3").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("#Message").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("input").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll(".follow-button").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("div").forEach(a => a.id = "finalfantasyfont")
+
+                document.documentElement.style.setProperty("--bg-color1", "#171717")
+                document.documentElement.style.setProperty("--bg-color2", "#000000")
+
+                document.documentElement.style.setProperty("div.page>h1.border-top", "#0250a8")
+
+                document.querySelector("div.page h2").style.color = "#ffffff";
+                document.querySelectorAll("a").forEach(a => {a.style.color = "#7e7e7e";});
+                document.querySelectorAll("a:hover").forEach(a => {a.style.color = "#535353";});
+                document.querySelector("a").style.color = "#ffffff"
+
+                document.querySelector("div.page > h1").style.background = "linear-gradient(var(--bg-color3) 0%, var(--bg-color4) 100%) no-repeat";
+                document.querySelector("div.page > h1").style.borderTop = "5px solid #ffffff"
+                document.querySelector("div.page > h1").style.borderBottom = "5px solid #ffffff"
+                document.querySelector("div.page > h1").style.borderLeft = "5px solid #ffffff";
+                document.querySelector("div.page > h1").style.borderRight = "5px solid #ffffff";
+
+                document.querySelector("div.page > div.body").style.background = "linear-gradient(var(--bg-color3) 0%, var(--bg-color4) 100%) no-repeat";
+                document.querySelector("div.page > div.body").style.borderTop = "5px solid #ffffff";
+                document.querySelector("div.page > div.body").style.borderBottom = "5px solid #ffffff"
+                document.querySelector("div.page > div.body").style.borderLeft = "5px solid #ffffff";
+                document.querySelector("div.page > div.body").style.borderRight = "5px solid #ffffff";
+
+                document.querySelector(".page").style.opacity = "90%";
+
+                let audio = new Audio('../secret/ff-maintheme.mp3');
+                audio.loop = true;
+                audio.play()
+
                 bgVideo.style.display = "block"
+                bgVideo.playbackRate = 0.8;
                 bgVideo.appendChild(bgSource)
                 bgVideo.play()
+
+                title.innerHTML = "Chirp"
+                title.style.scale = "1.0"
+                title.style.textShadow = "0 3px 0 #060606"
             }
         }
     }
 )
-
