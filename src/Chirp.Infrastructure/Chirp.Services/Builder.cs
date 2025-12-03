@@ -20,7 +20,10 @@ public abstract class Builder
         var builder = WebApplication.CreateBuilder(args);
 
         // Load database connection via configuration
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
+        var connectionString = args.Contains("--playwright") ?
+            builder.Configuration.GetConnectionString("PlaywrightConnection") :
+            builder.Configuration.GetConnectionString("DefaultConnection");
+
         builder.Services.AddDbContext<ChirpDBContext>(options =>
             options.UseSqlite(connectionString, b => b.MigrationsAssembly("Chirp.Web")));
 
