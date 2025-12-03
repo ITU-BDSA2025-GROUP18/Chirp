@@ -134,6 +134,9 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 document.querySelectorAll(".follow-button").forEach(a => a.id = "finalfantasyfont")
                 document.querySelectorAll("div").forEach(a => a.id = "finalfantasyfont")
 
+                document.documentElement.style.setProperty("--bg-color1", "#171717")
+                document.documentElement.style.setProperty("--bg-color2", "#000128")
+
                 let audio = new Audio('../secret/ff-maintheme.mp3');
                 audio.loop = true;
                 audio.play()
