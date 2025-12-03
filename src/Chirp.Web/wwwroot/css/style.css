@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Nintend Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Nintend Bold'), url('../secret/NintendBoldRM8E.woff') format('woff');
+}
+
 :root {
     --ff: 'Trebuchet MS', sans-serif;
     --bg-color1: #eccaca;
@@ -108,12 +115,6 @@ div.page div.navigation form button {
     font-family: unset;
     letter-spacing: unset;
     transition: var(--transition);
-}
-
-div.page h2 {
-    margin: 0 0 15px 0;
-    color: #571010;
-    text-shadow: 0 1px 2px #ccc;
 }
 
 div.page .user-header {
@@ -494,4 +495,33 @@ div.about-personal {
 
 #personal-data {
     display: none;
+}
+
+#frutfont {
+    font-family: 'Nintend Bold', sans-serif;
+}
+div.page>h1 a#frutfont {
+    font-size: 67px;
+}
+div.header-line strong a#frutfont {
+    color: #90cb75;
+    cursor: pointer;
+}
+div.header-line strong a#frutfont:hover {
+    color: #007218;
+}
+div.cheepbox#frutfont {
+    background: #c8e1c1;
+    border: 1px solid #4e8444;
+}
+div.page div.cheepbox h3#frutfont {
+    color: #437e2c;
+}
+input[type="submit"]#frutfont {
+    background: #105738;
+    border: 1px solid #105738;
+}
+input[type="text"]#frutfont {
+    border: 1px solid #cee6bf;
+    color: #205710;
 }
