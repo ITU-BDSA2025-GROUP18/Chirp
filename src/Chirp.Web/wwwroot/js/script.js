@@ -156,6 +156,22 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 bgVideo.play()
             } else if (pageFieldInput.value === "ff") {
                 document.getElementById("Icon1").setAttribute("src", "../secret/ff-logo.png")
+
+                document.querySelectorAll("a").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("h2").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("h3").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("#Message").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("input").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll(".follow-button").forEach(a => a.id = "finalfantasyfont")
+                document.querySelectorAll("div").forEach(a => a.id = "finalfantasyfont")
+
+                let audio = new Audio('../secret/ff-maintheme.mp3');
+                audio.loop = true;
+                audio.play()
+
+                title.innerHTML = "Chirp"
+                title.style.scale = "1.0"
+                title.style.textShadow = "0 3px 0 #060606"
             }
         }
     }
