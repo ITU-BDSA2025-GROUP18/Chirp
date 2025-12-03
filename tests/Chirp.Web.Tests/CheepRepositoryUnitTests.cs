@@ -3,6 +3,7 @@ using Chirp.Database;
 using Chirp.Repositories.AuthorRepository;
 using Chirp.Repositories.CheepRepository;
 using Microsoft.EntityFrameworkCore;
+using Xunit;
 
 namespace Chirp.Web.Tests;
 
@@ -16,7 +17,6 @@ public class CheepRepositoryUnitTests
             .UseSqlite($"Data Source={_dbPath}")
             .Options;
 
-
         var context = new ChirpDBContext(options);
         context.Database.EnsureCreated();
 
@@ -26,6 +26,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetCheepsFromAuthorAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetCheepsFromAuthorAsyncTest");
         //Lets test if we retrieve a list of cheeps made by a chosen author
         //Keep in mind with our pagination, it returns 32 cheeps a page.
 
@@ -58,6 +59,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetCheepsAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetCheepsAsyncTest");
         //GetCheepsAsync retrieves a paged list of cheeps from not a specific author, but all authors.
         //We will now test if our paging works correctly. A page has 32 cheeps.
         //But we will create 37 cheeps. Should return true in two pages
@@ -109,6 +111,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetCheepsCountAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetCheepsCountAsyncTest");
         //We will test that we can find the correct total amount of cheeps in
         //our database by all authors.
 
@@ -167,6 +170,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetCheepsFromAuthorCountAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetCheepsFromAuthorCountAsyncTest");
         //This test will test if we can receieve the correct amount of cheeps
         //from specific authors.
 
@@ -225,6 +229,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetAuthorFromNameAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetAuthorFromNameAsyncTest");
         //We will test for getting the correct Author just by knowing
         //that Author's name. (An authors name is an authors username)
 
@@ -252,6 +257,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetAuthorFromName_NonExistant_ReturnsNullAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetAuthorFromName_NonExistant_ReturnsNullAsyncTest");
         //We should test that if a name doesn't belong to any author. We should
         //get null. In the case that no author exists with that name.
         //(An authors name is an authors username)
@@ -281,6 +287,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetAuthorFromEmailAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetAuthorFromEmailAsyncTest");
         //We will test for getting the correct Author just by knowing
         //that Author's email
 
@@ -308,6 +315,7 @@ public class CheepRepositoryUnitTests
     [Fact]
     public async Task GetAuthorFromEmail_NonExistant_ReturnsNullAsyncTest()
     {
+        Console.WriteLine("cheepRepoUnitTests-GetAuthorFromEmail_NonExistant_ReturnsNullAsyncTest");
         //We should test that if a email doesn't belong to any author. We should
         //get null. In the case that no author exists with that email.
 
