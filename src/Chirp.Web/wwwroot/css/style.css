@@ -5,6 +5,13 @@
     src: local('Nintend Bold'), url('../secret/NintendBoldRM8E.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Final Fantasy';
+    font-style: normal;
+    font-weight: normal;
+    src: local(Final-Fantasy), url('../secret/Final-Fantasy.ttf') format('truetype');
+}
+
 :root {
     --ff: 'Trebuchet MS', sans-serif;
     --bg-color1: #eccaca;
@@ -524,4 +531,14 @@ input[type="submit"]#frutfont {
 input[type="text"]#frutfont {
     border: 1px solid #cee6bf;
     color: #205710;
+}
+
+#finalfantasyfont {
+    font-family: 'Final Fantasy';
+}
+div.page>h1 a#finalfantasyfont {
+    font-size: 110px;
+}
+div.page>a a#finalfantasyfont {
+    font-size: 150px;
 }
