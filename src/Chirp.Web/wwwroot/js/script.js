@@ -92,6 +92,68 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 bgVideo.playbackRate = 1.5;
                 bgVideo.appendChild(bgSource)
                 bgVideo.play()
+            } else if (pageFieldInput.value === "aqua") {
+                document.querySelectorAll("a").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("h2").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("h3").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("#Message").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("input").forEach(a => a.id = "frutfont")
+                document.querySelectorAll(".follow-button").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("div").forEach(a => a.id = "frutfont")
+
+                document.getElementById("Icon1").setAttribute("src", "../secret/frut-chirp.png")
+
+                title.innerHTML = "Frutiger Chirp"
+                title.style.textShadow = "0 3px 0 #3b76d4"
+
+                document.querySelector("div.page > h1").style.background = "#89b6ff"
+                document.querySelector("div.page > h1").style.borderTop = "5px solid #acccff"
+                document.querySelector("div.page > h1").style.borderBottom = "5px solid #74a1e7"
+
+                document.querySelector("div.page h2").style.color = "#daa20b"
+
+                bgSource.setAttribute("src", "../secret/frut.mp4")
+                bgSource.setAttribute('type', 'video/mp4')
+
+                bgVideo.style.zoom = "10%"
+                bgVideo.style.minWidth = "-webkit-fill-available"
+                bgVideo.style.minHeight = "-webkit-fill-available"
+                bgVideo.style.width = "unset"
+                bgVideo.style.height = "unset"
+                bgVideo.style.display = "block"
+                bgVideo.appendChild(bgSource)
+                bgVideo.play()
+            } else if (pageFieldInput.value === "aqua") {
+                document.querySelectorAll("a").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("h2").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("h3").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("#Message").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("input").forEach(a => a.id = "frutfont")
+                document.querySelectorAll(".follow-button").forEach(a => a.id = "frutfont")
+                document.querySelectorAll("div").forEach(a => a.id = "frutfont")
+
+                document.getElementById("Icon1").setAttribute("src", "../secret/frut-chirp.png")
+
+                title.innerHTML = "Frutiger Chirp"
+                title.style.textShadow = "0 3px 0 #3b76d4"
+
+                document.querySelector("div.page > h1").style.background = "#89b6ff"
+                document.querySelector("div.page > h1").style.borderTop = "5px solid #acccff"
+                document.querySelector("div.page > h1").style.borderBottom = "5px solid #74a1e7"
+
+                document.querySelector("div.page h2").style.color = "#daa20b"
+
+                bgSource.setAttribute("src", "../secret/frut.mp4")
+                bgSource.setAttribute('type', 'video/mp4')
+
+                bgVideo.style.zoom = "10%"
+                bgVideo.style.minWidth = "-webkit-fill-available"
+                bgVideo.style.minHeight = "-webkit-fill-available"
+                bgVideo.style.width = "unset"
+                bgVideo.style.height = "unset"
+                bgVideo.style.display = "block"
+                bgVideo.appendChild(bgSource)
+                bgVideo.play()
             }
         }
     }
