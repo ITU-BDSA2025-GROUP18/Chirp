@@ -154,6 +154,8 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 bgVideo.style.display = "block"
                 bgVideo.appendChild(bgSource)
                 bgVideo.play()
+            } else if (pageFieldInput.value === "ff") {
+                document.getElementById("Icon1").setAttribute("src", "../secret/ff-logo.png")
             }
         }
     }
