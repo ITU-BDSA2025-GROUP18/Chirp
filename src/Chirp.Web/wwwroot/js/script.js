@@ -124,6 +124,9 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 bgVideo.appendChild(bgSource)
                 bgVideo.play()
             } else if (pageFieldInput.value === "ff") {
+                bgSource.setAttribute("src", '../secret/ffvideo.mp4')
+                bgSource.setAttribute('type', 'video/mp4')
+
                 document.getElementById("Icon1").setAttribute("src", "../secret/white-ff-logo.png")
 
                 document.querySelectorAll("a").forEach(a => a.id = "finalfantasyfont")
@@ -156,9 +159,16 @@ pageFieldInput.addEventListener('keypress', function (e) {
                 document.querySelector("div.page > div.body").style.borderLeft = "5px solid #ffffff";
                 document.querySelector("div.page > div.body").style.borderRight = "5px solid #ffffff";
 
+                document.querySelector(".page").style.opacity = "90%";
+
                 let audio = new Audio('../secret/ff-maintheme.mp3');
                 audio.loop = true;
                 audio.play()
+
+                bgVideo.style.display = "block"
+                bgVideo.playbackRate = 0.8;
+                bgVideo.appendChild(bgSource)
+                bgVideo.play()
 
                 title.innerHTML = "Chirp"
                 title.style.scale = "1.0"
