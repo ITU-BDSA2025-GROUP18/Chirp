@@ -16,7 +16,9 @@
     --ff: 'Trebuchet MS', sans-serif;
     --bg-color1: #eccaca;
     --bg-color2: #e5808c;
-    --transition: 0.3s ease-in-out
+    --transition: 0.3s ease-in-out;
+    --bg-color3: #014fac;
+    --bg-color4: #00002a;
 }
 
 a {
@@ -536,10 +538,4 @@ input[type="text"]#frutfont {
 #finalfantasyfont {
     font-family: 'Final Fantasy';
 
-}
-div.page>h1 a#finalfantasyfont {
-    font-size: 110px;
-}
-div.page>a a#finalfantasyfont {
-    font-size: 150px;
 }
