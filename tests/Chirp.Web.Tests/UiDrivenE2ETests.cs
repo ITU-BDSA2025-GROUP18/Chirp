@@ -6,10 +6,10 @@ using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
 
-namespace Chirp.PlaywrightTests;
+namespace Chirp.Web.Tests;
 
 [TestFixture]
-public class EndToEndTests : PageTest
+public class UiDrivenE2ETests : PageTest
 {
     private const string _url = "https://localhost:5001";
     private Process _serverProcess;
