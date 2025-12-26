@@ -3,7 +3,7 @@ using Chirp.Core.DTOs;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Repositories.FollowerRepository;
+namespace Chirp.Repositories;
 
 public class FollowerRepository(ChirpDBContext dbContext) : IFollowerRepository
 {

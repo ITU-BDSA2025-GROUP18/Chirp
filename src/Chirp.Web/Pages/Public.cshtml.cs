@@ -1,7 +1,5 @@
 ﻿using Chirp.Database;
-using Chirp.Repositories.AuthorRepository;
-using Chirp.Repositories.CheepRepository;
-using Chirp.Repositories.FollowerRepository;
+using Chirp.Repositories;
 using Chirp.Web.Pages.Shared;
 using Microsoft.AspNetCore.Mvc;
 

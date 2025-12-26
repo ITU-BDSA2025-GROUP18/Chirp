@@ -3,7 +3,7 @@ using Chirp.Core.DTOs;
 using Chirp.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chirp.Repositories.AuthorRepository;
+namespace Chirp.Repositories;
 
 public class AuthorRepository(ChirpDBContext dbContext) : IAuthorRepository
 {

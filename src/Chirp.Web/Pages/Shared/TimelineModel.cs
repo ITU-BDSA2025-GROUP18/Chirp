@@ -1,12 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Chirp.Core.DTOs;
 using Chirp.Database;
-using Chirp.Repositories.AuthorRepository;
-using Chirp.Repositories.CheepRepository;
-using Chirp.Repositories.FollowerRepository;
+using Chirp.Repositories;
 using Chirp.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
