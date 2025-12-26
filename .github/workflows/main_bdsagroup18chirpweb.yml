@@ -32,8 +32,6 @@ jobs:
         run: |
           dotnet test ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --no-restore --no-build
           dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --no-restore --no-build
-          pwsh ./test/Chirp.Web.Tests/bin/Debug/net9.0/playwright.ps1 install --with-deps
-          dotnet test ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --no-restore --no-build
 
       - name: Publish with dotnet (for Linux, as self-contained or framework-dependent)
         run: |

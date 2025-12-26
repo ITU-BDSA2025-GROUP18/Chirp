@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Chirp.Web.Tests;
 
-public class HTMLUnitTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
+public class HTMLUnitTests(QuietWebAppFactory<Program> factory) : IClassFixture<QuietWebAppFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory = factory;
 
