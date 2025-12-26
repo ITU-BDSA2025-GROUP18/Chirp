@@ -25,7 +25,9 @@ jobs:
         run: |
           dotnet build ./src/Chirp.Web --configuration Release --no-restore
           dotnet build ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --configuration Debug --no-restore
+          dotnet build ./test/Chirp.Infrastructure.Tests/Chirp.Database.Tests/Chirp.Database.Tests.csproj --configuration Debug --no-restore
           dotnet build ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --configuration Debug --no-restore
+          dotnet build ./test/Chirp.Infrastructure.Tests/Chirp.Service.Tests/Chirp.Service.Tests.csproj --configuration Debug --no-restore
           dotnet build ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --configuration Debug --no-restore
 
       - name: Test
