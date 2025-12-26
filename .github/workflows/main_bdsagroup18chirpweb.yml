@@ -25,7 +25,12 @@ jobs:
         run: dotnet build ./src/Chirp.Web/Chirp.Web.csproj --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test ./Chirp.sln --configuration Release --no-restore --no-build
+        run: |
+          dotnet test ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --configuration Release --no-restore --no-build
+          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Database.Tests/Chirp.Database.Tests.csproj --configuration Release --no-restore --no-build
+          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --configuration Release --no-restore --no-build
+          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Services.Tests/Chirp.Services.Tests.csproj --configuration Release --no-restore --no-build
+          dotnet test ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --configuration Release --no-restore --no-build
 
       - name: Publish with dotnet (for Linux, as self-contained or framework-dependent)
         run: |
