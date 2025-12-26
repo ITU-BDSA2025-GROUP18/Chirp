@@ -19,16 +19,16 @@ jobs:
           dotnet-version: "9.x"
 
       - name: Restore
-        run: dotnet restore ./src/Chirp.Web/Chirp.Web.csproj
+        run: dotnet restore ./Chirp.sln
 
       - name: Build
-        run: dotnet build ./src/Chirp.Web/Chirp.Web.csproj --configuration Release --no-restore
+        run: dotnet build ./Chirp.sln --configuration Release --no-restore
 
       - name: Test
         run: |
-          dotnet test ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --configuration Release --no-restore --no-build -v detailed
-          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --configuration Release --no-restore --no-build -v detailed
-          dotnet test ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --configuration Release --no-restore --no-build -v detailed
+          dotnet test ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --no-restore --no-build
+          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --no-restore --no-build
+          dotnet test ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --no-restore --no-build
 
       - name: Publish with dotnet (for Linux, as self-contained or framework-dependent)
         run: |
