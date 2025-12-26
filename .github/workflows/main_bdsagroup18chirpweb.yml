@@ -18,14 +18,14 @@ jobs:
         with:
           dotnet-version: "9.x"
 
-      - name: Restore dependencies
+      - name: Restore
         run: dotnet restore ./src/Chirp.Web/Chirp.Web.csproj
 
-      - name: Build with dotnet
-        run: dotnet build ./src/Chirp.Web/Chirp.Web.csproj --configuration Release
+      - name: Build
+        run: dotnet build ./src/Chirp.Web/Chirp.Web.csproj --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --no-build
+        run: dotnet test ./Chirp.sln --configuration Release --no-restore --no-build
 
       - name: Publish with dotnet (for Linux, as self-contained or framework-dependent)
         run: |
