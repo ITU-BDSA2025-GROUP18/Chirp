@@ -23,13 +23,16 @@ jobs:
 
       - name: Build
         run: |
-          dotnet build ./Chirp.sln --configuration Debug --no-restore
-          dotnet build ./Chirp.sln --configuration Release --no-restore
+          dotnet build ./src/Chirp.Web --configuration Release --no-restore
+          dotnet build ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --configuration Debug --no-restore
+          dotnet build ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --configuration Debug --no-restore
+          dotnet build ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --configuration Debug --no-restore
 
       - name: Test
         run: |
           dotnet test ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --no-restore --no-build
           dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --no-restore --no-build
+          pwsh bin/Debug/net9.0/playwright.ps1 install
           dotnet test ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --no-restore --no-build
 
       - name: Publish with dotnet (for Linux, as self-contained or framework-dependent)
