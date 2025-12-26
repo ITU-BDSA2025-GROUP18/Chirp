@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - bdsagroup18chirpweb
+name: Build, test and deploy ASP.Net Core app to Azure Web App - bdsagroup18chirpweb
 run-name: 🚀 Deploying ${{ github.sha }} by ${{ github.actor }}
 
 on:
