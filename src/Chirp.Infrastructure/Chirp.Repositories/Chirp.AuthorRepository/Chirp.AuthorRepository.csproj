@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Chirp.Core\Chirp.Core.csproj" />
-    <ProjectReference Include="..\..\..\Chirp.Infrastructure\Chirp.Database\Chirp.Database.csproj" />
+    <ProjectReference Include="..\..\Chirp.Database\Chirp.Database.csproj" />
   </ItemGroup>
 
 </Project>

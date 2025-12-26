@@ -1,7 +1,7 @@
 ﻿using Chirp.Core;
 using Chirp.Core.DTOs;
 
-namespace Chirp.Repositories.AuthorRepository;
+namespace Chirp.Repositories;
 
 public interface IAuthorRepository
 {

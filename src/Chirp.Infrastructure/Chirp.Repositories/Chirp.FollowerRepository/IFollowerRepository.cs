@@ -1,7 +1,7 @@
 ﻿using Chirp.Core;
 using Chirp.Core.DTOs;
 
-namespace Chirp.Repositories.FollowerRepository;
+namespace Chirp.Repositories;
 
 public interface IFollowerRepository
 {

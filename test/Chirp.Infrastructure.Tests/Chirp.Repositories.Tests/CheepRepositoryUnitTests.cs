@@ -1,11 +1,8 @@
 ﻿using Chirp.Core;
 using Chirp.Database;
-using Chirp.Repositories.AuthorRepository;
-using Chirp.Repositories.CheepRepository;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 
-namespace Chirp.Web.Tests;
+namespace Chirp.Repositories.Tests;
 
 public class CheepRepositoryUnitTests
 {
@@ -54,6 +51,8 @@ public class CheepRepositoryUnitTests
         Assert.NotEmpty(results); //Testing that results isnt emmpty
         Assert.All(results, cheep => Assert.Equal("Eddie", cheep.AuthorName));
         //Testing that GetCheepsFromAuthorAsync works with results only having cheeps from specific author
+
+        dbContext.Database.EnsureDeleted();
     }
 
     [Fact]
@@ -106,6 +105,8 @@ public class CheepRepositoryUnitTests
         //Assert
         Assert.Equal(32, page1.Count); //Should return true if page1 has 32 cheeps
         Assert.Equal(5, page2.Count); //Should return true if page2 has 5 cheeps.
+
+        dbContext.Database.EnsureDeleted();
     }
 
     [Fact]
@@ -165,6 +166,8 @@ public class CheepRepositoryUnitTests
 
         //Assert
         Assert.Equal(14, results);
+
+        dbContext.Database.EnsureDeleted();
     }
 
     [Fact]
@@ -224,6 +227,8 @@ public class CheepRepositoryUnitTests
         Assert.Equal(11, vinnieresults);
         Assert.Equal(3, oliresults);
         //Checking that we receive the correct amount of cheeps from specific authors
+
+        dbContext.Database.EnsureDeleted();
     }
 
     [Fact]
@@ -252,6 +257,8 @@ public class CheepRepositoryUnitTests
         //and that we can get the author from that name.
         Assert.NotNull(results);
         Assert.Equal("Eddie", results.UserName);
+
+        dbContext.Database.EnsureDeleted();
     }
 
     [Fact]
@@ -282,6 +289,8 @@ public class CheepRepositoryUnitTests
         //Testing if it is true that the result(Jack) would not belong to any author
         //and therefore it should return null.
         Assert.Null(results);
+
+        dbContext.Database.EnsureDeleted();
     }
 
     [Fact]
@@ -310,6 +319,8 @@ public class CheepRepositoryUnitTests
         //and that we can get the author from that email.
         Assert.NotNull(results);
         Assert.Equal(author.Email, results.Email);
+
+        dbContext.Database.EnsureDeleted();
     }
 
     [Fact]
@@ -339,5 +350,7 @@ public class CheepRepositoryUnitTests
         //Testing if it is true that the result(jack@itu.dk) would not belong to any author
         //and therefore it should return null.
         Assert.Null(results);
+
+        dbContext.Database.EnsureDeleted();
     }
 }
