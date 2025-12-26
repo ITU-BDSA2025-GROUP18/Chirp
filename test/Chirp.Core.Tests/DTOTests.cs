@@ -53,7 +53,7 @@ public class DTOTests
         Assert.NotNull(cheepDTO);
         Assert.Equal("TestAuthor", cheepDTO.AuthorName);
         Assert.Equal("Test message", cheepDTO.Text);
-        Assert.Equal("01/01/0001 00.00.00", cheepDTO.Timestamp);
+        Assert.Equal(DateTime.MinValue.ToString(), cheepDTO.Timestamp);
     }
 
     /// <summary>

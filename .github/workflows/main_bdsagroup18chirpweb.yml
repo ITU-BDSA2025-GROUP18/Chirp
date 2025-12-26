@@ -1,11 +1,11 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - bdsagroup18chirpweb
+name: Build, test and deploy ASP.Net Core app to Azure Web App - bdsagroup18chirpweb
 run-name: 🚀 Deploying ${{ github.sha }} by ${{ github.actor }}
 
 on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-test-publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -18,11 +18,22 @@ jobs:
         with:
           dotnet-version: "9.x"
 
-      - name: Restore dependencies
-        run: dotnet restore ./src/Chirp.Web/Chirp.Web.csproj
+      - name: Restore
+        run: dotnet restore ./Chirp.sln
 
-      - name: Build with dotnet
-        run: dotnet build ./src/Chirp.Web/Chirp.Web.csproj --configuration Release
+      - name: Build
+        run: |
+          dotnet build ./src/Chirp.Web --configuration Release --no-restore
+          dotnet build ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --configuration Debug --no-restore
+          dotnet build ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --configuration Debug --no-restore
+          dotnet build ./test/Chirp.Web.Tests/Chirp.Web.Tests.csproj --configuration Debug --no-restore
+
+      - name: Test
+        run: |
+          dotnet test ./test/Chirp.Core.Tests/Chirp.Core.Tests.csproj --no-restore --no-build
+          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Database.Tests/Chirp.Database.Tests.csproj --no-restore --no-build
+          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Repositories.Tests/Chirp.Repositories.Tests.csproj --no-restore --no-build
+          dotnet test ./test/Chirp.Infrastructure.Tests/Chirp.Services.Tests/Chirp.Services.Tests.csproj --no-restore --no-build
 
       - name: Publish with dotnet (for Linux, as self-contained or framework-dependent)
         run: |
@@ -50,7 +61,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-test-publish
     permissions:
       id-token: write
       contents: read
