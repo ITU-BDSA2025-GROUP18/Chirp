@@ -18,7 +18,10 @@
             <div class="stat-item">@Model.FollowersCt</div>
         </div>
     </div>
-    <partial name="_PostPartial"/>
+    @if (User.Identity!.Name == (string?)routeName)
+    {
+        <partial name="_PostPartial"/>
+    }
 
     @if (Model.Cheeps.Any())
     {
