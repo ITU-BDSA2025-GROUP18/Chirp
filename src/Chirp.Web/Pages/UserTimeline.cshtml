@@ -33,7 +33,7 @@
                             </strong>
                             @if (SignInManager.IsSignedIn(User) && User.Identity!.Name! != cheep.AuthorName)
                             {
-                                @if (!Model.Following.Contains(cheep.AuthorName))
+                                if (!Model.UserFollowing.Contains(cheep.AuthorName))
                                 {
                                     <form method="post" class="follow-form">
                                         <button class="follow-button" asp-page-handler="Follow" name="AuthorName"
