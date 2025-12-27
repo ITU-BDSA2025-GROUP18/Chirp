@@ -8,7 +8,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Chirp.Web.Pages.Shared;
 
-public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRepo, ICheepRepository cheepRepo, IFollowerRepository followerRepo) : PageModel
+public class TimelineModel(
+    ChirpDBContext dbContext,
+    IAuthorRepository authorRepo,
+    ICheepRepository cheepRepo,
+    IFollowerRepository followerRepo) : PageModel
 {
     protected readonly ChirpDBContext DbContext = dbContext;
     protected readonly IAuthorRepository AuthorRepo = authorRepo;
@@ -16,6 +20,8 @@ public class TimelineModel(ChirpDBContext dbContext, IAuthorRepository authorRep
     protected readonly IFollowerRepository FollowerRepo = followerRepo;
     public List<CheepDTO> Cheeps { get; set; } = [];
     public HashSet<string> Following { get; set; } = [];
+    public HashSet<string> UserFollowing { get; set; } = new();
+
     public int FollowersCt { get; set; } = 0;
     public int FollowingCt { get; set; } = 0;
 
